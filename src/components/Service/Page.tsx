@@ -15,10 +15,10 @@ party without express written consent.
 import Link from "next/link";
 import {
   Meta,
-  BookOnline,
+  BreadCrumbs,
   PageContainer,
   RemoteServicesCTA,
-  BreadCrumbs,
+  ServiceAreaAndBooking,
 } from "@/components";
 import { ServiceCard } from "@/components/Service/Card";
 import { localBusinessLd } from "@/lib/json-ld";
@@ -184,7 +184,7 @@ export default function ServicePage(props: ServicesPageProps) {
           </div>
 
           <RemoteServicesCTA isRemote={isRemote} />
-          <BookOnline />
+          <ServiceAreaAndBooking />
 
           <section className="text-sm text-gray-600 dark:text-gray-400 italic text-center max-w-3xl mx-auto">
             <p>

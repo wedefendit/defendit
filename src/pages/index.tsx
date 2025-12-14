@@ -90,7 +90,7 @@ export default function Home() {
     {
       text: "Cybersecurity",
       Icon: ShieldCheck,
-      link: "/services/cybersecurity",
+      link: "/services/custom-solutions",
     },
     {
       text: "Network Support",
@@ -122,7 +122,7 @@ export default function Home() {
       />
 
       <PageContainer>
-        <header className="text-center p-2">
+        <header className="text-center p-2 -mt-8">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight max-w-4xl mx-auto">
             Cybersecurity Support You Can Trust
           </h1>
@@ -134,7 +134,7 @@ export default function Home() {
         <section
           id="common-services"
           aria-labelledby="services-heading"
-          className="mt-16"
+          className="mt-6"
         >
           <h2
             id="services-heading"
@@ -160,21 +160,21 @@ export default function Home() {
             communication.
           </p>
 
-          <p className="text-base md:text-lg text-gray-800 dark:text-gray-300 leading-normal max-w-3xl mx-auto px-6 text-center mt-6 mb-12">
+          {/* <p className="text-base md:text-lg text-gray-800 dark:text-gray-300 leading-normal max-w-3xl mx-auto px-6 text-center mt-6">
             No jargon. No hidden fees. Just reliable support.
-          </p>
+          </p> */}
         </section>
 
         <section
-          className="flex flex-col items-center justify-center w-full space-y-8 mt-4 border-t border-gray-200 dark:border-gray-700 pt-8 pb-6"
+          className="flex flex-col items-center justify-center w-full space-y-8"
           aria-labelledby="cta-heading"
         >
-          <h2
+          {/* <h2
             id="cta-heading"
             className="text-2xl md:text-3xl font-bold text-center"
           >
             Need IT Help You Can Trust?
-          </h2>
+          </h2> */}
 
           <CallToActionButtons />
         </section>

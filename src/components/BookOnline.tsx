@@ -26,7 +26,7 @@ export function BookOnline() {
   return (
     <section
       id="schedule-service"
-      className=" text-left sm:text-center text-[15px] leading-6 text-gray-700 dark:text-gray-300 border-t border-gray-200 dark:border-gray-700 "
+      className="text-center text-[15px] leading-6 text-gray-700 dark:text-gray-300 border-t border-gray-200 dark:border-gray-700 "
     >
       <div className="max-w-xl mx-auto my-12 px-4 rounded-lg border border-gray-200 dark:border-gray-900 bg-gray-50/40 dark:bg-gray-900/40 p-4 sm:p-6 shadow-sm dark:shadow-gray-800 space-y-3 sm:space-y-4 mt-16 ">
         <header>

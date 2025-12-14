@@ -2,9 +2,8 @@ import { GetServerSideProps } from "next";
 
 const Sitemap = () => null;
 
-// Local cities share these slugs
-const localCities = ["ocala", "belleview", "the-villages"];
-const localSlugs = [
+// Canonical service slugs
+const serviceSlugs = [
   "computer-repair",
   "custom-solutions",
   "data-recovery",
@@ -19,8 +18,7 @@ const localSlugs = [
   "virus-removal",
 ];
 
-// Remote has its own slugs
-const remoteCity = "remote";
+// Remote service slugs
 const remoteSlugs = [
   "remote-privacy-hardening",
   "remote-security-assessment",
@@ -35,16 +33,15 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const baseUrl = "https://www.wedefendit.com";
   const now = new Date().toISOString();
 
-  // Static pages with priorities
   const staticPages = [
-    { path: "", priority: "1.00" },
-    { path: "awareness", priority: "0.90" },
-    { path: "services", priority: "0.85" },
-    { path: "contact", priority: "0.80" },
-    { path: "about", priority: "0.80" },
-    { path: "terms", priority: "0.50" },
-    { path: "privacy", priority: "0.50" },
-    { path: "thank-you", priority: "0.40" },
+    { path: "", priority: "1.00" }, // homepage
+    { path: "services", priority: "0.95" }, // primary money hub
+    { path: "contact", priority: "0.90" }, // conversion page
+    { path: "awareness", priority: "0.80" },
+    { path: "about", priority: "0.70" },
+    { path: "terms", priority: "0.30" },
+    { path: "privacy", priority: "0.30" },
+    { path: "thank-you", priority: "0.10" },
   ];
 
   const toUrlTag = (loc: string, priority = "0.70") =>
@@ -57,30 +54,25 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 
   let urls = "";
 
-  // Static pages
   for (const { path, priority } of staticPages) {
     urls += toUrlTag(`${baseUrl}/${path}`, priority);
   }
 
-  // Local city index pages + slugs
-  for (const city of localCities) {
-    urls += toUrlTag(`${baseUrl}/services/${city}`, "0.80");
-    for (const slug of localSlugs) {
-      urls += toUrlTag(`${baseUrl}/services/${city}/${slug}`, "0.70");
-    }
+  // Core service pages (highest-value content)
+  for (const slug of serviceSlugs) {
+    urls += toUrlTag(`${baseUrl}/services/${slug}`, "0.85");
   }
 
-  // Remote index + slugs
-  urls += toUrlTag(`${baseUrl}/services/${remoteCity}`, "0.80");
+  // Remote services hub + children (secondary revenue)
+  urls += toUrlTag(`${baseUrl}/services/remote`, "0.80");
   for (const slug of remoteSlugs) {
-    urls += toUrlTag(`${baseUrl}/services/${remoteCity}/${slug}`, "0.70");
+    urls += toUrlTag(`${baseUrl}/services/remote/${slug}`, "0.70");
   }
 
-  // Construct the final XML
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${urls}
-  </urlset>`;
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>`;
 
   res.setHeader("Content-Type", "text/xml");
   res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");

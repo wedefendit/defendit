@@ -15,39 +15,32 @@ party without express written consent.
 // next.config.js
 
 /** @type {import('next').NextConfig} */
+// next.config.js
 const cspHeader = `
   default-src 'self';
-  img-src 'self';
+  img-src 'self' data: blob: https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org https://unpkg.com;
   script-src 'self';
   script-src-elem 'self';
-  style-src 'self' ;
+  style-src 'self';
   frame-src 'self';
   font-src 'self';
   object-src 'none';
   base-uri 'self';
   form-action 'self';
-  connect-src 'self' https://ipwho.is https://ipapi.co;
+  connect-src 'self' https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org;
   frame-ancestors 'self';
 `
   .replace(/\n/g, "")
   .trim();
 
 const nextConfig = {
-  // reactStrictMode: true,
   devIndicators: false,
-  headers: async () => {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            value: cspHeader,
-          },
-        ],
-      },
-    ];
-  },
+  headers: async () => [
+    {
+      source: "/(.*)",
+      headers: [{ key: "Content-Security-Policy", value: cspHeader }],
+    },
+  ],
 };
 
 export default nextConfig;

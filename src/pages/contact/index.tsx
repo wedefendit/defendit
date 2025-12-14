@@ -20,10 +20,10 @@ import { localBusinessLd } from "@/lib/json-ld";
 import companyInfo from "../../../data/company-info.json";
 import {
   Meta,
-  BookOnline,
   BreadCrumbs,
   CopyableCode,
   PageContainer,
+  ServiceAreaAndBooking,
 } from "@/components";
 import {
   Mail,
@@ -179,19 +179,6 @@ function PgpBlock({
           </div>
         </div>
       )}
-    </section>
-  );
-}
-
-function ServiceAreaAndBooking() {
-  return (
-    <section className="mt-12 text-center space-y-4">
-      <h2 className="text-3xl font-semibold">Our Service Area</h2>
-      <p className="text-md text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-        We support Ocala, Belleview, The Villages, and surrounding Central
-        Florida communities with on-site and remote IT services.
-      </p>
-      <BookOnline />
     </section>
   );
 }

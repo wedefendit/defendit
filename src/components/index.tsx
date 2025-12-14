@@ -28,4 +28,6 @@ export * from "./ElderlyScams";
 export * from "./JsonLdScript";
 export * from "./PageContainer";
 export * from "./SafetyTipsList";
+export * from "./ServiceAreaMap";
 export * from "./RemoteServicesCTA";
+export * from "./ServiceAreaAndBooking";
