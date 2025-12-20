@@ -133,7 +133,7 @@ export const Footer: React.FC = () => {
             setOpenSection={setOpenSection}
           >
             <ul className="space-y-2">
-              <ServiceLinks services={remoteServices} isMobile />
+              <ServiceLinks services={remoteServices} isMobile isRemote />
             </ul>
           </AccordionSection>
 
