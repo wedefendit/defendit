@@ -180,7 +180,7 @@ export const Footer: React.FC = () => {
             </DesktopColumn>
 
             <DesktopColumn title="Remote Services">
-              <ServiceLinks services={remoteServices} isRemote />
+              <ServiceLinks services={remoteServices} isRemote={true} />
             </DesktopColumn>
 
             <DesktopColumn title="Company">
