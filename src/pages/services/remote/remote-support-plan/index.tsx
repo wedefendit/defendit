@@ -74,28 +74,106 @@ export default function RemoteSupportPlanPage() {
             ]}
             includeJsonLd={true}
           />
-          {/* Title */}
-          <div className="space-y-1">
-            <h1 className="text-3xl sm:text-5xl font-bold leading-tight">
+
+          {/* Hero Section */}
+          <div className="bg-gradient-to-br from-blue-50 to-sky-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-6 sm:p-8 border border-blue-200 dark:border-sky-800 space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-sky-900/30 rounded-full text-sm font-medium text-blue-700 dark:text-sky-300">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
+              </svg>
+              Local Clients Only
+            </div>
+
+            <h1 className="text-3xl sm:text-5xl font-bold leading-tight bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
               Remote Support Service Plan
             </h1>
-            <p className="text-base sm:text-lg w-full text-blue-600 dark:text-sky-400">
+
+            <p className="text-base sm:text-lg text-blue-600 dark:text-sky-400 max-w-2xl">
               Secure and private remote support for verified local clients.
             </p>
-          </div>
 
-          {/* Highlights chips: wrap and left align on mobile */}
-          <ul className="mt-2 flex flex-wrap gap-2 sm:gap-3 text-sm text-gray-700 dark:text-gray-300">
-            <li className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-slate-900/40">
-              Encrypted sessions
-            </li>
-            <li className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-slate-900/40">
-              Consent-based access
-            </li>
-            <li className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-slate-900/40">
-              Local enrollment
-            </li>
-          </ul>
+            {/* Feature Highlights - Now Visual Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+              <div className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 rounded-lg border border-blue-200 dark:border-sky-700">
+                <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+                  <svg
+                    className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  Encrypted Sessions
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 rounded-lg border border-blue-200 dark:border-sky-700">
+                <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+                  <svg
+                    className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  Consent-Based Access
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 rounded-lg border border-blue-200 dark:border-sky-700">
+                <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+                  <svg
+                    className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  Local Enrollment
+                </span>
+              </div>
+            </div>
+          </div>
 
           {/* Why a plan */}
           <section
@@ -137,36 +215,186 @@ export default function RemoteSupportPlanPage() {
             <h2 id="tech-approach" className="text-2xl font-semibold">
               Technical Approach
             </h2>
-            <div className="mt-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-slate-900/40 p-5">
-              <ul className="list-disc pl-5 sm:pl-6 text-gray-700 dark:text-gray-300 text-sm sm:text-base space-y-2 marker:text-sky-500 dark:marker:text-sky-400">
-                <li>
-                  <strong>Private infrastructure:</strong> Remote access
-                  services live on our private network and are not exposed to
-                  the public internet.
-                </li>
-                <li>
-                  <strong>Scoped access:</strong> The support tunnel is limited
-                  to approved service routes; normal browsing stays on your
-                  regular connection.
-                </li>
-                <li>
-                  <strong>Layered protection:</strong> Session encryption runs
-                  inside the private tunnel for defense in depth.
-                </li>
-                <li>
-                  <strong>Least-privilege control:</strong> Access is
-                  consent-based and limited to enrolled devices; enrollment and
-                  revocation are handled per device.
-                </li>
-                <li>
-                  <strong>Network isolation:</strong> Segmented zones with
-                  default-deny rules; only explicit service paths are allowed.
-                </li>
-                <li>
-                  <strong>Operational hardening:</strong> Ongoing monitoring,
-                  maintenance, and updates performed by our team.
-                </li>
-              </ul>
+            <div className="mt-3 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+                    <svg
+                      className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      Private Infrastructure
+                    </h3>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      Remote access services live on our private network and are
+                      not exposed to the public internet.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+                    <svg
+                      className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      Scoped Access
+                    </h3>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      The support tunnel is limited to approved service routes;
+                      normal browsing stays on your regular connection.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+                    <svg
+                      className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      Layered Protection
+                    </h3>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      Session encryption runs inside the private tunnel for
+                      defense in depth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+                    <svg
+                      className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      Least-Privilege Control
+                    </h3>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      Access is consent-based and limited to enrolled devices;
+                      enrollment and revocation are handled per device.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+                    <svg
+                      className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      Network Isolation
+                    </h3>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      Segmented zones with default-deny rules; only explicit
+                      service paths are allowed.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+                    <svg
+                      className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      Operational Hardening
+                    </h3>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      Ongoing monitoring, maintenance, and updates performed by
+                      our team.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -247,61 +475,104 @@ export default function RemoteSupportPlanPage() {
             className="pt-6 sm:pt-8 border-t border-gray-200/60 dark:border-gray-700/60"
             aria-labelledby="tiered-support"
           >
-            <h2 id="tiered-support" className="text-2xl font-semibold">
+            <h2 id="tiered-support" className="text-2xl font-semibold mb-4">
               Tiered Support Options
             </h2>
-            <p className="mt-2 text-gray-700 dark:text-gray-300">
+            <p className="mt-2 text-gray-700 dark:text-gray-300 mb-6">
               Our Remote Support Plan is flexible, with tiers based on how you
               prefer to connect:
             </p>
-            <ul className="mt-3 list-disc pl-5 sm:pl-6 text-gray-700 dark:text-gray-300 text-sm sm:text-base space-y-2 marker:text-sky-500 dark:marker:text-sky-400">
-              <li>
-                <strong>Tier&nbsp;1</strong> - Fully asynchronous remote
-                support. We can connect without you being present once devices
-                are enrolled and permissions are set.
-              </li>
-              <li>
-                <strong>Tier&nbsp;2</strong> - Client initiated support. You
-                will be present to start sessions and enter any necessary
-                credentials.
-              </li>
-            </ul>
 
-            <p className="mt-4 text-gray-700 dark:text-gray-300">
-              Each tier is available as a subscription or on a pay as you go
-              basis.
-            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Tier 1 */}
+              <div className="rounded-lg border-2 border-blue-200 dark:border-sky-700 bg-white dark:bg-slate-800/50 p-6 hover:shadow-lg hover:shadow-blue-500/20 dark:hover:shadow-sky-400/20 transition-all">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-blue-600 dark:bg-sky-600 text-white flex items-center justify-center text-xl font-bold">
+                    1
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    Tier 1
+                  </h3>
+                </div>
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
+                  <strong>Fully Asynchronous Remote Support</strong>
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  We can connect without you being present once devices are
+                  enrolled and permissions are set. Perfect for updates,
+                  maintenance, and non-urgent fixes.
+                </p>
+                <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    ✓ Unattended access
+                    <br />
+                    ✓ After-hours support
+                    <br />✓ Automated maintenance
+                  </p>
+                </div>
+              </div>
 
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
-              Subscription members receive plan benefits like discounted labor
-              and after-hours priority. Pay as you go uses standard rates, does
-              not include member discounts, and is limited to one device per
-              customer.
-            </p>
+              {/* Tier 2 */}
+              <div className="rounded-lg border-2 border-blue-200 dark:border-sky-700 bg-white dark:bg-slate-800/50 p-6 hover:shadow-lg hover:shadow-blue-500/20 dark:hover:shadow-sky-400/20 transition-all">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-blue-600 dark:bg-sky-600 text-white flex items-center justify-center text-xl font-bold">
+                    2
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    Tier 2
+                  </h3>
+                </div>
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
+                  <strong>Client-Initiated Support</strong>
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  You will be present to start sessions and enter any necessary
+                  credentials. Great for hands-on support and training sessions.
+                </p>
+                <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    ✓ On-demand sessions
+                    <br />
+                    ✓ Full control
+                    <br />✓ Live interaction
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 p-4 bg-blue-50 dark:bg-sky-900/20 rounded-lg border border-blue-200 dark:border-sky-800">
+              <p className="text-gray-700 dark:text-gray-300 text-sm">
+                <strong>Both tiers available as:</strong> Subscription (includes
+                member benefits, discounts, and after-hours priority) or
+                Pay-As-You-Go (standard rates, one device limit, no member
+                discounts).
+              </p>
+            </div>
           </section>
 
-          {/* View Remote Services */}
           {/* View Remote Services */}
           <section
             className="pt-6 sm:pt-8 border-t border-gray-200/60 dark:border-gray-700/60"
             aria-labelledby="view-remote-services"
           >
-            <h2 id="view-remote-services" className="text-2xl font-semibold">
+            <h2
+              id="view-remote-services"
+              className="text-2xl font-semibold mb-4"
+            >
               View Remote Services
             </h2>
-            <div className="mt-3 rounded-lg border border-sky-300 dark:border-sky-700 bg-sky-50/40 dark:bg-sky-900/20 p-5 text-left sm:text-center">
-              <div className="flex items-start gap-3 sm:block">
-                <p className="text-sm text-sky-900 dark:text-sky-100">
-                  Explore all our remote service offerings for local clients,
-                  including troubleshooting, maintenance, and more.
-                </p>
-              </div>
+            <div className="mt-3 rounded-lg border-2 border-sky-300 dark:border-sky-700 bg-gradient-to-br from-sky-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 p-6 text-center">
+              <p className="text-gray-900 dark:text-white mb-4">
+                Explore all our remote service offerings for local clients,
+                including troubleshooting, maintenance, security assessments,
+                and more.
+              </p>
               <Link
                 href="/services/remote"
-                className="inline-flex items-center justify-center mt-3 px-4 py-2 rounded-md border border-sky-500 text-sky-700 dark:text-sky-200 bg-transparent hover:bg-sky-50 dark:hover:bg-sky-900/40 font-medium transition"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-600 hover:bg-sky-700 dark:bg-sky-600 dark:hover:bg-sky-700 text-white font-semibold transition-all shadow-md hover:shadow-lg"
               >
                 View Remote Services
-                <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
+                <ArrowRight className="w-5 h-5" aria-hidden="true" />
               </Link>
             </div>
           </section>
@@ -311,24 +582,39 @@ export default function RemoteSupportPlanPage() {
             className="pt-6 sm:pt-8 border-t border-gray-200/60 dark:border-gray-700/60"
             aria-labelledby="enroll"
           >
-            <h2 id="enroll" className="text-2xl font-semibold">
+            <h2 id="enroll" className="text-2xl font-semibold mb-4">
               Ready to Enroll
             </h2>
-            <div className="mt-3 rounded-lg bg-blue-600/70 dark:bg-sky-700/40 text-white p-5 text-left sm:text-center shadow-sm">
-              <div className="flex items-start gap-3 sm:block">
-                <p className="text-sm/6 opacity-95">
-                  Initial on-site setup and enrollment are included at no
-                  additional cost* when you join the Remote Support Plan.
-                </p>
-              </div>
+            <div className="mt-3 rounded-lg bg-gradient-to-br from-blue-600 to-sky-600 dark:from-sky-700 dark:to-blue-700 text-white p-8 shadow-lg text-center">
+              <p className="text-lg mb-2 font-semibold">
+                Get Started with Remote Support
+              </p>
+              <p className="text-sm opacity-95 mb-6 max-w-2xl mx-auto">
+                Initial on-site setup and enrollment are included at no
+                additional cost* when you join the Remote Support Plan.
+              </p>
               <Link
                 href="/contact"
-                className="inline-block mt-3 px-5 py-3 rounded-md bg-white text-blue-700 dark:text-sky-900 font-semibold hover:bg-slate-100 transition"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-blue-700 dark:text-sky-900 font-semibold hover:bg-gray-100 dark:hover:bg-gray-200 transition-all shadow-lg"
               >
                 Request Remote Setup
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
               </Link>
-              <p className="mt-2 text-xs opacity-85">
-                * Within our local service area.
+              <p className="mt-4 text-xs opacity-85">
+                * Within our local service area (Ocala, Belleview, The
+                Villages).
               </p>
             </div>
           </section>
@@ -368,21 +654,47 @@ export default function RemoteSupportPlanPage() {
             className="pt-6 sm:pt-8 border-t border-gray-200/60 dark:border-gray-700/60"
             aria-labelledby="faq"
           >
-            <h2 id="faq" className="text-2xl font-semibold">
-              FAQ
+            <h2 id="faq" className="text-2xl font-semibold mb-4">
+              Frequently Asked Questions
             </h2>
-            <div className="mt-2 space-y-2">
+            <div className="mt-4 space-y-3">
               {faq.map(({ q, a }) => (
                 <details
                   key={q}
-                  className="rounded border border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-slate-900/40 p-3 text-black dark:text-gray-200"
+                  className="group rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-all"
                 >
-                  <summary className="cursor-pointer font-medium w-full">
-                    <span className=" text-blue-500 dark:text-sky-400">
+                  <summary className="cursor-pointer font-medium flex items-center justify-between text-gray-900 dark:text-white">
+                    <span className="flex items-center gap-3">
+                      <svg
+                        className="w-5 h-5 text-blue-600 dark:text-sky-400 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
                       {q}
                     </span>
+                    <svg
+                      className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
                   </summary>
-                  <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                  <p className="mt-3 pl-8 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
                     {a}
                   </p>
                 </details>
