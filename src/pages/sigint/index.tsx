@@ -32,12 +32,12 @@ import {
   Lock,
   Check,
   Github,
-  Server,
   Bell,
   MapPin,
   Database,
   Users,
   Brain,
+  User,
 } from "lucide-react";
 import Image from "next/image";
 import { Meta, PageContainer } from "@/components";
@@ -542,7 +542,7 @@ export default function SigintPage() {
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
               {/* Community */}
               <div className="rounded-lg border border-gray-200 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/30 p-6 flex flex-col h-full hover:border-blue-500 dark:hover:border-green-500/30 hover:bg-blue-50 dark:hover:bg-gray-900/50 transition-all">
                 <div className="mb-6">
@@ -558,7 +558,7 @@ export default function SigintPage() {
                     </span>
                   </div>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Self-hosted. Bring your own API keys and server.
+                    Self-hosted. Your server, your API keys.
                   </p>
                 </div>
                 <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300 flex-1">
@@ -588,7 +588,7 @@ export default function SigintPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
-                    <span>JSON data export</span>
+                    <span>JSON export</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
@@ -597,7 +597,7 @@ export default function SigintPage() {
                 </ul>
                 <div className="mt-6">
                   <a
-                    href="https://github.com/wedefendit/sigint"
+                    href="https://github.com/iiTONELOC/sigint"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full text-center px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-sky-500 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-all"
@@ -607,28 +607,31 @@ export default function SigintPage() {
                 </div>
               </div>
 
-              {/* Pro */}
+              {/* Individual */}
               <div className="rounded-lg border border-sky-500/40 bg-white/70 dark:bg-gray-900/50 p-6 flex flex-col h-full relative ring-1 ring-sky-500/20 hover:ring-sky-500/40 hover:bg-blue-50 dark:hover:bg-gray-900/70 transition-all">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-sky-500 text-xs font-bold text-white">
                   COMING SOON
                 </div>
                 <div className="mb-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <Server className="w-5 h-5 text-sky-400" />
+                    <User className="w-5 h-5 text-sky-400" />
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                      Pro
+                      Individual
                     </h3>
                   </div>
-                  <div className="flex items-baseline gap-1 mb-2">
+                  <div className="flex items-baseline gap-1 mb-1">
                     <span className="text-3xl font-bold text-gray-900 dark:text-white">
                       $29
                     </span>
                     <span className="text-sm text-gray-600 dark:text-gray-400">
-                      /mo per seat
+                      /mo
                     </span>
                   </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mb-2">
+                    or $249/yr (save 28%)
+                  </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    We host it. Persistent data, custom alerts, history.
+                    Solo analyst. 5 devices. We handle the infrastructure.
                   </p>
                 </div>
                 <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300 flex-1">
@@ -639,59 +642,97 @@ export default function SigintPage() {
                   <li className="flex items-start gap-2">
                     <Monitor className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
                     <span>
-                      Desktop app with native notifications and system tray
+                      Desktop app with native notifications &amp; tray
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Database className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Persistent database: 90-day event history, historical
-                      replay
-                    </span>
+                    <span>90-day event history &amp; historical replay</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <MapPin className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Geofenced alerts: custom zones with push/email/webhook
-                      notifications
-                    </span>
+                    <span>Geofenced alerts with push &amp; email</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Bell className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Custom alert rules: trigger on any condition across any
-                      source
-                    </span>
+                    <span>Custom alert rules across all sources</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Radar className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Enhanced baselines: 90-day rolling window for smarter
-                      anomaly detection
-                    </span>
+                    <span>90-day rolling anomaly baselines</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Synced state: dashboard follows you across devices
-                    </span>
+                    <span>Synced state across devices</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Extended export: CSV, KML, and additional formats
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-                    <span>
-                      MCP support: connect local data sources via the desktop
-                      app
-                    </span>
+                    <span>CSV &amp; KML export</span>
                   </li>
                 </ul>
                 <div className="mt-6">
-                  <WaitlistForm tier="pro" />
+                  <WaitlistForm tier="pro" stacked />
+                </div>
+              </div>
+
+              {/* Team */}
+              <div className="rounded-lg border border-violet-500/40 bg-white/70 dark:bg-gray-900/50 p-6 flex flex-col h-full relative ring-1 ring-violet-500/20 hover:ring-violet-500/40 hover:bg-blue-50 dark:hover:bg-gray-900/70 transition-all">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-violet-500 text-xs font-bold text-white">
+                  COMING SOON
+                </div>
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Users className="w-5 h-5 text-violet-400" />
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                      Team
+                    </h3>
+                  </div>
+                  <div className="flex items-baseline gap-1 mb-1">
+                    <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                      $34
+                    </span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      /seat/mo
+                    </span>
+                    <span className="text-xs text-gray-500 dark:text-gray-500 ml-1">
+                      min 3 seats
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mb-2">
+                    or $299/seat/yr (save 27%)
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Small groups. Shared intelligence. 5 devices per seat.
+                  </p>
+                </div>
+                <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300 flex-1">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <span>Everything in Individual</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Layers className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <span>Shared workspaces &amp; layout presets</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <MapPin className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <span>Shared geofences &amp; alert rules</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Radio className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <span>Team annotations on events</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Shield className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <span>Role-based access (admin / analyst / viewer)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Users className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <span>Invite &amp; manage team members</span>
+                  </li>
+                </ul>
+                <div className="mt-6">
+                  <WaitlistForm tier="pro" stacked />
                 </div>
               </div>
 
@@ -716,31 +757,19 @@ export default function SigintPage() {
                 <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300 flex-1">
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-                    <span>Everything in Pro</span>
+                    <span>Everything in Team</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Brain className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-                    <span>
-                      AI analysis: threat briefs, natural language queries,
-                      daily digests
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Users className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Multi-user: shared workspaces, annotations, RBAC, audit
-                      log
-                    </span>
+                    <span>AI threat briefs, NL queries, daily digests</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Radio className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Custom data source integration into the correlation engine
-                    </span>
+                    <span>Custom data source integration</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Lock className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-                    <span>SSO and on-prem deployment</span>
+                    <span>SSO &amp; on-prem deployment</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Zap className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
@@ -751,16 +780,20 @@ export default function SigintPage() {
                     <span>Unlimited data retention</span>
                   </li>
                   <li className="flex items-start gap-2">
+                    <Eye className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <span>Audit log with non-repudiation</span>
+                  </li>
+                  <li className="flex items-start gap-2">
                     <Shield className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-                    <span>SLA, dedicated support, compliance review</span>
+                    <span>SLA, dedicated support, compliance</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Globe className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-                    <span>White-label and custom branding</span>
+                    <span>White-label &amp; custom branding</span>
                   </li>
                 </ul>
                 <div className="mt-6">
-                  <WaitlistForm tier="enterprise" />
+                  <WaitlistForm tier="enterprise" stacked />
                 </div>
               </div>
             </div>
@@ -769,10 +802,10 @@ export default function SigintPage() {
             <div className="mt-10 rounded-lg border border-gray-200 dark:border-gray-700/50 bg-white/40 dark:bg-gray-900/20 p-6">
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-5">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                  Pro Add-ons
+                  Add-ons
                 </h3>
                 <span className="text-xs font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300">
-                  COMING SOON
+                  AVAILABLE ON INDIVIDUAL &amp; TEAM
                 </span>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -805,7 +838,7 @@ export default function SigintPage() {
                       Extended retention
                     </span>
                     <p className="text-xs text-gray-500 dark:text-gray-500 mt-0.5">
-                      30, 60, or 90-day history windows
+                      30, 60, or 90-day history add-ons
                     </p>
                   </div>
                 </div>
@@ -832,13 +865,13 @@ export default function SigintPage() {
                   </div>
                 </div>
                 <div className="group flex items-start gap-3 p-3 rounded border border-gray-200 dark:border-gray-800/50 hover:border-blue-500 dark:hover:border-sky-500 hover:bg-blue-50 dark:hover:bg-sky-500/5 cursor-default transition-all">
-                  <MapPin className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                  <Monitor className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
                   <div>
                     <span className="text-sm text-gray-900 dark:text-white font-medium">
-                      Extra geofence zones
+                      Extra devices
                     </span>
                     <p className="text-xs text-gray-500 dark:text-gray-500 mt-0.5">
-                      Additional custom monitoring regions
+                      Additional device slots beyond the default 5
                     </p>
                   </div>
                 </div>

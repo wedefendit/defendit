@@ -5,11 +5,13 @@ import { useRecaptcha } from "@/hooks/useRecaptcha";
 type WaitlistFormProps = {
   tier?: "pro" | "enterprise";
   className?: string;
+  stacked?: boolean;
 };
 
 export function WaitlistForm({
   tier = "pro",
   className = "",
+  stacked = false,
 }: WaitlistFormProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
@@ -61,7 +63,10 @@ export function WaitlistForm({
 
   return (
     <div className={className}>
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
+      <form
+        onSubmit={handleSubmit}
+        className={`flex gap-2 ${stacked ? "flex-col" : "flex-col sm:flex-row"}`}
+      >
         <div className="relative flex-1 min-w-0">
           <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" />
           <input
@@ -93,7 +98,7 @@ export function WaitlistForm({
         <p className="mt-2 text-xs text-red-400">{errorMsg}</p>
       )}
       <p className="mt-2 text-[10px] text-gray-500 dark:text-gray-600">
-        Protected by reCAPTCHA. No spam, ever.
+        Protected by reCAPTCHA.
       </p>
     </div>
   );
