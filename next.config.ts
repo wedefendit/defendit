@@ -26,7 +26,6 @@ const cspHeader = `
   object-src 'none';
   base-uri 'self';
   form-action 'self';
-  referrer-policy: strict-origin-when-cross-origin;
   connect-src 'self' https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org https://www.google.com;
   frame-ancestors 'self';
 `
@@ -38,7 +37,10 @@ const nextConfig = {
   headers: async () => [
     {
       source: "/(.*)",
-      headers: [{ key: "Content-Security-Policy", value: cspHeader }],
+      headers: [
+        { key: "Content-Security-Policy", value: cspHeader },
+        { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      ],
     },
   ],
 };
