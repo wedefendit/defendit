@@ -132,7 +132,7 @@ export function generateServiceLd({
 }
 export function generateRelatedServiceLd(
   services: { label: string; slug: string }[],
-  isRemote: boolean = false
+  isRemote: boolean = false,
 ): object {
   return {
     "@context": "https://schema.org",
@@ -149,7 +149,7 @@ export function generateRelatedServiceLd(
 }
 
 export function generateFAQPageLd(
-  questions: { name: string; acceptedAnswer: string }[]
+  questions: { name: string; acceptedAnswer: string }[],
 ): object {
   return {
     "@context": "https://schema.org",
@@ -164,3 +164,76 @@ export function generateFAQPageLd(
     })),
   };
 }
+
+export const sigintProductLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "SIGINT Dashboard",
+  alternateName: "SIGINT Dashboard™",
+  applicationCategory: "SecurityApplication",
+  applicationSubCategory: "OSINT Intelligence Platform",
+  operatingSystem: "Web, Windows, macOS, Linux",
+  url: "https://www.wedefendit.com/sigint",
+  image: "https://www.wedefendit.com/sigint-og.png",
+  screenshot: "https://www.wedefendit.com/sigint-hero.png",
+  description:
+    "Real-time OSINT dashboard with live aircraft, vessel, seismic, fire, weather, and conflict event tracking on an interactive globe. Correlation engine, anomaly detection, and multi-source intelligence analysis.",
+  featureList: [
+    "Live aircraft tracking (OpenSky Network)",
+    "AIS vessel tracking",
+    "USGS seismic monitoring",
+    "NASA FIRMS fire detection",
+    "NOAA severe weather alerts",
+    "GDELT conflict and crisis events",
+    "World news aggregation (RSS)",
+    "Cross-source correlation engine",
+    "Anomaly detection with regional baselines",
+    "Interactive globe and flat map projections",
+    "Multi-pane resizable layout",
+    "Live HLS video monitoring",
+    "Entity dossier with photos and intel links",
+    "Composite alert scoring (1-10)",
+    "Watch mode (automated globe tour)",
+    "Global search with live filtering",
+    "Dark and light themes",
+    "PWA installable",
+    "JSON data export",
+  ],
+  author: {
+    "@type": "Organization",
+    name: "Defend I.T. Solutions LLC",
+    url: "https://www.wedefendit.com",
+  },
+  provider: {
+    "@type": "Organization",
+    name: "Defend I.T. Solutions LLC",
+    url: "https://www.wedefendit.com",
+  },
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Community",
+      description:
+        "Free, self-hosted. All data sources, correlation engine, all pane types, 7-day rolling window.",
+      price: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: "https://www.wedefendit.com/sigint#pricing",
+    },
+    {
+      "@type": "Offer",
+      name: "Pro",
+      description:
+        "Hosted service with desktop app, persistent database, geofenced alerts, custom alert rules, 90-day history, and MCP support.",
+      price: "29",
+      priceCurrency: "USD",
+      priceValidUntil: "2027-12-31",
+      billingIncrement: "P1M",
+      availability: "https://schema.org/PreOrder",
+      url: "https://www.wedefendit.com/sigint#pricing",
+    },
+  ],
+  softwareVersion: "1.0",
+  license: "https://www.wedefendit.com/sigint#pricing",
+  isAccessibleForFree: true,
+};

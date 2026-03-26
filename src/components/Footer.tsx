@@ -148,6 +148,9 @@ export const Footer: React.FC = () => {
                 <Link href="/about">About</Link>
               </li>
               <li>
+                <Link href="/sigint">SIGINT Dashboard</Link>
+              </li>
+              <li>
                 <Link href="/awareness">Awareness</Link>
               </li>
               <li>
@@ -186,6 +189,9 @@ export const Footer: React.FC = () => {
             <DesktopColumn title="Company">
               <li>
                 <Link href="/about">About</Link>
+              </li>
+              <li>
+                <Link href="/sigint">SIGINT Dashboard</Link>
               </li>
               <li>
                 <Link href="/awareness">Awareness</Link>

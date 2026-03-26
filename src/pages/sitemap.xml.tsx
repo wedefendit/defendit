@@ -37,6 +37,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     { path: "", priority: "1.00" }, // homepage
     { path: "services", priority: "0.95" }, // primary money hub
     { path: "contact", priority: "0.90" }, // conversion page
+    { path: "sigint", priority: "0.85" }, // product page
     { path: "awareness", priority: "0.80" },
     { path: "about", priority: "0.70" },
     { path: "terms", priority: "0.30" },

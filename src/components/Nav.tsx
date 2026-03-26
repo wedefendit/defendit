@@ -26,6 +26,7 @@ const navItems = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
+  { name: "SIGINT", href: "/sigint" },
   { name: "Awareness", href: "/awareness" },
   { name: "Contact", href: "/contact" },
 ];
@@ -78,7 +79,7 @@ function RenderNavItems({
 
 function DesktopBar({ pathname }: { pathname: string }) {
   return (
-    <ul className="hidden lg:flex space-x-8 xl:space-x-12 text-lg w-auto m-0 lg:mr-16 md:mx-auto">
+    <ul className="hidden lg:flex space-x-5 xl:space-x-10 text-base xl:text-lg w-auto m-0 lg:mr-8 xl:mr-16 md:mx-auto">
       <RenderNavItems navItems={navItems} pathname={pathname} />
     </ul>
   );

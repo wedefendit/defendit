@@ -15,19 +15,19 @@ party without express written consent.
 // next.config.js
 
 /** @type {import('next').NextConfig} */
-// next.config.js
 const cspHeader = `
   default-src 'self';
   img-src 'self' data: blob: https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org https://unpkg.com;
-  script-src 'self';
-  script-src-elem 'self';
+  script-src 'self' https://www.google.com https://www.gstatic.com;
+  script-src-elem 'self' https://www.google.com https://www.gstatic.com;
   style-src 'self';
-  frame-src 'self';
+  frame-src 'self' https://www.google.com;
   font-src 'self';
   object-src 'none';
   base-uri 'self';
   form-action 'self';
-  connect-src 'self' https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org;
+  referrer-policy: strict-origin-when-cross-origin;
+  connect-src 'self' https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org https://www.google.com;
   frame-ancestors 'self';
 `
   .replace(/\n/g, "")
