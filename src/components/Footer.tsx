@@ -170,7 +170,7 @@ export const Footer: React.FC = () => {
                 <Link href="/privacy">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="/sigint/privacy">SIGINT Privacy Policy</Link>
+                <Link href="/privacy/sigint">SIGINT Privacy Policy</Link>
               </li>
               <li>
                 <Link href="/terms">Terms of Service</Link>
@@ -209,7 +209,7 @@ export const Footer: React.FC = () => {
                 <Link href="/privacy">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="/sigint/privacy">SIGINT Privacy Policy</Link>
+                <Link href="/privacy/sigint">SIGINT Privacy Policy</Link>
               </li>
               <li>
                 <Link href="/terms">Terms of Service</Link>

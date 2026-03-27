@@ -7,8 +7,8 @@ export default function SigintPrivacy() {
       <Meta
         title="SIGINT Dashboard™ Privacy Policy | Defend I.T. Solutions"
         description="Privacy policy for the SIGINT Dashboard waiting list and product communications."
-        url="https://www.wedefendit.com/sigint/privacy"
-        canonical="https://www.wedefendit.com/sigint/privacy"
+        url="https://www.wedefendit.com/privacy/sigint"
+        canonical="https://www.wedefendit.com/privacy/sigint"
       />
 
       <LegalPage>
