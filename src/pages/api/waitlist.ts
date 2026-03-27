@@ -2,12 +2,16 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 const BREVO_API_KEY = process.env.BREVO_API_KEY ?? "";
 const RECAPTCHA_SECRET = process.env.GOOGLE_CAPTCHA_SECRET ?? "";
-const PRO_LIST_ID = 4;
-const ENTERPRISE_LIST_ID = 5;
+
+const LIST_IDS: Record<string, number> = {
+  individual: 4,
+  team: 5,
+  enterprise: 8,
+};
 
 type Body = {
   email?: string;
-  tier?: "pro" | "enterprise";
+  tier?: "individual" | "team" | "enterprise";
   captchaToken?: string;
 };
 
@@ -23,7 +27,6 @@ async function verifyCaptcha(token: string): Promise<boolean> {
 }
 
 async function addToBrevo(email: string, listId: number): Promise<BrevoResult> {
-  // Try to create the contact
   const createRes = await fetch("https://api.brevo.com/v3/contacts", {
     method: "POST",
     headers: {
@@ -37,12 +40,9 @@ async function addToBrevo(email: string, listId: number): Promise<BrevoResult> {
     }),
   });
 
-  // 201 = created, 204 = updated (updateEnabled), 400 = already exists
   if (createRes.ok) return "ok";
-
   if (createRes.status === 429) return "rate_limited";
 
-  // If contact already exists, update their lists
   if (createRes.status === 400) {
     const updateRes = await fetch(
       `https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`,
@@ -74,7 +74,7 @@ export default async function handler(
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { email, tier = "pro", captchaToken } = req.body as Body;
+  const { email, tier = "individual", captchaToken } = req.body as Body;
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: "Valid email required" });
@@ -84,12 +84,13 @@ export default async function handler(
     return res.status(400).json({ error: "Captcha required" });
   }
 
+  const listId = LIST_IDS[tier] ?? LIST_IDS.individual;
+
   const captchaValid = await verifyCaptcha(captchaToken);
   if (!captchaValid) {
     return res.status(403).json({ error: "Captcha verification failed" });
   }
 
-  const listId = tier === "enterprise" ? ENTERPRISE_LIST_ID : PRO_LIST_ID;
   const result = await addToBrevo(email, listId);
 
   if (result === "rate_limited") {
