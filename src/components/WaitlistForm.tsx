@@ -59,7 +59,7 @@ export function WaitlistForm({
           <Mail className="w-4 h-4" />
           Check your email to confirm your spot.
         </div>
-        <p className="text-[11px] text-gray-500 dark:text-gray-500">
+        <p className="text-[11px] text-green-400/60">
           Don&apos;t see it? Check your junk or spam folder.
         </p>
       </div>
