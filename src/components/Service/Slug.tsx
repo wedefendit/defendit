@@ -149,10 +149,16 @@ export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
           <BreadCrumbs items={crumbs} baseUrl="https://www.wedefendit.com" />
 
           {/* Hero Section with Icons */}
-          <div className="flex flex-col sm:flex-row items-start gap-6 bg-gradient-to-br from-blue-50 to-sky-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-6 border border-blue-200 dark:border-sky-800">
-            {/* Icons */}
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/78 px-6 py-8 shadow-[0_18px_40px_rgba(15,23,42,0.08)] ring-1 ring-white/75 backdrop-blur-md dark:border-sky-400/18 dark:bg-slate-950/78 dark:shadow-[0_24px_60px_rgba(2,6,23,0.42)] dark:ring-white/5">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_54%)] dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.16),transparent_52%)]" />
+            <div className="pointer-events-none absolute left-1/2 top-0 h-24 w-52 -translate-x-1/2 rounded-full bg-sky-300/25 blur-3xl dark:bg-sky-400/16" />
+            <div className="relative space-y-5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-sky-300/60 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-sky-700 shadow-[0_8px_20px_rgba(56,189,248,0.12)] backdrop-blur-sm dark:border-sky-400/18 dark:bg-slate-900/70 dark:text-sky-300 dark:shadow-[0_12px_28px_rgba(2,132,199,0.16)]">
+              {isRemote ? "Remote Service" : "Local Service"}
+            </div>
+
             {service.icons && service.icons.length > 0 && (
-              <div className="flex items-center gap-3 flex-shrink-0">
+              <div className="flex flex-wrap items-center gap-3">
                 {service.icons.map((iconName, idx) => {
                   const name = iconName
                     .split("-")
@@ -163,23 +169,23 @@ export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
                   return LucideIcon ? (
                     <div
                       key={idx}
-                      className="w-16 h-16 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center"
+                      className="flex h-12 w-12 items-center justify-center rounded-lg border border-sky-200/80 bg-sky-100/85 shadow-[0_8px_18px_rgba(59,130,246,0.12)] dark:border-sky-400/14 dark:bg-slate-800/88 dark:shadow-[0_10px_22px_rgba(2,132,199,0.14)]"
                     >
-                      <LucideIcon className="w-8 h-8 text-blue-600 dark:text-sky-400" />
+                      <LucideIcon className="w-6 h-6 text-blue-700 dark:text-sky-300" />
                     </div>
                   ) : null;
                 })}
               </div>
             )}
 
-            {/* Text Content */}
-            <div className="flex-1 space-y-2">
-              <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
+            <div className="space-y-2">
+              <h1 className="text-3xl font-bold leading-tight text-slate-950 dark:text-white sm:text-4xl">
                 {service.title}
               </h1>
-              <p className="text-base sm:text-lg text-blue-600 dark:text-sky-400">
+              <p className="text-base text-slate-600 dark:text-slate-300 sm:text-lg">
                 {service.headline}
               </p>
+            </div>
             </div>
           </div>
 
@@ -265,14 +271,15 @@ export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
           )}
 
           {/* What to Expect Section */}
-          <section className="bg-gradient-to-br from-blue-50 to-sky-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-6 sm:p-8 border border-blue-200 dark:border-sky-800">
+          <section className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/76 p-6 shadow-[0_16px_38px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-sky-400/18 dark:bg-slate-950/74 dark:shadow-[0_22px_48px_rgba(2,6,23,0.36)] dark:ring-white/5 sm:p-8">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.06),transparent_54%)] dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_52%)]" />
             <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center">
               What to Expect
             </h2>
 
-            <div className="grid sm:grid-cols-3 gap-6 sm:gap-8">
-              <div className="flex flex-col items-center text-center space-y-3">
-                <div className="w-16 h-16 rounded-full bg-blue-600 dark:bg-sky-600 text-white flex items-center justify-center text-2xl font-bold shadow-lg">
+            <div className="relative grid gap-6 sm:grid-cols-3 sm:gap-8">
+              <div className="flex flex-col items-center space-y-3 rounded-xl border border-slate-200/80 bg-white/70 px-4 py-5 text-center shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/65 backdrop-blur-sm dark:border-slate-700/70 dark:bg-slate-900/60 dark:shadow-[0_16px_32px_rgba(2,6,23,0.28)] dark:ring-white/5">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-sky-300/70 bg-sky-100/85 text-2xl font-bold text-sky-700 shadow-[0_8px_18px_rgba(59,130,246,0.12)] dark:border-sky-400/18 dark:bg-slate-800/90 dark:text-sky-300 dark:shadow-[0_10px_24px_rgba(2,132,199,0.16)]">
                   1
                 </div>
                 <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
@@ -283,8 +290,8 @@ export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
                 </p>
               </div>
 
-              <div className="flex flex-col items-center text-center space-y-3">
-                <div className="w-16 h-16 rounded-full bg-blue-600 dark:bg-sky-600 text-white flex items-center justify-center text-2xl font-bold shadow-lg">
+              <div className="flex flex-col items-center space-y-3 rounded-xl border border-slate-200/80 bg-white/70 px-4 py-5 text-center shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/65 backdrop-blur-sm dark:border-slate-700/70 dark:bg-slate-900/60 dark:shadow-[0_16px_32px_rgba(2,6,23,0.28)] dark:ring-white/5">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-sky-300/70 bg-sky-100/85 text-2xl font-bold text-sky-700 shadow-[0_8px_18px_rgba(59,130,246,0.12)] dark:border-sky-400/18 dark:bg-slate-800/90 dark:text-sky-300 dark:shadow-[0_10px_24px_rgba(2,132,199,0.16)]">
                   2
                 </div>
                 <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
@@ -295,8 +302,8 @@ export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
                 </p>
               </div>
 
-              <div className="flex flex-col items-center text-center space-y-3">
-                <div className="w-16 h-16 rounded-full bg-blue-600 dark:bg-sky-600 text-white flex items-center justify-center text-2xl font-bold shadow-lg">
+              <div className="flex flex-col items-center space-y-3 rounded-xl border border-slate-200/80 bg-white/70 px-4 py-5 text-center shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/65 backdrop-blur-sm dark:border-slate-700/70 dark:bg-slate-900/60 dark:shadow-[0_16px_32px_rgba(2,6,23,0.28)] dark:ring-white/5">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-sky-300/70 bg-sky-100/85 text-2xl font-bold text-sky-700 shadow-[0_8px_18px_rgba(59,130,246,0.12)] dark:border-sky-400/18 dark:bg-slate-800/90 dark:text-sky-300 dark:shadow-[0_10px_24px_rgba(2,132,199,0.16)]">
                   3
                 </div>
                 <h3 className="font-semibold text-lg text-gray-900 dark:text-white">

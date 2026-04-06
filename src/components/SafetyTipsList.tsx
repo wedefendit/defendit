@@ -43,11 +43,11 @@ export const SafetyTipsList: React.FC = () => {
           return (
             <div
               key={index}
-              className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm hover:shadow-lg hover:shadow-green-500/20 dark:hover:shadow-emerald-400/20 hover:border-green-500 dark:hover:border-emerald-400 transition-all duration-300 p-6"
+              className="relative overflow-hidden rounded-xl border border-emerald-300/80 bg-white/78 bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.12),transparent_58%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/75 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-400/90 hover:bg-white/88 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-emerald-400/16 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.12),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-emerald-400/28 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]"
             >
               <div className="flex flex-col items-center mb-4">
-                <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-emerald-900/30 flex items-center justify-center mb-4">
-                  <IconComponent className="w-8 h-8 text-green-600 dark:text-emerald-400" />
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-emerald-300/90 bg-emerald-100/95 shadow-[0_10px_22px_rgba(16,185,129,0.18)] dark:border-emerald-400/16 dark:bg-slate-800/88 dark:shadow-[0_10px_22px_rgba(16,185,129,0.14)]">
+                  <IconComponent className="w-8 h-8 text-emerald-800 dark:text-emerald-300" />
                 </div>
                 <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 text-center">
                   {title}

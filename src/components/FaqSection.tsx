@@ -44,12 +44,12 @@ export function FaqSection({
         {items.map(({ question, answer }) => (
           <details
             key={question}
-            className="group rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-all"
+            className="group relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.045),transparent_58%)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/82 hover:shadow-[0_16px_32px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/56 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.28)] dark:ring-white/5 dark:hover:border-sky-400/28 dark:hover:bg-slate-900/72 dark:hover:shadow-[0_22px_42px_rgba(2,6,23,0.34)]"
           >
             <summary className="cursor-pointer font-medium flex items-center justify-between text-gray-900 dark:text-white">
               <span className="flex items-center gap-3">
                 <svg
-                  className="w-5 h-5 text-blue-600 dark:text-sky-400 flex-shrink-0"
+                  className="w-5 h-5 flex-shrink-0 text-blue-700 dark:text-sky-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -64,7 +64,7 @@ export function FaqSection({
                 {question}
               </span>
               <svg
-                className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"
+                className="w-5 h-5 text-slate-400 transition-transform group-open:rotate-180 dark:text-slate-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -77,7 +77,7 @@ export function FaqSection({
                 />
               </svg>
             </summary>
-            <p className="mt-3 pl-8 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="mt-3 pl-8 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               {answer}
             </p>
           </details>

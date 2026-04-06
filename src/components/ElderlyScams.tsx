@@ -68,18 +68,19 @@ export const ElderlyScamsList: React.FC<ElderlyScamsListProps> = ({
             return (
               <article
                 key={`${iconName}-${i}`}
-                className="flex flex-col bg-white dark:bg-slate-800/50 border border-red-200 dark:border-red-900/50 rounded-lg shadow-sm hover:shadow-lg hover:shadow-red-500/20 dark:hover:shadow-red-400/20 hover:border-red-500 dark:hover:border-red-400 transition-all duration-300 p-6"
+                className="relative flex flex-col overflow-hidden rounded-xl border border-red-300/80 bg-white/78 bg-[radial-gradient(circle_at_top,rgba(239,68,68,0.11),transparent_58%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/75 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-red-400/90 hover:bg-white/88 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-red-400/16 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(239,68,68,0.12),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-red-400/28 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]"
               >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
+                <div className="mb-4 grid grid-cols-[4rem_minmax(0,1fr)_4rem] items-center gap-4">
+                  <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full border border-red-300/90 bg-red-100/95 shadow-[0_10px_22px_rgba(239,68,68,0.16)] dark:border-red-400/16 dark:bg-slate-800/88 dark:shadow-[0_10px_22px_rgba(239,68,68,0.12)]">
                     <Icon
-                      className="w-8 h-8 text-red-600 dark:text-red-400"
+                      className="w-8 h-8 text-red-800 dark:text-red-300"
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="flex-grow text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100 leading-tight m-auto">
+                  <h3 className="text-center text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100 leading-tight">
                     {title}
                   </h3>
+                  <div aria-hidden="true" className="h-16 w-16" />
                 </div>
 
                 <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base mb-6 flex-grow leading-relaxed">
@@ -88,7 +89,7 @@ export const ElderlyScamsList: React.FC<ElderlyScamsListProps> = ({
 
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                   <h4 className="text-left text-gray-900 dark:text-gray-100 font-semibold mb-3 flex items-center gap-2">
-                    <Icons.ShieldCheck className="w-5 h-5 text-green-600 dark:text-emerald-500" />
+                    <Icons.ShieldCheck className="w-5 h-5 text-emerald-700 dark:text-emerald-500" />
                     How to Protect Yourself
                   </h4>
                   <ul
@@ -98,7 +99,7 @@ export const ElderlyScamsList: React.FC<ElderlyScamsListProps> = ({
                     {prevention.map((tip: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2">
                         <Icons.ShieldPlus
-                          className="mt-[3px] flex-shrink-0 text-green-600 dark:text-emerald-500"
+                          className="mt-[3px] flex-shrink-0 text-emerald-700 dark:text-emerald-500"
                           size={18}
                           aria-hidden="true"
                         />

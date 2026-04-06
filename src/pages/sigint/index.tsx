@@ -76,11 +76,11 @@ function SourceCard({
   name,
   description,
   badge,
-  badgeColor = "bg-sky-500/20 text-sky-300",
+  badgeColor = "border border-sky-300/80 bg-sky-100/90 text-sky-700 dark:border-sky-400/20 dark:bg-sky-500/15 dark:text-sky-300",
 }: SourceCardProps) {
   return (
-    <div className="group relative flex items-start gap-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700/50 bg-white/60 dark:bg-gray-900/40 hover:bg-blue-50 dark:hover:bg-slate-800/50 hover:border-blue-500 dark:hover:border-sky-500 transition-all">
-      <div className="flex-shrink-0 w-10 h-10 rounded-md bg-blue-100 dark:bg-sky-500/10 flex items-center justify-center text-blue-600 dark:text-sky-400 group-hover:text-blue-500 dark:group-hover:text-sky-300 transition-colors">
+    <div className="group relative flex items-start gap-4 overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
+      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-sky-200/80 bg-sky-100/90 text-blue-700 shadow-[0_8px_18px_rgba(59,130,246,0.12)] transition-all group-hover:scale-110 group-hover:text-blue-800 dark:border-sky-400/14 dark:bg-slate-800/88 dark:text-sky-400 dark:shadow-[0_10px_22px_rgba(2,132,199,0.14)] dark:group-hover:text-sky-300">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
@@ -113,8 +113,8 @@ type CapCardProps = {
 
 function CapCard({ icon, title, description }: CapCardProps) {
   return (
-    <div className="group p-6 rounded-lg border border-gray-200 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/30 hover:bg-blue-50 dark:hover:bg-slate-800/50 hover:border-blue-500 dark:hover:border-sky-500 transition-all">
-      <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-sky-500/10 flex items-center justify-center text-blue-600 dark:text-sky-400 mb-4 group-hover:bg-blue-200 dark:group-hover:bg-sky-500/20 group-hover:scale-110 transition-all">
+    <div className="group relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-sky-200/80 bg-sky-100/90 text-blue-700 shadow-[0_8px_18px_rgba(59,130,246,0.12)] transition-all group-hover:scale-110 group-hover:text-blue-800 dark:border-sky-400/14 dark:bg-slate-800/88 dark:text-sky-400 dark:shadow-[0_10px_22px_rgba(2,132,199,0.14)] dark:group-hover:text-sky-300">
         {icon}
       </div>
       <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
@@ -192,7 +192,7 @@ export default function SigintPage() {
                 href="https://sigint-5154d935429b.herokuapp.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-lg border border-green-500/40 dark:border-green-500/30 hover:border-green-500 dark:hover:border-green-400 bg-green-500/5 hover:bg-green-500/10 text-gray-700 dark:text-green-300 hover:text-gray-900 dark:hover:text-green-200 text-lg font-medium transition-all"
+                className="inline-flex items-center gap-2 rounded-lg border border-emerald-400/85 bg-emerald-100/92 px-8 py-4 text-lg font-medium text-emerald-900 shadow-[0_12px_28px_rgba(16,185,129,0.16)] backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-emerald-500/90 hover:bg-emerald-100 hover:text-emerald-950 hover:shadow-[0_16px_34px_rgba(16,185,129,0.2)] dark:border-green-500/30 dark:bg-emerald-950/40 dark:text-green-300 dark:shadow-[0_14px_28px_rgba(16,185,129,0.14)] dark:hover:border-green-400 dark:hover:bg-emerald-950/55 dark:hover:text-green-200 dark:hover:shadow-[0_18px_34px_rgba(16,185,129,0.2)]"
               >
                 <Globe className="w-5 h-5" />
                 Live Demo
@@ -377,7 +377,7 @@ export default function SigintPage() {
                   />
                 </div>
                 <div className="md:col-span-2 space-y-3">
-                  <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-red-500/15 text-red-400 text-xs font-bold">
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-red-300/80 bg-red-100/90 px-2.5 py-1 text-xs font-bold text-red-700 dark:border-red-500/20 dark:bg-red-500/15 dark:text-red-300">
                     <AlertTriangle className="w-3.5 h-3.5" />
                     EMERGENCY DETECTION
                   </div>
@@ -397,7 +397,7 @@ export default function SigintPage() {
               {/* Hijack + trail */}
               <div className="grid md:grid-cols-5 gap-6 items-center">
                 <div className="md:col-span-2 space-y-3 order-2 md:order-1">
-                  <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-purple-500/15 text-purple-400 text-xs font-bold">
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-violet-300/80 bg-violet-100/90 px-2.5 py-1 text-xs font-bold text-violet-700 dark:border-violet-500/20 dark:bg-violet-500/15 dark:text-violet-300">
                     <Plane className="w-3.5 h-3.5" />
                     TRAIL TRACKING
                   </div>
@@ -434,7 +434,7 @@ export default function SigintPage() {
                   />
                 </div>
                 <div className="md:col-span-2 space-y-3">
-                  <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-sky-500/15 text-sky-400 text-xs font-bold">
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-sky-300/80 bg-sky-100/90 px-2.5 py-1 text-xs font-bold text-sky-700 dark:border-sky-500/20 dark:bg-sky-500/15 dark:text-sky-300">
                     <Globe className="w-3.5 h-3.5" />
                     SITUATIONAL AWARENESS
                   </div>
@@ -453,7 +453,7 @@ export default function SigintPage() {
               {/* Hijack dossier */}
               <div className="grid md:grid-cols-5 gap-6 items-center">
                 <div className="md:col-span-2 space-y-3 order-2 md:order-1">
-                  <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-amber-500/15 text-amber-400 text-xs font-bold">
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-300/80 bg-amber-100/90 px-2.5 py-1 text-xs font-bold text-amber-700 dark:border-amber-500/20 dark:bg-amber-500/15 dark:text-amber-300">
                     <Eye className="w-3.5 h-3.5" />
                     ENTITY DOSSIER
                   </div>
@@ -482,7 +482,7 @@ export default function SigintPage() {
           </section>
 
           {/* ── Tech Stack ────────────────────────────────────────── */}
-          <section className="py-10 px-6 rounded-lg border border-gray-200 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/30">
+          <section className="rounded-2xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_60%)] px-6 py-10 shadow-[0_16px_34px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_62%)] dark:shadow-[0_20px_40px_rgba(2,6,23,0.32)] dark:ring-white/5">
             <div className="text-center mb-8">
               <SectionTag>Under the Hood</SectionTag>
               <SectionTitle>Built for Performance</SectionTitle>
@@ -544,10 +544,10 @@ export default function SigintPage() {
 
             <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
               {/* Community */}
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/30 p-6 flex flex-col h-full hover:border-blue-500 dark:hover:border-green-500/30 hover:bg-blue-50 dark:hover:bg-gray-900/50 transition-all">
+              <div className="flex h-full flex-col rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_62%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-green-500/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
                 <div className="mb-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <Github className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                    <Github className="w-5 h-5 text-gray-700 dark:text-gray-400" />
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                       Community
                     </h3>
@@ -563,35 +563,35 @@ export default function SigintPage() {
                 </div>
                 <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300 flex-1">
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-emerald-700 dark:text-green-400 mt-0.5 flex-shrink-0" />
                     <span>All live data sources</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-emerald-700 dark:text-green-400 mt-0.5 flex-shrink-0" />
                     <span>Correlation engine &amp; anomaly detection</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-emerald-700 dark:text-green-400 mt-0.5 flex-shrink-0" />
                     <span>All 8 pane types including video &amp; news</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-emerald-700 dark:text-green-400 mt-0.5 flex-shrink-0" />
                     <span>Watch mode, entity dossier, alert scoring</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-emerald-700 dark:text-green-400 mt-0.5 flex-shrink-0" />
                     <span>7-day rolling data window (browser-local)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-emerald-700 dark:text-green-400 mt-0.5 flex-shrink-0" />
                     <span>Dark and light themes</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-emerald-700 dark:text-green-400 mt-0.5 flex-shrink-0" />
                     <span>JSON export</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-emerald-700 dark:text-green-400 mt-0.5 flex-shrink-0" />
                     <span>Web app (PWA installable)</span>
                   </li>
                 </ul>
@@ -608,13 +608,13 @@ export default function SigintPage() {
               </div>
 
               {/* Individual */}
-              <div className="rounded-lg border border-sky-500/40 bg-white/70 dark:bg-gray-900/50 p-6 flex flex-col h-full relative ring-1 ring-sky-500/20 hover:ring-sky-500/40 hover:bg-blue-50 dark:hover:bg-gray-900/70 transition-all">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-sky-500 text-xs font-bold text-white">
+              <div className="relative flex h-full flex-col rounded-xl border border-sky-300/80 bg-white/76 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.1),transparent_62%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-sky-200/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-400/90 hover:bg-white/86 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-sky-400/25 dark:bg-slate-900/62 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_62%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.32)] dark:ring-sky-400/10 dark:hover:border-sky-400/38 dark:hover:bg-slate-900/76 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.38)]">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-sky-600 px-3 py-0.5 text-xs font-bold text-white shadow-[0_10px_22px_rgba(2,132,199,0.18)] dark:bg-sky-500">
                   COMING SOON
                 </div>
                 <div className="mb-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <User className="w-5 h-5 text-sky-400" />
+                    <User className="w-5 h-5 text-sky-700 dark:text-sky-400" />
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                       Individual
                     </h3>
@@ -636,37 +636,37 @@ export default function SigintPage() {
                 </div>
                 <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300 flex-1">
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-sky-700 dark:text-sky-400 mt-0.5 flex-shrink-0" />
                     <span>Everything in Community</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Monitor className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                    <Monitor className="w-4 h-4 text-sky-700 dark:text-sky-400 mt-0.5 flex-shrink-0" />
                     <span>
                       Desktop app with native notifications &amp; tray
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Database className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                    <Database className="w-4 h-4 text-sky-700 dark:text-sky-400 mt-0.5 flex-shrink-0" />
                     <span>90-day event history &amp; historical replay</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <MapPin className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                    <MapPin className="w-4 h-4 text-sky-700 dark:text-sky-400 mt-0.5 flex-shrink-0" />
                     <span>Geofenced alerts with push &amp; email</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Bell className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                    <Bell className="w-4 h-4 text-sky-700 dark:text-sky-400 mt-0.5 flex-shrink-0" />
                     <span>Custom alert rules across all sources</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Radar className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                    <Radar className="w-4 h-4 text-sky-700 dark:text-sky-400 mt-0.5 flex-shrink-0" />
                     <span>90-day rolling anomaly baselines</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-sky-700 dark:text-sky-400 mt-0.5 flex-shrink-0" />
                     <span>Synced state across devices</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-sky-700 dark:text-sky-400 mt-0.5 flex-shrink-0" />
                     <span>CSV &amp; KML export</span>
                   </li>
                 </ul>
@@ -676,13 +676,13 @@ export default function SigintPage() {
               </div>
 
               {/* Team */}
-              <div className="rounded-lg border border-violet-500/40 bg-white/70 dark:bg-gray-900/50 p-6 flex flex-col h-full relative ring-1 ring-violet-500/20 hover:ring-violet-500/40 hover:bg-blue-50 dark:hover:bg-gray-900/70 transition-all">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-violet-500 text-xs font-bold text-white">
+              <div className="relative flex h-full flex-col rounded-xl border border-violet-300/80 bg-white/76 bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.1),transparent_62%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-violet-200/65 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-400/90 hover:bg-white/86 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-violet-400/25 dark:bg-slate-900/62 dark:bg-[radial-gradient(circle_at_top,rgba(167,139,250,0.12),transparent_62%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.32)] dark:ring-violet-400/10 dark:hover:border-violet-400/38 dark:hover:bg-slate-900/76 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.38)]">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-600 px-3 py-0.5 text-xs font-bold text-white shadow-[0_10px_22px_rgba(124,58,237,0.18)] dark:bg-violet-500">
                   COMING SOON
                 </div>
                 <div className="mb-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <Users className="w-5 h-5 text-violet-400" />
+                    <Users className="w-5 h-5 text-violet-700 dark:text-violet-400" />
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                       Team
                     </h3>
@@ -707,27 +707,27 @@ export default function SigintPage() {
                 </div>
                 <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300 flex-1">
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-violet-700 dark:text-violet-400 mt-0.5 flex-shrink-0" />
                     <span>Everything in Individual</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Layers className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <Layers className="w-4 h-4 text-violet-700 dark:text-violet-400 mt-0.5 flex-shrink-0" />
                     <span>Shared workspaces &amp; layout presets</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <MapPin className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <MapPin className="w-4 h-4 text-violet-700 dark:text-violet-400 mt-0.5 flex-shrink-0" />
                     <span>Shared geofences &amp; alert rules</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Radio className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <Radio className="w-4 h-4 text-violet-700 dark:text-violet-400 mt-0.5 flex-shrink-0" />
                     <span>Team annotations on events</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Shield className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <Shield className="w-4 h-4 text-violet-700 dark:text-violet-400 mt-0.5 flex-shrink-0" />
                     <span>Role-based access (admin / analyst / viewer)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Users className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+                    <Users className="w-4 h-4 text-violet-700 dark:text-violet-400 mt-0.5 flex-shrink-0" />
                     <span>Invite &amp; manage team members</span>
                   </li>
                 </ul>
@@ -737,10 +737,10 @@ export default function SigintPage() {
               </div>
 
               {/* Enterprise */}
-              <div className="rounded-lg border border-amber-500/30 bg-gradient-to-b from-amber-50 dark:from-amber-500/5 to-white/50 dark:to-gray-900/30 p-6 flex flex-col h-full relative hover:border-amber-500/50 hover:from-amber-100 dark:hover:from-amber-500/10 transition-all">
+              <div className="relative flex h-full flex-col rounded-xl border border-amber-300/80 bg-white/76 bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.1),transparent_62%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-amber-200/65 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-400/90 hover:bg-white/86 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-amber-400/22 dark:bg-slate-900/62 dark:bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.11),transparent_62%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.32)] dark:ring-amber-400/8 dark:hover:border-amber-400/34 dark:hover:bg-slate-900/76 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.38)]">
                 <div className="mb-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <Shield className="w-5 h-5 text-amber-400" />
+                    <Shield className="w-5 h-5 text-amber-700 dark:text-amber-400" />
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                       Enterprise
                     </h3>
@@ -756,39 +756,39 @@ export default function SigintPage() {
                 </div>
                 <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300 flex-1">
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>Everything in Team</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Brain className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <Brain className="w-4 h-4 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>AI threat briefs, NL queries, daily digests</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Radio className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <Radio className="w-4 h-4 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>Custom data source integration</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Lock className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <Lock className="w-4 h-4 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>SSO &amp; on-prem deployment</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Zap className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <Zap className="w-4 h-4 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>Full API access</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Database className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <Database className="w-4 h-4 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>Unlimited data retention</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Eye className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <Eye className="w-4 h-4 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>Audit log with non-repudiation</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Shield className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <Shield className="w-4 h-4 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>SLA, dedicated support, compliance</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Globe className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <Globe className="w-4 h-4 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>White-label &amp; custom branding</span>
                   </li>
                 </ul>
@@ -799,18 +799,18 @@ export default function SigintPage() {
             </div>
 
             {/* Add-ons callout */}
-            <div className="mt-10 rounded-lg border border-gray-200 dark:border-gray-700/50 bg-white/40 dark:bg-gray-900/20 p-6">
+            <div className="mt-10 rounded-2xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_62%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_62%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5">
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-5">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                   Add-ons
                 </h3>
-                <span className="text-xs font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300">
+                <span className="rounded-full border border-sky-300/80 bg-sky-100/90 px-2.5 py-0.5 text-xs font-bold text-sky-700 dark:border-sky-400/20 dark:bg-sky-500/20 dark:text-sky-300">
                   AVAILABLE ON INDIVIDUAL &amp; TEAM
                 </span>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                <div className="group flex items-start gap-3 p-3 rounded border border-gray-200 dark:border-gray-800/50 hover:border-blue-500 dark:hover:border-sky-500 hover:bg-blue-50 dark:hover:bg-sky-500/5 cursor-default transition-all">
-                  <Newspaper className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                <div className="group flex items-start gap-3 rounded-lg border border-slate-200/80 bg-white/72 p-3 shadow-[0_10px_22px_rgba(15,23,42,0.06)] ring-1 ring-white/70 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_30px_rgba(15,23,42,0.1)] dark:border-slate-700/65 dark:bg-slate-900/46 dark:ring-white/5 dark:hover:border-sky-400/28 dark:hover:bg-slate-900/62 dark:hover:shadow-[0_18px_34px_rgba(2,6,23,0.28)]">
+                  <Newspaper className="mt-0.5 h-4 w-4 flex-shrink-0 text-sky-700 dark:text-sky-400" />
                   <div>
                     <span className="text-sm text-gray-900 dark:text-white font-medium">
                       Custom RSS feeds
@@ -820,8 +820,8 @@ export default function SigintPage() {
                     </p>
                   </div>
                 </div>
-                <div className="group flex items-start gap-3 p-3 rounded border border-gray-200 dark:border-gray-800/50 hover:border-blue-500 dark:hover:border-sky-500 hover:bg-blue-50 dark:hover:bg-sky-500/5 cursor-default transition-all">
-                  <Satellite className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                <div className="group flex items-start gap-3 rounded-lg border border-slate-200/80 bg-white/72 p-3 shadow-[0_10px_22px_rgba(15,23,42,0.06)] ring-1 ring-white/70 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_30px_rgba(15,23,42,0.1)] dark:border-slate-700/65 dark:bg-slate-900/46 dark:ring-white/5 dark:hover:border-sky-400/28 dark:hover:bg-slate-900/62 dark:hover:shadow-[0_18px_34px_rgba(2,6,23,0.28)]">
+                  <Satellite className="mt-0.5 h-4 w-4 flex-shrink-0 text-sky-700 dark:text-sky-400" />
                   <div>
                     <span className="text-sm text-gray-900 dark:text-white font-medium">
                       Premium data sources
@@ -831,8 +831,8 @@ export default function SigintPage() {
                     </p>
                   </div>
                 </div>
-                <div className="group flex items-start gap-3 p-3 rounded border border-gray-200 dark:border-gray-800/50 hover:border-blue-500 dark:hover:border-sky-500 hover:bg-blue-50 dark:hover:bg-sky-500/5 cursor-default transition-all">
-                  <Database className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                <div className="group flex items-start gap-3 rounded-lg border border-slate-200/80 bg-white/72 p-3 shadow-[0_10px_22px_rgba(15,23,42,0.06)] ring-1 ring-white/70 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_30px_rgba(15,23,42,0.1)] dark:border-slate-700/65 dark:bg-slate-900/46 dark:ring-white/5 dark:hover:border-sky-400/28 dark:hover:bg-slate-900/62 dark:hover:shadow-[0_18px_34px_rgba(2,6,23,0.28)]">
+                  <Database className="mt-0.5 h-4 w-4 flex-shrink-0 text-sky-700 dark:text-sky-400" />
                   <div>
                     <span className="text-sm text-gray-900 dark:text-white font-medium">
                       Extended retention
@@ -842,8 +842,8 @@ export default function SigintPage() {
                     </p>
                   </div>
                 </div>
-                <div className="group flex items-start gap-3 p-3 rounded border border-gray-200 dark:border-gray-800/50 hover:border-blue-500 dark:hover:border-sky-500 hover:bg-blue-50 dark:hover:bg-sky-500/5 cursor-default transition-all">
-                  <Bell className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                <div className="group flex items-start gap-3 rounded-lg border border-slate-200/80 bg-white/72 p-3 shadow-[0_10px_22px_rgba(15,23,42,0.06)] ring-1 ring-white/70 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_30px_rgba(15,23,42,0.1)] dark:border-slate-700/65 dark:bg-slate-900/46 dark:ring-white/5 dark:hover:border-sky-400/28 dark:hover:bg-slate-900/62 dark:hover:shadow-[0_18px_34px_rgba(2,6,23,0.28)]">
+                  <Bell className="mt-0.5 h-4 w-4 flex-shrink-0 text-sky-700 dark:text-sky-400" />
                   <div>
                     <span className="text-sm text-gray-900 dark:text-white font-medium">
                       Alert channels
@@ -853,8 +853,8 @@ export default function SigintPage() {
                     </p>
                   </div>
                 </div>
-                <div className="group flex items-start gap-3 p-3 rounded border border-gray-200 dark:border-gray-800/50 hover:border-blue-500 dark:hover:border-sky-500 hover:bg-blue-50 dark:hover:bg-sky-500/5 cursor-default transition-all">
-                  <Zap className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                <div className="group flex items-start gap-3 rounded-lg border border-slate-200/80 bg-white/72 p-3 shadow-[0_10px_22px_rgba(15,23,42,0.06)] ring-1 ring-white/70 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_30px_rgba(15,23,42,0.1)] dark:border-slate-700/65 dark:bg-slate-900/46 dark:ring-white/5 dark:hover:border-sky-400/28 dark:hover:bg-slate-900/62 dark:hover:shadow-[0_18px_34px_rgba(2,6,23,0.28)]">
+                  <Zap className="mt-0.5 h-4 w-4 flex-shrink-0 text-sky-700 dark:text-sky-400" />
                   <div>
                     <span className="text-sm text-gray-900 dark:text-white font-medium">
                       Priority refresh
@@ -864,8 +864,8 @@ export default function SigintPage() {
                     </p>
                   </div>
                 </div>
-                <div className="group flex items-start gap-3 p-3 rounded border border-gray-200 dark:border-gray-800/50 hover:border-blue-500 dark:hover:border-sky-500 hover:bg-blue-50 dark:hover:bg-sky-500/5 cursor-default transition-all">
-                  <Monitor className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                <div className="group flex items-start gap-3 rounded-lg border border-slate-200/80 bg-white/72 p-3 shadow-[0_10px_22px_rgba(15,23,42,0.06)] ring-1 ring-white/70 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_30px_rgba(15,23,42,0.1)] dark:border-slate-700/65 dark:bg-slate-900/46 dark:ring-white/5 dark:hover:border-sky-400/28 dark:hover:bg-slate-900/62 dark:hover:shadow-[0_18px_34px_rgba(2,6,23,0.28)]">
+                  <Monitor className="mt-0.5 h-4 w-4 flex-shrink-0 text-sky-700 dark:text-sky-400" />
                   <div>
                     <span className="text-sm text-gray-900 dark:text-white font-medium">
                       Extra devices
@@ -896,7 +896,7 @@ export default function SigintPage() {
                 href="https://sigint-5154d935429b.herokuapp.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-lg border border-green-500/40 dark:border-green-500/30 hover:border-green-500 dark:hover:border-green-400 bg-green-500/5 hover:bg-green-500/10 text-gray-700 dark:text-green-300 hover:text-gray-900 dark:hover:text-green-200 text-lg font-medium transition-all"
+                className="inline-flex items-center gap-2 rounded-lg border border-emerald-400/85 bg-emerald-100/92 px-8 py-4 text-lg font-medium text-emerald-900 shadow-[0_12px_28px_rgba(16,185,129,0.16)] backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-emerald-500/90 hover:bg-emerald-100 hover:text-emerald-950 hover:shadow-[0_16px_34px_rgba(16,185,129,0.2)] dark:border-green-500/30 dark:bg-emerald-950/40 dark:text-green-300 dark:shadow-[0_14px_28px_rgba(16,185,129,0.14)] dark:hover:border-green-400 dark:hover:bg-emerald-950/55 dark:hover:text-green-200 dark:hover:shadow-[0_18px_34px_rgba(16,185,129,0.2)]"
               >
                 <Globe className="w-5 h-5" />
                 Try Live Demo

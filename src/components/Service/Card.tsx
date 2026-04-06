@@ -51,7 +51,7 @@ export function ServiceCard({
   return (
     <Link
       href={href}
-      className="p-6 bg-white dark:bg-slate-800/50 flex flex-col border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-lg hover:shadow-blue-500/20 hover:bg-blue-50 dark:hover:shadow-sky-400/20 hover:border-blue-500 dark:hover:bg-sky-900/20 dark:hover:border-sky-400 transition-all duration-300 group min-h-[300px]"
+      className="group relative flex min-h-[300px] flex-col overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]"
     >
       {/* Icon Section */}
       <div className="flex items-center gap-3 mb-4">
@@ -65,9 +65,9 @@ export function ServiceCard({
           return LucideIcon ? (
             <div
               key={idx}
-              className="w-12 h-12 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center group-hover:scale-110 transition-transform"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-sky-200/80 bg-sky-100/85 shadow-[0_8px_18px_rgba(59,130,246,0.12)] transition-transform duration-300 group-hover:scale-110 dark:border-sky-400/14 dark:bg-slate-800/88 dark:shadow-[0_10px_22px_rgba(2,132,199,0.14)]"
             >
-              <LucideIcon className="w-6 h-6 text-blue-600 dark:text-sky-400" />
+              <LucideIcon className="w-6 h-6 text-blue-700 dark:text-sky-300" />
             </div>
           ) : null;
         })}
@@ -79,13 +79,13 @@ export function ServiceCard({
       </h3>
 
       {/* Summary - Grows to fill space */}
-      <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed flex-grow mb-4">
+      <p className="mb-4 flex-grow text-sm leading-relaxed text-slate-700 dark:text-slate-300">
         {summary}
       </p>
 
       {/* CTA - Fixed at bottom */}
-      <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-        <span className="text-sm font-medium text-blue-600 dark:text-sky-400 flex items-center gap-2 group-hover:gap-3 transition-all">
+      <div className="border-t border-slate-200/70 pt-4 dark:border-slate-700/70">
+        <span className="flex items-center gap-2 text-sm font-medium text-blue-700 transition-all group-hover:gap-3 group-hover:text-blue-800 dark:text-sky-300 dark:group-hover:text-sky-200">
           {cta || "Learn More"}
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

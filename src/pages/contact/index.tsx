@@ -57,7 +57,7 @@ function HeadingSection() {
 
 function PrimaryContact() {
   return (
-    <div className="flex flex-col items-center justify-center text-center space-y-6 p-8 bg-blue-50 dark:bg-slate-800/50 rounded-lg border-2 border-blue-200 dark:border-sky-600">
+    <div className="relative flex flex-col items-center justify-center space-y-6 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/74 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.06),transparent_58%)] p-8 text-center shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.1),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5">
       <Phone className="w-16 h-16 text-blue-600 dark:text-sky-400" />
       <div className="space-y-2">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -79,7 +79,7 @@ function PrimaryContact() {
 
 function ContactInfoCard() {
   return (
-    <div className="space-y-6 p-6 bg-gray-50 dark:bg-slate-800/30 rounded-lg border border-gray-200 dark:border-gray-700">
+    <div className="relative space-y-6 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5">
       <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
         Other Ways to Reach Us
       </h3>
@@ -151,7 +151,7 @@ function SecureContactCard({
   return (
     <section
       id="pgp"
-      className="p-6 bg-gradient-to-br from-blue-50 to-sky-50 dark:from-slate-800/50 dark:to-slate-700/30 rounded-lg border border-blue-200 dark:border-sky-700"
+      className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/74 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.06),transparent_58%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.1),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5"
     >
       <div className="flex items-start gap-4">
         <ShieldCheck className="w-8 h-8 text-blue-600 dark:text-sky-400 flex-shrink-0 mt-1" />
@@ -167,7 +167,7 @@ function SecureContactCard({
           <button
             type="button"
             onClick={() => setShowPGP(!showPGP)}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded bg-blue-600 dark:bg-sky-600 text-white text-sm font-medium shadow hover:bg-blue-700 dark:hover:bg-sky-700 transition"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 dark:border dark:border-sky-400/18 dark:bg-sky-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(125,211,252,0.14),transparent_62%)] dark:shadow-[0_14px_28px_rgba(2,132,199,0.18)] dark:ring-1 dark:ring-white/5 dark:backdrop-blur-sm dark:hover:-translate-y-0.5 dark:hover:border-sky-400/28 dark:hover:bg-sky-900/72 dark:hover:shadow-[0_18px_34px_rgba(2,132,199,0.24)] text-white text-sm font-medium shadow transition-all"
             aria-controls="pgp-panel"
             aria-expanded={showPGP}
           >
@@ -182,7 +182,7 @@ function SecureContactCard({
           {showPGP && (
             <div
               id="pgp-panel"
-              className="mt-6 space-y-4 text-sm text-gray-700 dark:text-gray-300 p-4 bg-white dark:bg-slate-800 rounded border border-gray-200 dark:border-gray-700"
+              className="mt-6 space-y-4 rounded-xl border border-slate-200/80 bg-white/74 p-4 text-sm text-gray-700 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-slate-700/70 dark:bg-slate-900/64 dark:text-gray-300 dark:shadow-[0_18px_36px_rgba(2,6,23,0.26)] dark:ring-white/5"
             >
               <div>
                 <p className="font-semibold mb-1">Secure Email Address:</p>
@@ -200,7 +200,7 @@ function SecureContactCard({
                   target="_blank"
                   rel="noopener noreferrer"
                   download
-                  className="inline-block px-4 py-2 rounded bg-blue-600 dark:bg-sky-600 text-white font-medium text-sm shadow hover:bg-blue-700 dark:hover:bg-sky-700 transition"
+                  className="inline-block rounded bg-blue-600 px-4 py-2 hover:bg-blue-700 dark:border dark:border-sky-400/18 dark:bg-sky-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(125,211,252,0.14),transparent_62%)] dark:shadow-[0_14px_28px_rgba(2,132,199,0.18)] dark:ring-1 dark:ring-white/5 dark:backdrop-blur-sm dark:hover:-translate-y-0.5 dark:hover:border-sky-400/28 dark:hover:bg-sky-900/72 dark:hover:shadow-[0_18px_34px_rgba(2,132,199,0.24)] text-white font-medium text-sm shadow transition-all"
                 >
                   Download Public PGP Key
                 </a>
@@ -319,7 +319,7 @@ export default function ContactPage() {
           <SecureContactCard showPGP={showPGP} setShowPGP={setShowPGP} />
 
           {/* Contact Form */}
-          <section className="p-4 sm:p-6 bg-gradient-to-br from-blue-50 to-sky-50 dark:from-slate-800/50 dark:to-slate-700/30 rounded-lg border border-blue-200 dark:border-sky-700">
+          <section className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/74 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.06),transparent_58%)] p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.1),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 sm:p-6">
             <div className="flex items-center gap-3 mb-4">
               <MessageSquare className="w-7 h-7 sm:w-8 sm:h-8 text-blue-600 dark:text-sky-400 flex-shrink-0" />
               <div>

@@ -82,8 +82,10 @@ export default function RemoteSupportPlanPage() {
           />
 
           {/* Hero Section */}
-          <div className="bg-gradient-to-br from-blue-50 to-sky-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-6 sm:p-8 border border-blue-200 dark:border-sky-800 space-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-sky-900/30 rounded-full text-sm font-medium text-blue-700 dark:text-sky-300">
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/78 px-6 py-8 shadow-[0_18px_40px_rgba(15,23,42,0.08)] ring-1 ring-white/75 backdrop-blur-md dark:border-sky-400/18 dark:bg-slate-950/78 dark:shadow-[0_24px_60px_rgba(2,6,23,0.42)] dark:ring-white/5 space-y-4">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_54%)] dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.16),transparent_52%)]" />
+            <div className="pointer-events-none absolute left-1/2 top-0 h-24 w-52 -translate-x-1/2 rounded-full bg-sky-300/25 blur-3xl dark:bg-sky-400/16" />
+            <div className="relative inline-flex items-center gap-2 rounded-full border border-sky-300/60 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-sky-700 shadow-[0_8px_20px_rgba(56,189,248,0.12)] backdrop-blur-sm dark:border-sky-400/18 dark:bg-slate-900/70 dark:text-sky-300 dark:shadow-[0_12px_28px_rgba(2,132,199,0.16)]">
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -100,20 +102,20 @@ export default function RemoteSupportPlanPage() {
               Local Clients Only
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-bold leading-tight bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
+            <h1 className="relative text-3xl font-bold leading-tight text-slate-950 dark:text-white sm:text-5xl">
               Remote Support Service Plan
             </h1>
 
-            <p className="text-base sm:text-lg text-blue-600 dark:text-sky-400 max-w-2xl">
+            <p className="relative max-w-2xl text-base text-slate-600 dark:text-slate-300 sm:text-lg">
               Secure and private remote support for verified local clients.
             </p>
 
             {/* Feature Highlights - Now Visual Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-              <div className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 rounded-lg border border-blue-200 dark:border-sky-700">
-                <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+              <div className="relative flex items-center gap-3 overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 p-3 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-sm dark:border-slate-700/70 dark:bg-slate-900/62 dark:shadow-[0_16px_30px_rgba(2,6,23,0.28)] dark:ring-white/5">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-sky-200/80 bg-sky-100/85 shadow-[0_8px_18px_rgba(59,130,246,0.12)] dark:border-sky-400/14 dark:bg-slate-800/88 dark:shadow-[0_10px_22px_rgba(2,132,199,0.14)]">
                   <svg
-                    className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                    className="w-5 h-5 text-blue-700 dark:text-sky-300"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -131,10 +133,10 @@ export default function RemoteSupportPlanPage() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 rounded-lg border border-blue-200 dark:border-sky-700">
-                <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+              <div className="relative flex items-center gap-3 overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 p-3 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-sm dark:border-slate-700/70 dark:bg-slate-900/62 dark:shadow-[0_16px_30px_rgba(2,6,23,0.28)] dark:ring-white/5">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-sky-200/80 bg-sky-100/85 shadow-[0_8px_18px_rgba(59,130,246,0.12)] dark:border-sky-400/14 dark:bg-slate-800/88 dark:shadow-[0_10px_22px_rgba(2,132,199,0.14)]">
                   <svg
-                    className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                    className="w-5 h-5 text-blue-700 dark:text-sky-300"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -152,10 +154,10 @@ export default function RemoteSupportPlanPage() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 rounded-lg border border-blue-200 dark:border-sky-700">
-                <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
+              <div className="relative flex items-center gap-3 overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 p-3 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-sm dark:border-slate-700/70 dark:bg-slate-900/62 dark:shadow-[0_16px_30px_rgba(2,6,23,0.28)] dark:ring-white/5">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-sky-200/80 bg-sky-100/85 shadow-[0_8px_18px_rgba(59,130,246,0.12)] dark:border-sky-400/14 dark:bg-slate-800/88 dark:shadow-[0_10px_22px_rgba(2,132,199,0.14)]">
                   <svg
-                    className="w-5 h-5 text-blue-600 dark:text-sky-400"
+                    className="w-5 h-5 text-blue-700 dark:text-sky-300"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -222,7 +224,7 @@ export default function RemoteSupportPlanPage() {
               Technical Approach
             </h2>
             <div className="mt-3 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+              <div className="relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_32px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
                     <svg
@@ -251,7 +253,7 @@ export default function RemoteSupportPlanPage() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+              <div className="relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_32px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
                     <svg
@@ -280,7 +282,7 @@ export default function RemoteSupportPlanPage() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+              <div className="relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_32px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
                     <svg
@@ -309,7 +311,7 @@ export default function RemoteSupportPlanPage() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+              <div className="relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_32px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
                     <svg
@@ -338,7 +340,7 @@ export default function RemoteSupportPlanPage() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+              <div className="relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_32px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
                     <svg
@@ -367,7 +369,7 @@ export default function RemoteSupportPlanPage() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-shadow">
+              <div className="relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_16px_32px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center flex-shrink-0">
                     <svg
@@ -491,9 +493,9 @@ export default function RemoteSupportPlanPage() {
 
             <div className="grid md:grid-cols-2 gap-6">
               {/* Tier 1 */}
-              <div className="rounded-lg border-2 border-blue-200 dark:border-sky-700 bg-white dark:bg-slate-800/50 p-6 hover:shadow-lg hover:shadow-blue-500/20 dark:hover:shadow-sky-400/20 transition-all">
+              <div className="relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-blue-600 dark:bg-sky-600 text-white flex items-center justify-center text-xl font-bold">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-sky-300/70 bg-sky-100/85 text-xl font-bold text-sky-700 shadow-[0_8px_18px_rgba(59,130,246,0.12)] dark:border-sky-400/18 dark:bg-slate-800/90 dark:text-sky-300 dark:shadow-[0_10px_24px_rgba(2,132,199,0.16)]">
                     1
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -519,9 +521,9 @@ export default function RemoteSupportPlanPage() {
               </div>
 
               {/* Tier 2 */}
-              <div className="rounded-lg border-2 border-blue-200 dark:border-sky-700 bg-white dark:bg-slate-800/50 p-6 hover:shadow-lg hover:shadow-blue-500/20 dark:hover:shadow-sky-400/20 transition-all">
+              <div className="relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-blue-600 dark:bg-sky-600 text-white flex items-center justify-center text-xl font-bold">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-sky-300/70 bg-sky-100/85 text-xl font-bold text-sky-700 shadow-[0_8px_18px_rgba(59,130,246,0.12)] dark:border-sky-400/18 dark:bg-slate-800/90 dark:text-sky-300 dark:shadow-[0_10px_24px_rgba(2,132,199,0.16)]">
                     2
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -546,7 +548,7 @@ export default function RemoteSupportPlanPage() {
               </div>
             </div>
 
-            <div className="mt-6 p-4 bg-blue-50 dark:bg-sky-900/20 rounded-lg border border-blue-200 dark:border-sky-800">
+            <div className="relative mt-6 overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.28)] dark:ring-white/5">
               <p className="text-gray-700 dark:text-gray-300 text-sm">
                 <strong>Both tiers available as:</strong> Subscription (includes
                 member benefits, discounts, and after-hours priority) or
@@ -567,7 +569,9 @@ export default function RemoteSupportPlanPage() {
             >
               View Remote Services
             </h2>
-            <div className="mt-3 rounded-lg border-2 border-sky-300 dark:border-sky-700 bg-gradient-to-br from-sky-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 p-6 text-center">
+            <div className="relative mt-3 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/76 p-6 text-center shadow-[0_16px_38px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-sky-400/18 dark:bg-slate-950/74 dark:shadow-[0_22px_48px_rgba(2,6,23,0.36)] dark:ring-white/5">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.06),transparent_54%)] dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_52%)]" />
+              <div className="relative">
               <p className="text-gray-900 dark:text-white mb-4">
                 Explore all our remote service offerings for local clients,
                 including troubleshooting, maintenance, security assessments,
@@ -575,11 +579,12 @@ export default function RemoteSupportPlanPage() {
               </p>
               <Link
                 href="/services/remote"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-600 hover:bg-sky-700 dark:bg-sky-600 dark:hover:bg-sky-700 text-white font-semibold transition-all shadow-md hover:shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-600 hover:bg-sky-700 dark:border dark:border-sky-400/18 dark:bg-sky-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(125,211,252,0.14),transparent_62%)] dark:shadow-[0_14px_28px_rgba(2,132,199,0.18)] dark:ring-1 dark:ring-white/5 dark:backdrop-blur-sm dark:hover:-translate-y-0.5 dark:hover:border-sky-400/28 dark:hover:bg-sky-900/72 dark:hover:shadow-[0_18px_34px_rgba(2,132,199,0.24)] text-white font-semibold transition-all shadow-md hover:shadow-lg"
               >
                 View Remote Services
                 <ArrowRight className="w-5 h-5" aria-hidden="true" />
               </Link>
+              </div>
             </div>
           </section>
 

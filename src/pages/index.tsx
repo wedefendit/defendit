@@ -36,9 +36,9 @@ function BenefitCard({ icon, title, description, link }: BenefitCardProps) {
   return (
     <Link
       href={link}
-      className="group flex flex-col items-center text-center p-6 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-sky-500 hover:bg-blue-50 dark:hover:bg-slate-800/50 transition-all"
+      className="group relative flex flex-col items-center overflow-hidden rounded-xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] p-6 text-center shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/80 hover:bg-white/84 hover:shadow-[0_18px_38px_rgba(15,23,42,0.12)] dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5 dark:hover:border-sky-400/30 dark:hover:bg-slate-900/74 dark:hover:shadow-[0_24px_46px_rgba(2,6,23,0.36)]"
     >
-      <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-sky-900/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-sky-200/80 bg-sky-100/85 shadow-[0_8px_18px_rgba(59,130,246,0.12)] transition-transform duration-300 group-hover:scale-110 dark:border-sky-400/14 dark:bg-slate-800/88 dark:shadow-[0_10px_22px_rgba(2,132,199,0.14)]">
         {icon}
       </div>
       <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
@@ -47,7 +47,7 @@ function BenefitCard({ icon, title, description, link }: BenefitCardProps) {
       <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
         {description}
       </p>
-      <span className="mt-4 text-blue-600 dark:text-sky-400 text-sm font-medium group-hover:underline inline-flex items-center gap-1">
+      <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-700 group-hover:underline dark:text-sky-300">
         Learn more <ArrowRight className="w-4 h-4" />
       </span>
     </Link>
@@ -136,7 +136,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-blue-600 hover:bg-blue-700 dark:bg-sky-600 dark:hover:bg-sky-700 text-white text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-blue-600 hover:bg-blue-700 dark:border dark:border-sky-400/18 dark:bg-sky-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(125,211,252,0.14),transparent_62%)] dark:shadow-[0_14px_28px_rgba(2,132,199,0.18)] dark:ring-1 dark:ring-white/5 dark:backdrop-blur-sm dark:hover:-translate-y-0.5 dark:hover:border-sky-400/28 dark:hover:bg-sky-900/72 dark:hover:shadow-[0_18px_34px_rgba(2,132,199,0.24)] text-white text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
             >
               <Phone className="w-5 h-5" />
               Schedule Service
@@ -171,7 +171,7 @@ export default function Home() {
         </section>
 
         {/* Why Choose Us */}
-        <section className="py-12 px-4 bg-gray-50 dark:bg-slate-900/30 rounded-lg max-w-4xl mx-auto">
+        <section className="max-w-4xl mx-auto rounded-2xl border border-slate-200/80 bg-white/72 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05),transparent_58%)] px-4 py-12 shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-white/70 backdrop-blur-md dark:border-slate-700/70 dark:bg-slate-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.09),transparent_60%)] dark:shadow-[0_18px_36px_rgba(2,6,23,0.3)] dark:ring-white/5">
           <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-6">
             Why Choose Defend I.T. Solutions?
           </h2>
@@ -218,7 +218,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href={`tel:${contact.phone.replace(/[^0-9]/g, "")}`}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-blue-600 hover:bg-blue-700 dark:bg-sky-600 dark:hover:bg-sky-700 text-white text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-blue-600 hover:bg-blue-700 dark:border dark:border-sky-400/18 dark:bg-sky-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(125,211,252,0.14),transparent_62%)] dark:shadow-[0_14px_28px_rgba(2,132,199,0.18)] dark:ring-1 dark:ring-white/5 dark:backdrop-blur-sm dark:hover:-translate-y-0.5 dark:hover:border-sky-400/28 dark:hover:bg-sky-900/72 dark:hover:shadow-[0_18px_34px_rgba(2,132,199,0.24)] text-white text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
             >
               <Phone className="w-5 h-5" />
               {displayPhone}
