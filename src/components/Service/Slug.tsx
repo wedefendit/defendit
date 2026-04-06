@@ -12,22 +12,42 @@ licensees of Defend I.T. Solutions LLC and may not be disclosed to any third
 party without express written consent.
 */
 
-import { generateServiceLd, generateBreadCrumbJsonLd } from "@/lib/json-ld";
+import {
+  generateBreadCrumbJsonLd,
+  generateFAQPageLd,
+  generateRelatedServiceLd,
+  generateServiceLd,
+  localBusinessLd,
+} from "@/lib/json-ld";
 import Link from "next/link";
 import { Lightbulb } from "lucide-react";
 import * as Icons from "lucide-react";
-import { PageContainer, Meta, BookOnline, BreadCrumbs } from "@/components";
+import {
+  PageContainer,
+  Meta,
+  BookOnline,
+  BreadCrumbs,
+  FaqSection,
+} from "@/components";
 
 export type ServiceContent = {
   id: string;
   title: string;
   headline: string;
   description: string;
+  metaTitle?: string;
+  metaDescription?: string;
   keywords: string[];
   url: string;
   image: string;
   requiresPlan?: boolean;
   icons?: string[];
+  serviceArea?: string[];
+  internalLinks?: { label: string; slug: string }[];
+  faq?: {
+    question: string;
+    answer: string;
+  }[];
   sections: {
     heading: string;
     paragraph?: string | string[];
@@ -44,6 +64,10 @@ export type ServiceSlugProps = {
 export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
   const [first, ...rest] = service.sections;
   const isRemote = remote || false;
+  const internalLinks =
+    service.internalLinks && service.internalLinks.length > 0
+      ? service.internalLinks
+      : related;
 
   const crumbs = [
     { name: "Home", href: "/" },
@@ -60,8 +84,9 @@ export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
     name: service.title,
     image: service.image,
     keywords: service.keywords,
-    description: service.description,
+    description: service.metaDescription || service.description,
     url: `https://www.wedefendit.com${service.url}`,
+    areaServed: service.serviceArea,
     provider: { "@type": "Organization", name: "Defend I.T. Solutions" },
     offers: [
       {
@@ -75,24 +100,48 @@ export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
     ],
   });
 
+  const faqLd =
+    service.faq && service.faq.length > 0
+      ? generateFAQPageLd(
+          service.faq.map((item) => ({
+            name: item.question,
+            acceptedAnswer: item.answer,
+          })),
+        )
+      : null;
+
+  const relatedServicesLd =
+    internalLinks && internalLinks.length > 0
+      ? generateRelatedServiceLd(internalLinks, isRemote)
+      : null;
+
   const hasDYK =
     typeof first?.heading === "string" &&
     first.heading.toLowerCase().includes("did you know");
   const sections = hasDYK ? rest : service.sections;
 
   const canonical = `https://www.wedefendit.com${service.url}`;
+  const metaTitle = service.metaTitle || `${service.title} | Defend I.T. Solutions`;
+  const metaDescription = service.metaDescription || service.description;
+  const structuredGraph = [
+    breadcrumbLd,
+    serviceLd,
+    localBusinessLd,
+    ...(relatedServicesLd ? [relatedServicesLd] : []),
+    ...(faqLd ? [faqLd] : []),
+  ];
 
   return (
     <>
       <Meta
-        title={`${service.title} | Defend I.T. Solutions`}
-        description={service.description}
+        title={metaTitle}
+        description={metaDescription}
         image={service.image}
         imageAlt={`${service.title} — Defend I.T. Solutions`}
         url={canonical}
         canonical={canonical}
         keywords={service.keywords.join(", ")}
-        structuredData={{ "@graph": [breadcrumbLd, serviceLd] }}
+        structuredData={{ "@graph": structuredGraph }}
       />
 
       <PageContainer>
@@ -196,6 +245,10 @@ export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
             </section>
           ))}
 
+          {service.faq && service.faq.length > 0 && (
+            <FaqSection items={service.faq} />
+          )}
+
           {service.requiresPlan && (
             <div className="mt-6 rounded-lg border border-sky-400/30 bg-sky-100/40 dark:bg-sky-900/20 p-4 sm:p-5 text-sky-900 dark:text-sky-100 text-sm flex flex-col items-center">
               <span>
@@ -261,7 +314,7 @@ export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
               <BookOnline />
             </div>
 
-            {related && related.length > 0 && (
+            {internalLinks && internalLinks.length > 0 && (
               <nav
                 aria-label="Related services"
                 className="text-sm text-gray-700 dark:text-gray-300 max-w-full overflow-x-auto px-0 sm:px-1 mt-2"
@@ -270,7 +323,7 @@ export function ServiceSlug({ service, related, remote }: ServiceSlugProps) {
                   Related services:
                 </h3>
                 <ul className="flex flex-wrap items-stretch sm:items-center justify-start sm:justify-center gap-2 max-w-full">
-                  {related.map((r) => (
+                  {internalLinks.map((r) => (
                     <li key={r.slug} className="w-full sm:w-auto">
                       <Link
                         href={`/services/${

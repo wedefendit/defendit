@@ -15,53 +15,27 @@ party without express written consent.
 import jsonData from "@/data/services/list.json";
 import { Service, ServicePage } from "@/components/Service";
 // import { useLocationRedirect } from "@/hooks/useLocationRedirect";
-import { generateBreadCrumbJsonLd, generateServiceLd } from "@/lib/json-ld";
+
 export default function ServicesPage() {
   // useLocationRedirect(true); // auto-redirects if match found
 
   const canonical = "https://www.wedefendit.com/services";
   const services = jsonData.services as Service[]; // expects { name, slug, description? }
 
-  const breadcrumbLd = generateBreadCrumbJsonLd({
-    items: [
-      { name: "Home", href: "https://www.wedefendit.com/" },
-      { name: "Services", href: canonical },
-    ],
-    baseUrl: "https://www.wedefendit.com",
-  });
-
-  const serviceLd = generateServiceLd({
-    name: "Cybersecurity, IT Support & Tech Tutoring Services | Defend I.T. Solutions",
-    description:
-      "Explore in-person I.T. support, secure home networking, tech tutoring, and business cybersecurity services for The Villages, Ocala, and Central Florida.",
-    url: canonical,
-    image: "https://www.wedefendit.com/og-image.png",
-    offers: services.map((s) => ({
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: s.title,
-        description: s.summary || "",
-      },
-      availability: "https://schema.org/InStock",
-    })),
-  });
-
   return (
     <ServicePage
       meta={{
         title:
-          "Cybersecurity, IT Support & Tech Tutoring Services | Defend I.T. Solutions",
+          "Computer Repair, Cybersecurity & IT Support in Central Florida | Defend I.T. Solutions",
         description:
-          "Explore in-person I.T. support, secure home networking, tech tutoring, and business cybersecurity services for The Villages, Ocala, and Central Florida.",
+          "Local computer repair, virus removal, Wi-Fi setup, home network security, and on-site tech support for Ocala, Belleview, The Villages, and nearby Central Florida communities.",
         image: "https://www.wedefendit.com/og-image.png",
         url: canonical,
         canonical,
         keywords:
-          "IT support, cybersecurity, tech help, The Villages, Ocala, home networking, small business IT, computer repair, local tech services",
-        structuredData: { "@graph": [breadcrumbLd, serviceLd] },
+          "computer repair Ocala, home network security Ocala, on-site tech support The Villages, virus removal Belleview, Wi-Fi setup Central Florida, local IT support",
       }}
-      h1="Cybersecurity, IT Support & Tech Tutoring Services"
+      h1="Central Florida Computer Repair, Cybersecurity & IT Support"
       services={services}
     />
   );

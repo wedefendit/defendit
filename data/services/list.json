@@ -5,7 +5,7 @@
       "title": "Computer Repair",
       "headline": "Fix slow, crashing, or broken computers—fast.",
       "icons": ["pc-case", "monitor-smartphone", "wrench"],
-      "summary": "Professional desktop and laptop repair for performance issues, hardware failures, crashes, and software conflicts, with clear diagnostics and no unnecessary upsells.",
+      "summary": "Diagnostics and repair for slow, crashing, overheating, or non-booting laptops and desktops, with honest repair guidance and data-safe troubleshooting.",
       "cta": "Get Computer Repair"
     },
     {
@@ -13,48 +13,40 @@
       "title": "Virus & Malware Removal",
       "headline": "Remove infections and secure your system.",
       "icons": ["shield-plus", "worm", "alert-triangle"],
-      "summary": "Thorough detection and removal of malware, spyware, and unwanted software, followed by system hardening to prevent reinfection.",
+      "summary": "Malware cleanup and post-remediation hardening for pop-ups, browser hijacks, suspicious logins, and other signs a computer may be compromised.",
       "cta": "Remove Malware"
     },
     {
       "id": "home-network-security",
-      "title": "Home Network Security",
+      "title": "Home Network Security & Wi-Fi Hardening",
       "headline": "Protect your Wi-Fi and connected devices.",
       "icons": ["house-wifi", "router", "shield-check"],
-      "summary": "Assessment and hardening of home networks to reduce risk from intrusions, misconfigurations, and insecure devices.",
+      "summary": "Router, Wi-Fi, and device hardening to reduce risk from weak defaults, insecure smart devices, poor segmentation, and unsafe browsing.",
       "cta": "Secure My Network"
-    },
-    {
-      "id": "scam-protection",
-      "title": "Scam & Fraud Protection",
-      "headline": "Avoid scams before they cause damage.",
-      "icons": ["presentation", "glasses", "shield-alert"],
-      "summary": "Education and device configuration to help you recognize, block, and avoid phone, email, and online scams.",
-      "cta": "Get Scam Protection"
-    },
-    {
-      "id": "custom-solutions",
-      "title": "Custom Technology Solutions",
-      "headline": "Advanced solutions for complex needs.",
-      "icons": ["puzzle", "monitor-cog", "user"],
-      "summary": "Tailored technology and security solutions including privacy planning, advanced system design, and specialized setups.",
-      "cta": "Discuss My Needs"
     },
     {
       "id": "network-setup",
       "title": "Wi-Fi & Network Setup",
       "headline": "Reliable, fast, and secure home networking.",
       "icons": ["router", "ethernet-port", "house-plug"],
-      "summary": "Installation and optimization of Wi-Fi, wired networks, and access points to improve speed, coverage, and security.",
+      "summary": "Router, mesh, access point, and wired network setup focused on coverage, speed, and reliability, with secure baseline configuration included.",
       "cta": "Set Up My Network"
     },
     {
-      "id": "data-recovery",
-      "title": "Backup & Data Recovery",
-      "headline": "Recover lost data and prevent future loss.",
-      "icons": ["hard-drive", "clock", "file-check"],
-      "summary": "Recovery of lost or deleted files when possible, plus setup of secure, automated backups to protect critical data.",
-      "cta": "Protect My Data"
+      "id": "onsite-tech-support",
+      "title": "On-Site Tech Support",
+      "headline": "In-home help when you need it.",
+      "icons": ["badge-check", "home", "wrench"],
+      "summary": "House-call tech help when the issue spans computers, Wi-Fi, printers, or new devices and you want one visit to sort it out.",
+      "cta": "Book On-Site Support"
+    },
+    {
+      "id": "scam-protection",
+      "title": "Scam & Fraud Protection",
+      "headline": "Avoid scams before they cause damage.",
+      "icons": ["presentation", "glasses", "shield-alert"],
+      "summary": "Practical scam prevention for households and retirees, including phishing awareness, safer device settings, and help evaluating suspicious calls, texts, and emails.",
+      "cta": "Get Scam Protection"
     },
     {
       "id": "password-management",
@@ -65,12 +57,12 @@
       "cta": "Secure My Accounts"
     },
     {
-      "id": "onsite-tech-support",
-      "title": "On-Site Tech Support",
-      "headline": "In-home help when you need it.",
-      "icons": ["badge-check", "home", "wrench"],
-      "summary": "On-site troubleshooting and setup for computers, networks, printers, and devices without the hassle of a repair shop.",
-      "cta": "Book On-Site Support"
+      "id": "data-recovery",
+      "title": "Backup & Data Recovery",
+      "headline": "Recover lost data and prevent future loss.",
+      "icons": ["hard-drive", "clock", "file-check"],
+      "summary": "Recovery of lost or deleted files when possible, plus setup of secure, automated backups to protect critical data.",
+      "cta": "Protect My Data"
     },
     {
       "id": "software-troubleshooting",
@@ -95,6 +87,14 @@
       "icons": ["house-wifi", "camera", "shield-check"],
       "summary": "Configuration and security of smart home devices with privacy-first settings and least-privilege access.",
       "cta": "Set Up My Smart Home"
+    },
+    {
+      "id": "custom-solutions",
+      "title": "Custom Technology Solutions",
+      "headline": "Advanced solutions for complex needs.",
+      "icons": ["puzzle", "monitor-cog", "user"],
+      "summary": "Privacy-focused consulting and specialized technology planning for projects that do not fit standard repair or support work.",
+      "cta": "Discuss My Needs"
     }
   ]
 }

@@ -25,6 +25,7 @@ export * from "./BreadCrumbs";
 export * from "./CopyableCode";
 export * from "./ThemeToggler";
 export * from "./ElderlyScams";
+export * from "./FaqSection";
 export * from "./JsonLdScript";
 export * from "./PageContainer";
 export * from "./SafetyTipsList";

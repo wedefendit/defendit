@@ -106,7 +106,8 @@ export default function ServicePage(props: ServicesPageProps) {
   const servicesCollectionLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Services | Defend I.T. Solutions",
+    name: meta.title || "Services | Defend I.T. Solutions",
+    description: meta.description,
     url: canonical,
     mainEntity: {
       "@type": "ItemList",
@@ -130,12 +131,24 @@ export default function ServicePage(props: ServicesPageProps) {
     },
   };
 
+  const existingStructuredData = meta?.structuredData;
+  const existingGraph = existingStructuredData
+    ? Array.isArray(existingStructuredData["@graph"])
+      ? existingStructuredData["@graph"]
+      : [existingStructuredData]
+    : [];
+
   const metaWithStructured = {
     ...meta,
     url: canonical,
     canonical,
     structuredData: {
-      "@graph": [breadcrumbLd, servicesCollectionLd, localBusinessLd],
+      "@graph": [
+        ...existingGraph,
+        breadcrumbLd,
+        servicesCollectionLd,
+        localBusinessLd,
+      ],
     },
   };
 

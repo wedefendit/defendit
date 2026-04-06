@@ -3,6 +3,8 @@
   "title": "Home Network Security & Wi-Fi Hardening",
   "headline": "Protect your home from scams, spying, and insecure smart devices using security-first networking practices.",
   "description": "Professional home network security and Wi-Fi hardening services using DNS filtering, device isolation, firewall configuration, and privacy-first controls, serving Ocala, Belleview, The Villages, and surrounding Central Florida communities.",
+  "metaTitle": "Home Network Security in Ocala & The Villages | Defend I.T. Solutions",
+  "metaDescription": "Protect your router, Wi-Fi, and smart devices with home network hardening, DNS filtering, guest network setup, and practical security guidance in Central Florida.",
   "keywords": [
     "home network security Ocala FL",
     "Wi-Fi hardening Ocala",
@@ -16,13 +18,36 @@
   ],
   "url": "/services/home-network-security",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": [
+    "Ocala FL",
+    "Belleview FL",
+    "The Villages FL",
+    "Central Florida"
+  ],
   "sections": [
     {
       "heading": "Did You Know?",
       "paragraph": [
-        "Multiple large-scale security studies consistently find that a significant majority of consumer and small-office (SOHO) routers ship with known vulnerabilities, insecure defaults, or outdated firmware, leaving most home networks exposed unless deliberately hardened.",
-        "Smart TVs, voice assistants, and IoT devices often collect behavioral data and communicate externally, sometimes bypassing basic router protections.",
-        "DNS requests often reveal browsing activity unless deliberately filtered or redirected to privacy-respecting resolvers."
+        "Many home routers keep their default settings long after installation, even when better security options are available.",
+        "Smart TVs, cameras, voice assistants, and other connected devices often share the same network as laptops, phones, and work devices unless they are separated intentionally.",
+        "Safer DNS settings, guest access controls, and better Wi-Fi configuration can reduce phishing, tracking, and unnecessary exposure without making the network harder to use."
+      ]
+    },
+    {
+      "heading": "Who This Helps",
+      "paragraph": [
+        "This service is for households that rely on home Wi-Fi for work, communication, banking, shopping, or smart devices but are not confident the network is actually set up safely.",
+        "It is especially helpful when multiple people, guests, and smart devices all share the same connection and you want better protection without creating a complicated setup."
+      ]
+    },
+    {
+      "heading": "Signs Your Home Network Needs Hardening",
+      "items": [
+        "You are still using the default router password, Wi-Fi name, or admin settings",
+        "There is no guest network for visitors, contractors, or less trusted devices",
+        "Smart home devices, cameras, phones, laptops, and work systems all share one flat network",
+        "You are not sure whether remote management, UPnP, or other risky features are enabled",
+        "You want safer browsing, better phishing protection, or more confidence in your home Wi-Fi security"
       ]
     },
     {
@@ -40,26 +65,49 @@
       ]
     },
     {
-      "heading": "How It Works",
+      "heading": "When This Is the Right Fit",
       "paragraph": [
-        "We begin by reviewing your existing network layout, devices, and router configuration to identify weaknesses.",
-        "Next, we apply the appropriate combination of filtering, isolation, and configuration to improve security without sacrificing usability.",
-        "You receive clear documentation and maintain full control of your network with no subscriptions or ongoing fees."
+        "Choose Home Network Security when your priority is reducing risk, improving privacy, and hardening an existing network. If you mainly need better coverage, new Wi-Fi hardware, or fresh installation of routers or mesh equipment, Wi-Fi & Network Setup is usually the better starting point. If the project is centered on cameras, voice assistants, or automations, Smart Home Setup & Security may be the better fit."
+      ]
+    },
+    {
+      "heading": "Local Availability",
+      "paragraph": [
+        "Home network security visits are available in Ocala, Belleview, The Villages, and nearby Central Florida communities. We focus on practical changes you can understand and maintain rather than vague fear-based security advice."
       ]
     }
   ],
-  "related": [
+  "internalLinks": [
+    { "label": "Wi-Fi & Network Setup", "slug": "network-setup" },
+    { "label": "Smart Home Setup & Security", "slug": "smart-home-setup" },
+    { "label": "Scam & Fraud Protection Services", "slug": "scam-protection" }
+  ],
+  "faq": [
     {
-      "label": "Smart Home Setup & Security",
-      "slug": "smart-home-setup"
+      "question": "Can you secure the router I already own?",
+      "answer": "Usually, yes. In many cases we can improve security on existing equipment by updating firmware, changing default settings, strengthening Wi-Fi configuration, and setting up guest or separated access. If the hardware is outdated or unsupported, we explain why replacement is the safer choice."
     },
+    {
+      "question": "Is this the same as Wi-Fi setup?",
+      "answer": "Not exactly. Wi-Fi & Network Setup focuses on coverage, performance, and installing or organizing network equipment. Home Network Security focuses on reducing risk through hardening, safer settings, segmentation, DNS filtering, and smart device isolation."
+    },
+    {
+      "question": "Can you help with smart TVs, cameras, and other smart home devices?",
+      "answer": "Yes. We can review how smart devices connect to the network, separate them from more sensitive systems when appropriate, and reduce unnecessary exposure. If you need broader smart home installation or automation help, Smart Home Setup & Security may be the better match."
+    }
+  ],
+  "related": [
     {
       "label": "Wi-Fi & Network Setup",
       "slug": "network-setup"
     },
     {
-      "label": "Password Management & Digital Safety",
-      "slug": "password-management"
+      "label": "Smart Home Setup & Security",
+      "slug": "smart-home-setup"
+    },
+    {
+      "label": "Scam & Fraud Protection Services",
+      "slug": "scam-protection"
     }
   ],
   "cta": {

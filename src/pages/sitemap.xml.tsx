@@ -1,37 +1,54 @@
+import fs from "fs";
+import path from "path";
 import { GetServerSideProps } from "next";
 
 const Sitemap = () => null;
 
-// Canonical service slugs
-const serviceSlugs = [
-  "computer-repair",
-  "custom-solutions",
-  "data-recovery",
-  "home-network-security",
-  "network-setup",
-  "onsite-tech-support",
-  "password-management",
-  "pc-upgrades",
-  "scam-protection",
-  "smart-home-setup",
-  "software-troubleshooting",
-  "virus-removal",
-];
+const LOCAL_SERVICE_DIR = path.join(process.cwd(), "data/services/slug-templates");
+const REMOTE_SERVICE_DIR = path.join(
+  process.cwd(),
+  "data/services/remote/services",
+);
+const REMOTE_PAGE_DIR = path.join(process.cwd(), "src/pages/services/remote");
 
-// Remote service slugs
-const remoteSlugs = [
-  "remote-privacy-hardening",
-  "remote-security-assessment",
-  "remote-support",
-  "remote-tech-tutoring",
-  "remote-training",
-  "remote-virus-removal",
-  "remote-support-plan",
-];
+function readJsonSlugs(dir: string) {
+  if (!fs.existsSync(dir)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(dir)
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => file.replace(/\.json$/, ""))
+    .sort();
+}
+
+function readNestedIndexSlugs(dir: string) {
+  if (!fs.existsSync(dir)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .filter((entry) =>
+      fs.existsSync(path.join(dir, entry.name, "index.tsx")) ||
+      fs.existsSync(path.join(dir, entry.name, "index.ts")),
+    )
+    .map((entry) => entry.name)
+    .sort();
+}
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const baseUrl = "https://www.wedefendit.com";
   const now = new Date().toISOString();
+  const serviceSlugs = readJsonSlugs(LOCAL_SERVICE_DIR);
+  const remoteSlugs = Array.from(
+    new Set([
+      ...readJsonSlugs(REMOTE_SERVICE_DIR),
+      ...readNestedIndexSlugs(REMOTE_PAGE_DIR),
+    ]),
+  ).sort();
 
   const staticPages = [
     { path: "", priority: "1.00" }, // homepage

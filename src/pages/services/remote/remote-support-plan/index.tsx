@@ -12,40 +12,46 @@ licensees of Defend I.T. Solutions LLC and may not be disclosed to any third
 party without express written consent.
 */
 
-import { PageContainer, Meta, BreadCrumbs, JsonLdScript } from "@/components";
-import { localBusinessLd } from "@/lib/json-ld";
+import {
+  PageContainer,
+  Meta,
+  BreadCrumbs,
+  JsonLdScript,
+  FaqSection,
+} from "@/components";
+import { generateFAQPageLd, localBusinessLd } from "@/lib/json-ld";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function RemoteSupportPlanPage() {
   const faq = [
     {
-      q: "Do you require a VPN?",
-      a: "No. DISecureLink routes only support traffic with split tunneling. Regular browsing stays on your normal connection.",
+      question: "Do you require a VPN?",
+      answer:
+        "No. DISecureLink routes only support traffic with split tunneling. Regular browsing stays on your normal connection.",
     },
     {
-      q: "Can you access my devices at any time?",
-      a: "Access is consent-based. You choose unattended or on-demand. Permissions are scoped per device.",
+      question: "Can you access my devices at any time?",
+      answer:
+        "Access is consent-based. You choose unattended or on-demand. Permissions are scoped per device.",
     },
     {
-      q: "Is my data visible to third parties?",
-      a: "Sessions are encrypted. We do not sell or share client data. Access is limited to verified technicians.",
+      question: "Is my data visible to third parties?",
+      answer:
+        "Sessions are encrypted. We do not sell or share client data. Access is limited to verified technicians.",
     },
     {
-      q: "Can non-local clients enroll?",
-      a: "No. Enrollment requires on-site verification in our service area.",
+      question: "Can non-local clients enroll?",
+      answer: "No. Enrollment requires on-site verification in our service area.",
     },
   ];
 
-  const faqLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faq.map(({ q, a }) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
+  const faqLd = generateFAQPageLd(
+    faq.map(({ question, answer }) => ({
+      name: question,
+      acceptedAnswer: answer,
     })),
-  };
+  );
 
   return (
     <>
@@ -650,57 +656,7 @@ export default function RemoteSupportPlanPage() {
           </section>
 
           {/* FAQ */}
-          <section
-            className="pt-6 sm:pt-8 border-t border-gray-200/60 dark:border-gray-700/60"
-            aria-labelledby="faq"
-          >
-            <h2 id="faq" className="text-2xl font-semibold mb-4">
-              Frequently Asked Questions
-            </h2>
-            <div className="mt-4 space-y-3">
-              {faq.map(({ q, a }) => (
-                <details
-                  key={q}
-                  className="group rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800/50 p-4 hover:shadow-md transition-all"
-                >
-                  <summary className="cursor-pointer font-medium flex items-center justify-between text-gray-900 dark:text-white">
-                    <span className="flex items-center gap-3">
-                      <svg
-                        className="w-5 h-5 text-blue-600 dark:text-sky-400 flex-shrink-0"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      {q}
-                    </span>
-                    <svg
-                      className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </summary>
-                  <p className="mt-3 pl-8 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                    {a}
-                  </p>
-                </details>
-              ))}
-            </div>
-          </section>
+          <FaqSection items={faq} />
         </main>
       </PageContainer>
     </>

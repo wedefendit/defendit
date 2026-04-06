@@ -3,6 +3,8 @@
   "title": "Computer Repair",
   "headline": "Fix slow or broken devices with fast, local help. No waiting, no surprises.",
   "description": "Professional computer repair for laptops and desktops, including diagnostics, hardware replacement, data recovery, and performance optimization, serving Ocala, Belleview, The Villages, and surrounding Florida communities with transparent pricing and no unnecessary upsells.",
+  "metaTitle": "Computer Repair in Ocala, Belleview & The Villages | Defend I.T. Solutions",
+  "metaDescription": "Local laptop and desktop repair for slow, crashing, overheating, or non-booting computers. Clear diagnostics, honest repair guidance, and data-safe troubleshooting in Central Florida.",
   "keywords": [
     "computer repair Ocala FL",
     "computer repair Belleview FL",
@@ -16,6 +18,12 @@
   ],
   "url": "/services/computer-repair",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": [
+    "Ocala FL",
+    "Belleview FL",
+    "The Villages FL",
+    "Central Florida"
+  ],
   "icons": ["pc-case", "monitor-smartphone", "wrench"],
   "sections": [
     {
@@ -24,6 +32,23 @@
         "Many performance issues like freezing, lag, or failed startups are caused by aging hard drives, overheating, or misconfigured software, not hardware failure.",
         "Upgrading a traditional hard drive to an SSD can improve speed by 5 to 10 times and often costs far less than buying a new computer.",
         "Even when a computer will not boot, data recovery is often possible without wiping the drive or reinstalling the system if handled correctly."
+      ]
+    },
+    {
+      "heading": "Who This Helps",
+      "paragraph": [
+        "This service is for homeowners, retirees, and small business owners dealing with a laptop or desktop that is slow, unstable, overheating, physically damaged, or refusing to boot.",
+        "If you are not sure whether the problem is hardware, software, or both, computer repair is the right starting point because we diagnose the root cause before recommending a fix."
+      ]
+    },
+    {
+      "heading": "Signs You May Need Computer Repair",
+      "items": [
+        "Your computer takes a long time to start, open programs, or connect online",
+        "The system freezes, crashes, restarts unexpectedly, or shows blue-screen errors",
+        "The fan runs constantly, the laptop gets unusually hot, or the battery drains much faster than normal",
+        "The computer will not boot, cannot find the drive, or shuts off during startup",
+        "You dropped the device, damaged the screen, or suspect a failing drive, memory, or cooling issue"
       ]
     },
     {
@@ -41,20 +66,40 @@
       ]
     },
     {
-      "heading": "How It Works",
+      "heading": "When Another Service May Be a Better Fit",
       "paragraph": [
-        "We begin with a non-destructive diagnostic to find out what is really going on with your system.",
-        "If repair makes sense, we explain your options clearly with upfront pricing and no pressure.",
-        "We only fix what is needed and preserve your data whenever possible so you get the most out of your device."
+        "If the main problem is an active infection, Virus & Malware Removal is usually the better starting point. If the computer works but you mainly want better speed or battery life, PC & Laptop Upgrades may be more cost-effective. If your highest priority is retrieving important files, Backup & Data Recovery may be the better match."
+      ]
+    },
+    {
+      "heading": "Local Availability",
+      "paragraph": [
+        "Computer repair is available for customers in Ocala, Belleview, The Villages, and nearby Central Florida communities. We explain findings in plain English, quote the work clearly, and avoid pushing unnecessary replacements."
       ]
     }
   ],
-  "related": [
-    { "label": "On-Site Tech Support", "slug": "onsite-tech-support" },
+  "internalLinks": [
+    { "label": "Virus & Malware Removal", "slug": "virus-removal" },
+    { "label": "Backup & Data Recovery", "slug": "data-recovery" },
+    { "label": "PC & Laptop Upgrades", "slug": "pc-upgrades" }
+  ],
+  "faq": [
     {
-      "label": "Software Installation & Troubleshooting",
-      "slug": "software-troubleshooting"
+      "question": "Do I need a new computer or can this one be repaired?",
+      "answer": "Not always. Many slow or unstable computers can be repaired or upgraded for far less than replacement. We diagnose the problem first and tell you when repair makes sense and when it does not."
     },
+    {
+      "question": "Can you help if my computer will not boot?",
+      "answer": "Yes. A non-booting computer does not automatically mean your files are gone. We start with a careful diagnostic to find out whether the issue is the drive, startup configuration, memory, power, or another component before recommending next steps."
+    },
+    {
+      "question": "Do you work on both laptops and desktops?",
+      "answer": "Yes. We work on both laptops and desktop computers and can help determine whether the issue is hardware, software, heat, storage, memory, or a combination of problems."
+    }
+  ],
+  "related": [
+    { "label": "Virus & Malware Removal", "slug": "virus-removal" },
+    { "label": "Backup & Data Recovery", "slug": "data-recovery" },
     { "label": "PC & Laptop Upgrades", "slug": "pc-upgrades" }
   ],
   "cta": {

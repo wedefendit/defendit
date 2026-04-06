@@ -85,6 +85,7 @@ export type ServiceLdProps = {
   image: string;
   keywords?: string[];
   city?: string;
+  areaServed?: string[];
   provider?: {
     "@type": string; // e.g., "Organization"
     name: string;
@@ -104,6 +105,7 @@ export function generateServiceLd({
   url,
   image,
   city = "",
+  areaServed = city ? [`${city} FL`, "Central Florida"] : ["Central Florida"],
   offers = [],
   description,
   keywords = [],
@@ -118,7 +120,7 @@ export function generateServiceLd({
     provider,
     description,
     keywords: keywords.join(", "),
-    areaServed: city ? [`${city} FL`, "Central Florida"] : ["Central Florida"],
+    areaServed,
     offers: offers.map((offer) => ({
       "@type": "Offer",
 
