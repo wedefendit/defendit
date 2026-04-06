@@ -1,8 +1,10 @@
 {
   "id": "custom-solutions",
-  "title": "Advanced Cybersecurity & Custom Tech Consulting",
-  "headline": "Design secure, privacy-first technology tailored to how you actually use it.",
-  "description": "Custom cybersecurity and technology consulting for privacy, security, and performance, serving homeowners and small businesses in Ocala, Belleview, The Villages, and surrounding Florida communities.",
+  "title": "Custom Technology Solutions",
+  "headline": "Get a plan for privacy-focused projects that do not fit standard repair or support.",
+  "description": "Custom technology consulting and implementation planning for privacy, security, networking, automation, and self-hosted projects serving homeowners and small businesses in Ocala, Belleview, The Villages, and surrounding Central Florida communities.",
+  "metaTitle": "Custom Technology Consulting in Ocala & The Villages | Defend I.T. Solutions",
+  "metaDescription": "Planning and implementation help for privacy-focused home tech, self-hosted services, advanced networking, and other projects that do not fit standard repair work in Central Florida.",
   "keywords": [
     "custom IT solutions Ocala FL",
     "cybersecurity consulting Ocala",
@@ -15,36 +17,99 @@
   ],
   "url": "/services/custom-solutions",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": [
+    "Ocala FL",
+    "Belleview FL",
+    "The Villages FL",
+    "Central Florida"
+  ],
+  "icons": [
+    "puzzle",
+    "monitor-cog",
+    "user"
+  ],
   "sections": [
     {
       "heading": "Did You Know?",
       "paragraph": [
-        "Most off-the-shelf technology solutions prioritize convenience over security, often exposing unnecessary services or relying heavily on third-party cloud platforms.",
-        "Advanced environments such as homelabs, smart homes, or self-hosted services require deliberate design to avoid data leakage and access risks.",
-        "Well-designed custom systems can improve privacy, reliability, and performance while reducing long-term complexity."
+        "Many technology problems do not fit neatly into a repair category because the real need is planning, architecture, and implementation rather than a one-off fix.",
+        "Privacy-focused setups often require more intentional design than off-the-shelf consumer defaults provide.",
+        "A clear plan can save money and frustration when a project involves multiple devices, services, accounts, or security concerns."
+      ]
+    },
+    {
+      "heading": "Who This Helps",
+      "paragraph": [
+        "This service is for homeowners and small business owners with specialized projects that do not fit a standard repair, malware cleanup, or simple install visit.",
+        "It works best when you know the goal but need help designing the right setup, choosing the right tools, or implementing a clean, maintainable solution."
+      ]
+    },
+    {
+      "heading": "Common Project Types",
+      "items": [
+        "Privacy-focused home networking or advanced router and segmentation planning",
+        "Self-hosted storage, file sharing, or service setup for people who want more control",
+        "Smarter home or office technology projects that involve multiple systems working together",
+        "Secure access planning for remote use, shared devices, or mixed household and work needs",
+        "Projects that need consultation first because the right solution is not obvious yet"
       ]
     },
     {
       "heading": "What We Do",
       "paragraph": [
-        "We help individuals and small organizations design and implement secure, efficient technology systems that go beyond basic tech support."
+        "We help design and implement specialized technology setups with an emphasis on privacy, security, reliability, and long-term maintainability."
       ],
       "items": [
-        "Design secure, high-performance network architectures",
-        "Harden smart home platforms and limit unnecessary cloud exposure",
-        "Implement encrypted storage, backups, and private file sharing",
-        "Build and secure homelabs or self-hosted services",
-        "Configure privacy-focused software and automation tools",
-        "Develop custom applications or systems with security-first principles"
+        "Plan and implement secure networking for more advanced home or small business environments",
+        "Set up private storage, backup, or file-sharing workflows with clearer control",
+        "Help organize self-hosted or locally controlled services when cloud dependence is not ideal",
+        "Harden specialized smart home or mixed-device environments that need more than default settings",
+        "Provide consultation first when the project needs scope, options, and tradeoff analysis before implementation"
       ]
     },
     {
-      "heading": "How It Works",
+      "heading": "When This Is the Right Fit",
       "paragraph": [
-        "We begin with a technical consultation to understand your goals, environment, and risk profile.",
-        "From there, we design a clear, maintainable solution using trusted tools and proven security practices.",
-        "You retain full control of your systems with documentation and long-term sustainability built in."
+        "Choose Custom Technology Solutions when the project is real but does not fit neatly into repair, malware removal, Wi-Fi setup, or smart home installation. If the need is still straightforward, one of the standard service pages will usually be the faster starting point. This page is best used for special cases, planning-heavy work, and projects with multiple moving parts."
       ]
+    },
+    {
+      "heading": "Local Availability",
+      "paragraph": [
+        "Custom technology consulting is available in Ocala, Belleview, The Villages, and nearby Central Florida communities. We start by clarifying the goal, constraints, and options so the project has a practical path forward instead of a vague pile of ideas."
+      ]
+    }
+  ],
+  "internalLinks": [
+    {
+      "label": "Home Network Security & Wi-Fi Hardening",
+      "slug": "home-network-security"
+    },
+    {
+      "label": "Smart Home Setup & Security",
+      "slug": "smart-home-setup"
+    },
+    {
+      "label": "Wi-Fi & Network Setup",
+      "slug": "network-setup"
+    },
+    {
+      "label": "On-Site Tech Support",
+      "slug": "onsite-tech-support"
+    }
+  ],
+  "faq": [
+    {
+      "question": "How do I know if this is the right page instead of a standard service?",
+      "answer": "If your project does not fit clearly into repair, malware removal, Wi-Fi setup, smart home setup, or another standard service, this is the right starting point. It is meant for planning-heavy or more specialized work."
+    },
+    {
+      "question": "Can this start as a consultation before any implementation work?",
+      "answer": "Yes. In many cases the first step is a consultation to define the goal, constraints, and practical options before deciding on any hands-on implementation."
+    },
+    {
+      "question": "Do you help with privacy-focused or self-hosted setups?",
+      "answer": "Yes. This page is one of the best fits for projects where privacy, local control, self-hosting, or non-default architecture matters more than a simple consumer setup."
     }
   ],
   "related": [
@@ -59,19 +124,10 @@
     {
       "label": "Wi-Fi & Network Setup",
       "slug": "network-setup"
-    },
-    {
-      "label": "Remote IT & Cybersecurity Tutoring",
-      "slug": "remote-tech-tutoring"
     }
   ],
   "cta": {
     "label": "Talk to an Expert",
     "link": "/contact#schedule-service"
-  },
-  "icons": [
-    "puzzle",
-    "monitor-cog",
-    "user"
-  ]
+  }
 }

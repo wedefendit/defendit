@@ -1,8 +1,10 @@
 {
   "id": "scam-protection",
   "title": "Scam & Fraud Protection Services",
-  "headline": "Learn to spot scams, stop fraud, and protect yourself before it\u2019s too late.",
+  "headline": "Learn to spot scams, stop fraud, and protect yourself before it's too late.",
   "description": "Scam and fraud protection services that teach recognition of modern scams, secure devices, and reduce risk from phishing, tech support scams, and social engineering, serving Ocala, Belleview, The Villages, and surrounding Central Florida communities.",
+  "metaTitle": "Scam Protection for Seniors & Families in Central Florida | Defend I.T. Solutions",
+  "metaDescription": "Scam protection and fraud-prevention help for seniors, families, and caregivers in Central Florida. Learn to spot phishing, fake tech support, impersonation, and other common scams.",
   "keywords": [
     "scam protection Ocala FL",
     "scam protection Belleview FL",
@@ -16,6 +18,12 @@
   ],
   "url": "/services/scam-protection",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": [
+    "Ocala FL",
+    "Belleview FL",
+    "The Villages FL",
+    "Central Florida"
+  ],
   "sections": [
     {
       "heading": "Did You Know?",
@@ -23,6 +31,23 @@
         "Modern scams increasingly use AI-generated voices, spoofed caller IDs, and realistic fake websites to impersonate trusted people and organizations.",
         "Social engineering succeeds by exploiting urgency, fear, and trust rather than technical vulnerabilities.",
         "Many scam attempts bypass antivirus software entirely and rely on human behavior rather than malware."
+      ]
+    },
+    {
+      "heading": "Who This Helps",
+      "paragraph": [
+        "This service is especially helpful for retirees, older adults, families, and caregivers who want practical help avoiding phone scams, phishing, fake tech support, impersonation attempts, and other everyday fraud risks.",
+        "It is the right fit when the goal is prevention, safer habits, and confidence responding to suspicious messages or callers before damage is done."
+      ]
+    },
+    {
+      "heading": "Signs Scam Protection Would Help",
+      "items": [
+        "You or a family member keep getting suspicious calls, texts, emails, or pop-ups asking for money, passwords, or urgent action",
+        "You want help recognizing fake banks, fake tech support, fake package alerts, and impersonation scams",
+        "A parent or older relative in The Villages or nearby needs safer device settings and clearer guidance",
+        "You clicked something suspicious, gave information to the wrong person, or are no longer sure what is safe",
+        "You want practical scam education without jargon, pressure, or fear-based marketing"
       ]
     },
     {
@@ -39,12 +64,35 @@
       ]
     },
     {
-      "heading": "How It Works",
+      "heading": "When Another Service May Be a Better Fit",
       "paragraph": [
-        "We begin by reviewing your devices and current security settings.",
-        "Next, we explain common scam tactics so you can recognize them before they succeed.",
-        "We then apply practical protections and provide clear guidance, all explained patiently and without technical pressure."
+        "Choose Scam & Fraud Protection when the main need is education, prevention, and safer day-to-day handling of suspicious calls, emails, texts, and websites. If the issue is already a compromised computer, Virus & Malware Removal may be the better first step. If the main problem is securing accounts and passwords after an incident, Password Management & Digital Safety may be the better fit."
       ]
+    },
+    {
+      "heading": "Local Availability",
+      "paragraph": [
+        "Scam protection sessions are available in Ocala, Belleview, The Villages, and nearby Central Florida communities. We keep the guidance calm, clear, and practical so it is useful for both individuals and families."
+      ]
+    }
+  ],
+  "internalLinks": [
+    { "label": "Password Management & Digital Safety", "slug": "password-management" },
+    { "label": "Virus & Malware Removal", "slug": "virus-removal" },
+    { "label": "Home Network Security & Wi-Fi Hardening", "slug": "home-network-security" }
+  ],
+  "faq": [
+    {
+      "question": "Do I still need scam protection if I already have antivirus?",
+      "answer": "Yes. Many scams do not rely on malware at all. They rely on urgent messages, fake support calls, impersonation, and social pressure. Scam protection is about helping you recognize and stop those tactics before they succeed."
+    },
+    {
+      "question": "Can you help after I clicked a scam link or gave information to someone?",
+      "answer": "Yes. We can help you think through the next steps, secure devices and settings, and point you toward the right follow-up work. Depending on what happened, Virus & Malware Removal or Password Management & Digital Safety may also be important."
+    },
+    {
+      "question": "Is this only for seniors?",
+      "answer": "No. It is useful for anyone, but it is especially valuable for retirees, families, and caregivers who want clearer protection against the kinds of scams that target older adults and less technical users."
     }
   ],
   "related": [

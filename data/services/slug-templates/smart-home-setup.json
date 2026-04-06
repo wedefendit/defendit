@@ -1,8 +1,10 @@
 {
   "id": "smart-home-setup",
   "title": "Smart Home Setup & Security",
-  "headline": "Make it smart without making it risky.",
-  "description": "Professional smart home setup and security services for cameras, assistants, and home automation systems, configured with privacy-first, least-privilege access for homeowners in Ocala, Belleview, The Villages, and surrounding Central Florida communities.",
+  "headline": "Set up cameras, doorbells, assistants, and automations without turning your home into a privacy mess.",
+  "description": "Professional smart home setup and security services for cameras, assistants, sensors, and home automation systems, configured with privacy-first settings and practical access control for homeowners in Ocala, Belleview, The Villages, and surrounding Central Florida communities.",
+  "metaTitle": "Smart Home Setup in Ocala & The Villages | Defend I.T. Solutions",
+  "metaDescription": "Set up smart cameras, doorbells, speakers, hubs, and routines with privacy-first settings and cleaner network placement in Central Florida.",
   "keywords": [
     "smart home setup Ocala FL",
     "smart home setup Belleview FL",
@@ -16,35 +18,95 @@
   ],
   "url": "/services/smart-home-setup",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": [
+    "Ocala FL",
+    "Belleview FL",
+    "The Villages FL",
+    "Central Florida"
+  ],
+  "icons": [
+    "house-wifi",
+    "camera",
+    "shield-check"
+  ],
   "sections": [
     {
       "heading": "Did You Know?",
       "paragraph": [
-        "Many smart devices transmit telemetry to external servers by default, sometimes without clear user visibility.",
-        "Insecure IoT devices have been leveraged in large-scale botnet attacks such as Mirai.",
-        "Keeping firmware updated is one of the most effective ways to prevent remote exploitation of smart devices.",
-        "Default settings like open ports, UPnP, or weak passwords significantly increase smart home security risk."
+        "Many smart devices ship with broad default permissions, cloud dependencies, and settings most homeowners never get asked about during setup.",
+        "A smart home often becomes unreliable because devices are added one by one without a clean network plan, naming convention, or account structure.",
+        "Simple changes to placement, permissions, Wi-Fi usage, and account setup can make a smart home both easier to use and less exposed."
+      ]
+    },
+    {
+      "heading": "Who This Helps",
+      "paragraph": [
+        "This service is for homeowners who want cameras, doorbells, speakers, hubs, sensors, thermostats, or routines set up correctly without spending hours fighting with apps and vague instructions.",
+        "It is also helpful when a smart home already exists but feels disorganized, unreliable, or less private than you are comfortable with."
+      ]
+    },
+    {
+      "heading": "Signs You Need Smart Home Setup Help",
+      "items": [
+        "New smart devices are still in the box because setup feels confusing or time-consuming",
+        "Cameras, speakers, or automations drop offline or behave inconsistently",
+        "Too many people have broad access to devices or admin accounts",
+        "You are not sure whether devices should be on the main Wi-Fi, guest network, or a separate segment",
+        "You want the convenience of smart devices without adding unnecessary privacy or security risk"
       ]
     },
     {
       "heading": "What We Do",
       "paragraph": [
-        "We design and configure smart home environments that balance convenience with strong security and privacy controls."
+        "We set up and organize smart home devices so they are easier to use, easier to manage, and less risky than a default out-of-the-box install."
       ],
       "items": [
-        "Install and configure cameras, doorbells, sensors, and smart hubs",
-        "Set up voice assistants and local or hybrid control dashboards",
-        "Create reliable, secure automations and routines",
-        "Configure guest access and role-based permissions",
-        "Apply privacy-respecting defaults, logging, and monitoring"
+        "Install and configure cameras, doorbells, speakers, sensors, hubs, and other common smart home devices",
+        "Set up voice assistants, dashboards, and household-friendly control workflows",
+        "Create practical automations and routines with clear naming and organization",
+        "Review account access, roles, and sharing so the right people have the right level of control",
+        "Apply privacy-conscious settings and cleaner network placement for connected devices"
       ]
     },
     {
-      "heading": "How It Works",
+      "heading": "When This Is the Right Fit",
       "paragraph": [
-        "We review your goals, devices, and network layout, then install and secure your smart home using proper segmentation, strong authentication, and minimal required permissions.",
-        "All changes are documented so you remain in full control, with no hidden subscriptions or vendor lock-in."
+        "Choose Smart Home Setup & Security when the project centers on connected devices, automations, cameras, or home-control apps. If your main issue is Wi-Fi coverage or router installation, Wi-Fi & Network Setup is usually the better place to start. If your priority is hardening an existing network against risk, Home Network Security & Wi-Fi Hardening is usually the better fit."
       ]
+    },
+    {
+      "heading": "Local Availability",
+      "paragraph": [
+        "Smart home setup is available in Ocala, Belleview, The Villages, and nearby Central Florida communities. We keep the setup understandable so you are not left with a home full of devices that only make sense to the person who installed them."
+      ]
+    }
+  ],
+  "internalLinks": [
+    {
+      "label": "Home Network Security & Wi-Fi Hardening",
+      "slug": "home-network-security"
+    },
+    {
+      "label": "Wi-Fi & Network Setup",
+      "slug": "network-setup"
+    },
+    {
+      "label": "On-Site Tech Support",
+      "slug": "onsite-tech-support"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Can you help if some of my smart devices are already installed?",
+      "answer": "Yes. We can work with an existing smart home, clean up settings, reorganize access, improve reliability, and help make the setup easier to manage."
+    },
+    {
+      "question": "Do you work with cameras, doorbells, speakers, and thermostats?",
+      "answer": "Yes. We can help set up many common consumer smart home devices, especially when the goal is practical household use with clearer privacy and security settings."
+    },
+    {
+      "question": "Can you make the setup easier for non-technical family members?",
+      "answer": "Yes. Part of the job is making the system understandable, usable, and not overly dependent on one highly technical person to keep it running."
     }
   ],
   "related": [
@@ -64,10 +126,5 @@
   "cta": {
     "label": "Set Up My Smart Home",
     "link": "/contact#schedule-service"
-  },
-  "icons": [
-    "house-wifi",
-    "camera",
-    "shield-check"
-  ]
+  }
 }

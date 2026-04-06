@@ -2,23 +2,23 @@
   "top5": [
     {
       "icon": "ShieldCheck",
-      "title": "Look for HTTPS",
-      "description": "Always check for 'https://' and a padlock in the address bar before entering sensitive information."
+      "title": "Check for a Secure Website",
+      "description": "Before entering passwords, payment details, or other sensitive information, look for https:// and the padlock icon in your browser."
     },
     {
       "icon": "ExternalLink",
-      "title": "Be Cautious with Links",
-      "description": "Avoid clicking suspicious or unexpected links in emails, texts, or pop-ups. Hover to preview before clicking."
+      "title": "Be Careful with Links",
+      "description": "Do not click unexpected links in emails, text messages, pop-ups, or social media messages. When possible, preview the link first and make sure it goes where you expect."
     },
     {
       "icon": "KeyRound",
       "title": "Use Strong, Unique Passwords",
-      "description": "Every account should have a different password to reduce the risk if one is compromised. Mix letters, numbers, and symbols. Passwords should contain at least 16 characters. Use a reputable password manager."
+      "description": "Use a different password for every important account. Longer passwords are safer, and a reputable password manager can help you create and store them securely."
     },
     {
       "icon": "Lock",
-      "title": "Enable Multi-Factor Authentication (MFA)",
-      "description": "Adds a second layer of protection beyond just your password. Use it whenever possible, and only with secure methods. Avoid SMS and Email MFA if possible."
+      "title": "Turn On Extra Account Protection",
+      "description": "Enable multi-factor authentication whenever it is available. An authenticator app or passkey is usually best, but even text-message verification is better than having no extra protection at all."
     }
   ]
 }

@@ -1,8 +1,10 @@
 {
   "id": "onsite-tech-support",
-  "title": "On-Site Tech Support Services",
-  "headline": "On-site computer and IT support\u2014we come to you.",
-  "description": "Professional in-home tech support for computers, Wi-Fi, printers, and smart devices, serving homeowners and small businesses in Ocala, Belleview, The Villages, and surrounding Central Florida communities.",
+  "title": "On-Site Tech Support",
+  "headline": "Hands-on computer and tech help at your home or small office.",
+  "description": "In-home tech support for computers, Wi-Fi, printers, smart devices, and general troubleshooting in Ocala, Belleview, The Villages, and nearby Central Florida communities.",
+  "metaTitle": "On-Site Tech Support in Ocala & The Villages | Defend I.T. Solutions",
+  "metaDescription": "House-call tech support for computers, Wi-Fi, printers, new devices, and general troubleshooting in Central Florida. Clear in-person help without the repair-shop hassle.",
   "keywords": [
     "on-site tech support Ocala FL",
     "in-home computer help Ocala",
@@ -14,6 +16,12 @@
   ],
   "url": "/services/onsite-tech-support",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": [
+    "Ocala FL",
+    "Belleview FL",
+    "The Villages FL",
+    "Central Florida"
+  ],
   "sections": [
     {
       "heading": "Did You Know?",
@@ -21,6 +29,23 @@
         "Many slow computers can be fixed by removing unnecessary startup programs, malware, or misconfigured software.",
         "Poor router placement or interference can significantly reduce Wi-Fi performance, even on fast internet plans.",
         "Overheating and driver issues are common causes of random shutdowns, crashes, and printer errors."
+      ]
+    },
+    {
+      "heading": "Who This Helps",
+      "paragraph": [
+        "This service is for homeowners, retirees, and small business owners who want someone to come out in person and sort through a problem that may involve more than one device, account, printer, or network issue.",
+        "It is especially helpful when you are not sure which specific service fits yet and want hands-on help without dragging equipment to a shop."
+      ]
+    },
+    {
+      "heading": "Signs On-Site Tech Support Is the Right Starting Point",
+      "items": [
+        "The issue affects multiple devices or seems tied to both the computer and the home network",
+        "You need help setting up a new computer, printer, phone, tablet, or smart device in person",
+        "You want someone to troubleshoot on-site because the problem is hard to explain or reproduce remotely",
+        "You are not sure whether the issue is repair, software, Wi-Fi, account setup, or a mix of problems",
+        "You prefer patient, in-person guidance rather than trying to sort it out alone"
       ]
     },
     {
@@ -37,12 +62,35 @@
       ]
     },
     {
-      "heading": "How It Works",
+      "heading": "When Another Service May Be a Better Fit",
       "paragraph": [
-        "You describe the issue and schedule a visit at a convenient time.",
-        "A technician arrives on-site, performs a hands-on diagnosis, and resolves the problem or provides a clear repair plan and pricing.",
-        "All work is explained in plain language with transparent pricing so you stay in control."
+        "Choose On-Site Tech Support when you want broad hands-on help or the problem may span multiple categories. If you already know the main issue is a failing computer, Computer Repair may be the better fit. If the main issue is whole-home Wi-Fi performance, Wi-Fi & Network Setup may be more precise. If the main issue is scam recovery or scam prevention, Scam & Fraud Protection may be the better starting point."
       ]
+    },
+    {
+      "heading": "Local Availability",
+      "paragraph": [
+        "On-site tech support is available in Ocala, Belleview, The Villages, and nearby Central Florida communities. We explain the work clearly, help prioritize what matters most, and keep the visit focused on practical outcomes."
+      ]
+    }
+  ],
+  "internalLinks": [
+    { "label": "Computer Repair", "slug": "computer-repair" },
+    { "label": "Wi-Fi & Network Setup", "slug": "network-setup" },
+    { "label": "Scam & Fraud Protection Services", "slug": "scam-protection" }
+  ],
+  "faq": [
+    {
+      "question": "Do you come to my home?",
+      "answer": "Yes. This service is designed for on-site visits in Ocala, Belleview, The Villages, and nearby Central Florida communities."
+    },
+    {
+      "question": "Can you help with more than one issue during a visit?",
+      "answer": "Usually, yes. On-Site Tech Support is often the best starting point when the problem spans several devices or categories, like a computer issue plus Wi-Fi problems or printer setup."
+    },
+    {
+      "question": "What if I am not sure which service I need?",
+      "answer": "That is exactly what this page is for. If you need a house call and want someone to assess the situation in person, On-Site Tech Support is the right starting point when the scope is not fully clear yet."
     }
   ],
   "related": [
@@ -55,8 +103,8 @@
       "slug": "network-setup"
     },
     {
-      "label": "Remote IT & Cybersecurity Tutoring",
-      "slug": "remote-tech-tutoring"
+      "label": "Scam & Fraud Protection Services",
+      "slug": "scam-protection"
     }
   ],
   "cta": {

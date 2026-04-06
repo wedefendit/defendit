@@ -1,8 +1,10 @@
 {
   "id": "data-recovery",
-  "title": "Data Recovery & Encrypted Backup Solutions",
-  "headline": "Recover lost files\u2014or make sure you never lose them again.",
-  "description": "Professional data recovery and encrypted backup solutions for individuals and small businesses, helping recover lost files and protect critical data across Ocala, Belleview, The Villages, and surrounding Florida communities.",
+  "title": "Backup & Data Recovery",
+  "headline": "Recover important files when possible, then put a real backup plan in place.",
+  "description": "Professional backup and data recovery services for households and small businesses, helping recover deleted or inaccessible files when possible and protect important data across Ocala, Belleview, The Villages, and surrounding Central Florida communities.",
+  "metaTitle": "Backup & Data Recovery in Ocala & The Villages | Defend I.T. Solutions",
+  "metaDescription": "Help with deleted files, failing drives, non-booting computers, and encrypted backup setup in Central Florida, with clear guidance on what can and cannot be recovered.",
   "keywords": [
     "data recovery Ocala FL",
     "data recovery Belleview FL",
@@ -16,36 +18,96 @@
   ],
   "url": "/services/data-recovery",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": [
+    "Ocala FL",
+    "Belleview FL",
+    "The Villages FL",
+    "Central Florida"
+  ],
+  "icons": [
+    "hard-drive",
+    "clock",
+    "file-check"
+  ],
   "sections": [
     {
       "heading": "Did You Know?",
       "paragraph": [
-        "Over 90 percent of individuals and small businesses do not have a reliable, recent backup of their data.",
-        "Storage devices can fail suddenly due to age, firmware issues, electrical damage, or overheating, often without warning.",
-        "With a properly configured encrypted backup, recovery from accidental deletion, hardware failure, or ransomware is fast and stress-free."
+        "A computer that will not boot does not automatically mean the files are gone.",
+        "Drives can fail gradually or all at once, and waiting too long after the first warning signs can make recovery harder.",
+        "A simple, tested backup routine is usually far cheaper and far less stressful than emergency recovery work."
+      ]
+    },
+    {
+      "heading": "Who This Helps",
+      "paragraph": [
+        "This service is for homeowners and small business owners who have lost files, cannot access important data, or want to stop living one hardware failure away from a major headache.",
+        "It is also a good fit if a computer still works today but stores irreplaceable photos, tax records, business files, or family documents without a reliable backup."
+      ]
+    },
+    {
+      "heading": "Signs You May Need Backup & Data Recovery",
+      "items": [
+        "Important files were deleted, overwritten, or suddenly cannot be opened",
+        "A computer will not boot, but the files on it still matter",
+        "A drive is clicking, disappearing, running slowly, or reporting errors",
+        "You are moving to a new computer and want data transferred safely",
+        "You know your files matter, but there is no backup you trust"
       ]
     },
     {
       "heading": "What We Do",
       "paragraph": [
-        "We recover lost or inaccessible data and design long-term backup strategies that prevent future loss, giving you confidence that your files are protected."
+        "We help recover accessible data when possible and build a safer backup plan so future hardware problems are less disruptive."
       ],
       "items": [
-        "Recover deleted, corrupted, or inaccessible files from hard drives, SSDs, and USB devices",
-        "Assess storage devices for failure risks before complete data loss occurs",
-        "Configure encrypted, automated backup systems that run quietly in the background",
-        "Migrate data securely between computers, operating systems, or storage platforms",
-        "Design backup strategies with both local and offsite protection",
-        "Use trusted, privacy-respecting tools that keep you in full control of your data"
+        "Assess drives and systems to determine whether recovery is realistically possible",
+        "Recover deleted, corrupted, or inaccessible files from supported devices when the damage is within reach of software-based recovery",
+        "Safely transfer data to a replacement computer or storage device",
+        "Set up encrypted, automated backups for documents, photos, and critical files",
+        "Design backup routines with local and offsite protection where appropriate",
+        "Explain when a specialty recovery lab is the better next step for severe physical damage"
       ]
     },
     {
-      "heading": "How It Works",
+      "heading": "When This Is the Right Fit",
       "paragraph": [
-        "We begin with a no-risk assessment to determine whether recovery is possible without sending your device to a data lab.",
-        "If recovery is feasible, we retrieve and verify your data using proven tools and transparent methods.",
-        "Once recovery is complete, we help you implement a secure backup solution to protect your data going forward\u2014without subscriptions or hidden fees."
+        "Choose Backup & Data Recovery when your top priority is saving files, moving data safely, or putting dependable backups in place. If the computer itself is also slow, damaged, or unstable, Computer Repair may be the better starting point. If you mainly want the system to feel faster rather than recover files, PC & Laptop Upgrades may be the better match."
       ]
+    },
+    {
+      "heading": "Local Availability",
+      "paragraph": [
+        "Backup and data recovery help is available in Ocala, Belleview, The Villages, and nearby Central Florida communities. We stay honest about what can be recovered, what cannot, and when the safest next step is prevention through better backups."
+      ]
+    }
+  ],
+  "internalLinks": [
+    {
+      "label": "Computer Repair",
+      "slug": "computer-repair"
+    },
+    {
+      "label": "PC & Laptop Upgrades",
+      "slug": "pc-upgrades"
+    },
+    {
+      "label": "Virus & Malware Removal",
+      "slug": "virus-removal"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Can files be recovered from a computer that will not boot?",
+      "answer": "Often, yes. A system that will not start can still have recoverable data if the storage device is readable. We assess the situation first and explain the realistic recovery path before moving forward."
+    },
+    {
+      "question": "Do you guarantee data recovery?",
+      "answer": "No honest provider should guarantee recovery in every case. We can often recover files when the device and damage type allow it, but the outcome depends on the condition of the drive and how severe the failure is."
+    },
+    {
+      "question": "Can you set up backups after recovery?",
+      "answer": "Yes. In many cases the most valuable part of the job is not only recovering the data you still have, but setting up a backup system so the same scare is much less likely to happen again."
     }
   ],
   "related": [
@@ -65,10 +127,5 @@
   "cta": {
     "label": "Protect My Data",
     "link": "/contact#schedule-service"
-  },
-  "icons": [
-    "hard-drive",
-    "clock",
-    "file-check"
-  ]
+  }
 }

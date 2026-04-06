@@ -1,8 +1,10 @@
 {
   "id": "pc-upgrades",
   "title": "PC & Laptop Upgrades",
-  "headline": "SSD, RAM, and performance tuning that actually lasts.",
-  "description": "Professional PC and laptop upgrades including SSD and RAM installations, thermal servicing, and performance tuning, helping homeowners and small businesses across Ocala, Belleview, The Villages, and Central Florida extend the life of their hardware.",
+  "headline": "Make a good computer feel fast again with the right upgrades, not guesswork.",
+  "description": "Professional PC and laptop upgrades including SSD and RAM installations, battery replacement, thermal servicing, and performance tuning for homeowners and small businesses across Ocala, Belleview, The Villages, and Central Florida.",
+  "metaTitle": "PC & Laptop Upgrades in Ocala & The Villages | Defend I.T. Solutions",
+  "metaDescription": "Upgrade aging laptops and desktops with SSDs, RAM, batteries, and thermal service in Central Florida to improve speed and extend system life.",
   "keywords": [
     "PC upgrades Ocala FL",
     "PC upgrades Belleview FL",
@@ -16,36 +18,95 @@
   ],
   "url": "/services/pc-upgrades",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": [
+    "Ocala FL",
+    "Belleview FL",
+    "The Villages FL",
+    "Central Florida"
+  ],
+  "icons": [
+    "hard-drive",
+    "gauge",
+    "bolt"
+  ],
   "sections": [
     {
       "heading": "Did You Know?",
       "paragraph": [
-        "Insufficient RAM can slow a system dramatically even when the processor is not fully utilized.",
-        "Replacing a mechanical hard drive with a solid-state drive can improve load times and responsiveness by several times.",
-        "Many laptops and desktops support more memory and faster storage than they ship with by default.",
-        "Firmware and BIOS updates can improve hardware compatibility, stability, and in some cases performance.",
-        "Dust buildup and degraded thermal paste can cause overheating, triggering thermal throttling and reduced system speed."
+        "A traditional hard drive is often the biggest reason an older computer feels painfully slow.",
+        "Many laptops and desktops can get a meaningful second life from an SSD, more memory, or battery replacement without replacing the whole machine.",
+        "Heat, dust, and degraded thermal materials can quietly reduce speed and stability even when the rest of the hardware is still usable."
+      ]
+    },
+    {
+      "heading": "Who This Helps",
+      "paragraph": [
+        "This service is for people who like their current computer well enough but need it to start faster, respond better, hold a charge longer, or stay usable for a few more years.",
+        "It is especially useful when replacement feels unnecessary, but the system is too slow or frustrating to keep using as-is."
+      ]
+    },
+    {
+      "heading": "Signs an Upgrade May Be Better Than Replacement",
+      "items": [
+        "The computer still works, but everyday tasks feel much slower than they should",
+        "Boot times are long and programs take too long to open",
+        "You run out of memory with normal multitasking",
+        "The battery no longer lasts or the system runs unusually hot",
+        "You want better performance but do not want the expense or hassle of a full replacement"
       ]
     },
     {
       "heading": "What We Do",
       "paragraph": [
-        "We upgrade and optimize PCs and laptops to improve speed, stability, and overall lifespan, handling diagnostics, parts sourcing, installation, and testing."
+        "We recommend practical upgrades based on how the computer is actually used, then install and test them so the improvement is noticeable and reliable."
       ],
       "items": [
-        "SSD installation with safe operating system and data migration",
-        "RAM upgrades with stability and compatibility validation",
-        "Battery replacement and storage expansion",
-        "Thermal paste replacement and internal dust removal",
-        "Firmware and BIOS updates with post-upgrade testing"
+        "Install SSDs with safe operating system and data migration where appropriate",
+        "Add or replace RAM with compatibility and stability checks",
+        "Replace batteries or expand storage on supported systems",
+        "Perform thermal service and internal cleaning when heat is reducing performance",
+        "Update firmware and verify system stability after the upgrade"
       ]
     },
     {
-      "heading": "How It Works",
+      "heading": "When This Is the Right Fit",
       "paragraph": [
-        "We evaluate your system and recommend the most cost-effective upgrades based on how you use your computer.",
-        "After sourcing quality components, we install, test, and verify stability before returning a noticeably faster and quieter system."
+        "Choose PC & Laptop Upgrades when the computer is fundamentally worth keeping and the main goal is speed, storage, memory, battery life, or reduced heat. If the system is crashing, failing to boot, or physically damaged, Computer Repair is usually the better starting point. If your highest priority is recovering files, Backup & Data Recovery may come first."
       ]
+    },
+    {
+      "heading": "Local Availability",
+      "paragraph": [
+        "Upgrade services are available in Ocala, Belleview, The Villages, and nearby Central Florida communities. We focus on cost-effective upgrades that make sense for the machine instead of pushing replacement when it is not necessary."
+      ]
+    }
+  ],
+  "internalLinks": [
+    {
+      "label": "Computer Repair",
+      "slug": "computer-repair"
+    },
+    {
+      "label": "Backup & Data Recovery",
+      "slug": "data-recovery"
+    },
+    {
+      "label": "Software Installation & Troubleshooting",
+      "slug": "software-troubleshooting"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Is an SSD upgrade really worth it?",
+      "answer": "In many older systems, yes. Replacing a hard drive with an SSD can dramatically improve startup time, responsiveness, and everyday usability for far less than a new computer."
+    },
+    {
+      "question": "Can you tell me if an upgrade is smarter than replacement?",
+      "answer": "Yes. We look at the age of the system, the condition of the hardware, and how you use it before recommending upgrades. If replacement is the more sensible option, we say so."
+    },
+    {
+      "question": "Can you migrate my files when upgrading storage?",
+      "answer": "Usually, yes. When the original drive is readable, we can often migrate the operating system and personal files during an SSD or storage upgrade so the transition is smoother."
     }
   ],
   "related": [
@@ -65,10 +126,5 @@
   "cta": {
     "label": "Upgrade My PC",
     "link": "/contact#schedule-service"
-  },
-  "icons": [
-    "hard-drive",
-    "gauge",
-    "bolt"
-  ]
+  }
 }

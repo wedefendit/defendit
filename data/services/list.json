@@ -51,49 +51,49 @@
     {
       "id": "password-management",
       "title": "Password Management & Digital Safety",
-      "headline": "Secure accounts with strong password practices.",
+      "headline": "Secure accounts without memorizing everything.",
       "icons": ["lock", "key-round", "book-lock"],
-      "summary": "Setup and training for password managers, strong passphrases, and account protection against breaches and fraud.",
+      "summary": "Password manager setup, breach cleanup, MFA guidance, and safer account habits for households and small businesses that want fewer lockouts and less fraud risk.",
       "cta": "Secure My Accounts"
     },
     {
       "id": "data-recovery",
       "title": "Backup & Data Recovery",
-      "headline": "Recover lost data and prevent future loss.",
+      "headline": "Recover important files and stop future loss.",
       "icons": ["hard-drive", "clock", "file-check"],
-      "summary": "Recovery of lost or deleted files when possible, plus setup of secure, automated backups to protect critical data.",
+      "summary": "Help with deleted files, failing drives, and non-booting systems when recovery is possible, plus backup setup to reduce the chance of doing this twice.",
       "cta": "Protect My Data"
     },
     {
       "id": "software-troubleshooting",
       "title": "Software Installation & Troubleshooting",
-      "headline": "Fix software issues and system errors.",
+      "headline": "Fix update failures, driver conflicts, and unstable apps.",
       "icons": ["cpu", "settings", "terminal"],
-      "summary": "Operating system installs, updates, driver fixes, and resolution of unstable or misbehaving applications.",
+      "summary": "Help with Windows and macOS update failures, driver problems, app crashes, login issues, and clean installs without defaulting to a full wipe.",
       "cta": "Fix Software Issues"
     },
     {
       "id": "pc-upgrades",
       "title": "PC & Laptop Upgrades",
-      "headline": "Extend the life of your computer.",
+      "headline": "Speed up an aging computer before replacing it.",
       "icons": ["hard-drive", "gauge", "bolt"],
-      "summary": "Performance upgrades including SSDs, RAM, batteries, and thermal optimization to keep systems running smoothly.",
+      "summary": "SSD, RAM, battery, and thermal-service upgrades that improve speed, stability, and lifespan when the computer is worth keeping.",
       "cta": "Upgrade My Computer"
     },
     {
       "id": "smart-home-setup",
       "title": "Smart Home Setup & Security",
-      "headline": "Smart technology without added risk.",
+      "headline": "Set up cameras, assistants, and automations safely.",
       "icons": ["house-wifi", "camera", "shield-check"],
-      "summary": "Configuration and security of smart home devices with privacy-first settings and least-privilege access.",
+      "summary": "Privacy-first setup for cameras, doorbells, speakers, hubs, and routines, with cleaner permissions, stronger device settings, and less guesswork.",
       "cta": "Set Up My Smart Home"
     },
     {
       "id": "custom-solutions",
       "title": "Custom Technology Solutions",
-      "headline": "Advanced solutions for complex needs.",
+      "headline": "Planning and implementation for specialized projects.",
       "icons": ["puzzle", "monitor-cog", "user"],
-      "summary": "Privacy-focused consulting and specialized technology planning for projects that do not fit standard repair or support work.",
+      "summary": "Privacy-focused consulting and implementation help for specialized home and small-business technology projects that do not fit standard repair or support work.",
       "cta": "Discuss My Needs"
     }
   ]
