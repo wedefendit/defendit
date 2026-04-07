@@ -25,7 +25,7 @@ const TOPIC_LABELS: Record<string, string> = {
   virus_removal: "Virus & Malware Removal",
   network_security: "Network Security",
   scam_protection: "Scam & Fraud Protection",
-  data_recovery: "Backup & Data Recovery",
+  data_recovery: "Data Recovery & Backup Help",
   onsite_support: "On-Site Tech Support",
   remote_support: "Remote Support",
   smart_home: "Smart Home Setup",

@@ -45,7 +45,8 @@ function HeadingSection() {
         Contact Us in Ocala, The Villages & Belleview
       </h1>
       <h2 className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-2 mb-6">
-        {name} provides remote and on-site support across Central Florida.
+        {name} helps with local computer repair, scam protection, Wi-Fi help,
+        and on-site support across Central Florida.
       </h2>
     </header>
   );
@@ -286,8 +287,8 @@ export default function ContactPage() {
         canonical={canonical}
         image="https://www.wedefendit.com/og-image.png"
         title="Contact Defend I.T. Solutions | Ocala, The Villages & Belleview"
-        description="Contact Defend I.T. Solutions for IT and cybersecurity support in Ocala, The Villages, and Belleview, FL. Phone, email, or secure PGP communication available."
-        keywords="contact IT support Ocala FL, cybersecurity contact The Villages, IT services Belleview FL, secure contact PGP, local tech support Central Florida"
+        description="Contact Defend I.T. Solutions for local computer repair, scam protection, Wi-Fi help, and on-site tech support in Ocala, The Villages, and Belleview."
+        keywords="contact computer repair Ocala FL, scam protection The Villages, Wi-Fi help Belleview FL, local tech support Central Florida, secure contact PGP"
         structuredData={{ "@graph": [breadcrumbLd, contactPageLd] }}
       />
 

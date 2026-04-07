@@ -68,7 +68,7 @@
     {
       "heading": "When Another Service May Be a Better Fit",
       "paragraph": [
-        "Choose Virus & Malware Removal when the main problem is compromise, suspicious behavior, or a computer that no longer feels safe to use. If the computer is slow but there are no signs of infection, Computer Repair or Software Installation & Troubleshooting may be the better fit. If you mainly need help securing accounts after phishing, impersonation, or fraud, Scam & Fraud Protection or Password Management & Digital Safety may also be part of the right next step."
+        "Choose Virus & Malware Removal when the main problem is compromise, suspicious behavior, or a computer that no longer feels safe to use. If the computer is slow but there are no signs of infection, Computer Repair or Software Troubleshooting & Installs may be the better fit. If you mainly need help securing accounts after phishing, impersonation, or fraud, Scam & Fraud Protection or Password Manager Setup & Account Safety may also be part of the right next step."
       ]
     },
     {
@@ -80,8 +80,8 @@
   ],
   "internalLinks": [
     { "label": "Computer Repair", "slug": "computer-repair" },
-    { "label": "Password Management & Digital Safety", "slug": "password-management" },
-    { "label": "Scam & Fraud Protection Services", "slug": "scam-protection" }
+    { "label": "Password Manager Setup & Account Safety", "slug": "password-management" },
+    { "label": "Scam & Fraud Protection", "slug": "scam-protection" }
   ],
   "faq": [
     {
@@ -99,8 +99,8 @@
   ],
   "related": [
     { "label": "Computer Repair", "slug": "computer-repair" },
-    { "label": "Password Management & Digital Safety", "slug": "password-management" },
-    { "label": "Scam & Fraud Protection Services", "slug": "scam-protection" }
+    { "label": "Password Manager Setup & Account Safety", "slug": "password-management" },
+    { "label": "Scam & Fraud Protection", "slug": "scam-protection" }
   ],
   "cta": {
     "label": "Schedule Virus Removal",

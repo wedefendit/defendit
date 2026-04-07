@@ -107,8 +107,8 @@ export default function Home() {
   return (
     <>
       <Meta
-        title="Defend I.T. Solutions | Cybersecurity & IT Support"
-        description="Professional cybersecurity and IT support for homeowners, retirees, and small businesses in Ocala, The Villages, and Belleview. Clear solutions, no jargon."
+        title="Defend I.T. Solutions | Local Computer Repair, Scam Protection & IT Support"
+        description="Local computer repair, scam protection, Wi-Fi help, and on-site tech support for homeowners, retirees, and small businesses in Ocala, The Villages, and Belleview."
         image="https://www.wedefendit.com/og-image.png"
         url="https://www.wedefendit.com/"
         canonical="https://www.wedefendit.com/"
@@ -137,7 +137,7 @@ export default function Home() {
               className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-blue-600 hover:bg-blue-700 dark:border dark:border-sky-400/18 dark:bg-sky-900/58 dark:bg-[radial-gradient(circle_at_top,rgba(125,211,252,0.14),transparent_62%)] dark:shadow-[0_14px_28px_rgba(2,132,199,0.18)] dark:ring-1 dark:ring-white/5 dark:backdrop-blur-sm dark:hover:-translate-y-0.5 dark:hover:border-sky-400/28 dark:hover:bg-sky-900/72 dark:hover:shadow-[0_18px_34px_rgba(2,132,199,0.24)] text-white text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
             >
               <Phone className="w-5 h-5" />
-              Schedule Service
+              Schedule Local Service
             </Link>
             <Link
               href="/services"
@@ -225,7 +225,7 @@ export default function Home() {
               href="/contact"
               className="text-blue-600 dark:text-sky-400 hover:underline text-lg font-medium"
             >
-              View contact and scheduling options →
+            Contact us to schedule →
             </Link>
           </div>
         </section>

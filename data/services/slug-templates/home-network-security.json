@@ -80,7 +80,7 @@
   "internalLinks": [
     { "label": "Wi-Fi & Network Setup", "slug": "network-setup" },
     { "label": "Smart Home Setup & Security", "slug": "smart-home-setup" },
-    { "label": "Scam & Fraud Protection Services", "slug": "scam-protection" }
+    { "label": "Scam & Fraud Protection", "slug": "scam-protection" }
   ],
   "faq": [
     {
@@ -106,7 +106,7 @@
       "slug": "smart-home-setup"
     },
     {
-      "label": "Scam & Fraud Protection Services",
+      "label": "Scam & Fraud Protection",
       "slug": "scam-protection"
     }
   ],

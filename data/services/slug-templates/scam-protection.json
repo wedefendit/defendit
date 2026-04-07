@@ -1,6 +1,6 @@
 {
   "id": "scam-protection",
-  "title": "Scam & Fraud Protection Services",
+  "title": "Scam & Fraud Protection",
   "headline": "Learn to spot scams, stop fraud, and protect yourself before it's too late.",
   "description": "Scam and fraud protection services that teach recognition of modern scams, secure devices, and reduce risk from phishing, tech support scams, and social engineering, serving Ocala, Belleview, The Villages, and surrounding Central Florida communities.",
   "metaTitle": "Scam Protection for Seniors & Families in Central Florida | Defend I.T. Solutions",
@@ -66,7 +66,7 @@
     {
       "heading": "When Another Service May Be a Better Fit",
       "paragraph": [
-        "Choose Scam & Fraud Protection when the main need is education, prevention, and safer day-to-day handling of suspicious calls, emails, texts, and websites. If the issue is already a compromised computer, Virus & Malware Removal may be the better first step. If the main problem is securing accounts and passwords after an incident, Password Management & Digital Safety may be the better fit."
+        "Choose Scam & Fraud Protection when the main need is education, prevention, and safer day-to-day handling of suspicious calls, emails, texts, and websites. If the issue is already a compromised computer, Virus & Malware Removal may be the better first step. If the main problem is securing accounts and passwords after an incident, Password Manager Setup & Account Safety may be the better fit."
       ]
     },
     {
@@ -77,7 +77,7 @@
     }
   ],
   "internalLinks": [
-    { "label": "Password Management & Digital Safety", "slug": "password-management" },
+    { "label": "Password Manager Setup & Account Safety", "slug": "password-management" },
     { "label": "Virus & Malware Removal", "slug": "virus-removal" },
     { "label": "Home Network Security & Wi-Fi Hardening", "slug": "home-network-security" }
   ],
@@ -88,7 +88,7 @@
     },
     {
       "question": "Can you help after I clicked a scam link or gave information to someone?",
-      "answer": "Yes. We can help you think through the next steps, secure devices and settings, and point you toward the right follow-up work. Depending on what happened, Virus & Malware Removal or Password Management & Digital Safety may also be important."
+      "answer": "Yes. We can help you think through the next steps, secure devices and settings, and point you toward the right follow-up work. Depending on what happened, Virus & Malware Removal or Password Manager Setup & Account Safety may also be important."
     },
     {
       "question": "Is this only for seniors?",
@@ -97,7 +97,7 @@
   ],
   "related": [
     {
-      "label": "Password Management & Digital Safety",
+      "label": "Password Manager Setup & Account Safety",
       "slug": "password-management"
     },
     {

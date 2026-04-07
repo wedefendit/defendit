@@ -1,10 +1,10 @@
 {
   "id": "pc-upgrades",
-  "title": "PC & Laptop Upgrades",
-  "headline": "Make a good computer feel fast again with the right upgrades, not guesswork.",
-  "description": "Professional PC and laptop upgrades including SSD and RAM installations, battery replacement, thermal servicing, and performance tuning for homeowners and small businesses across Ocala, Belleview, The Villages, and Central Florida.",
-  "metaTitle": "PC & Laptop Upgrades in Ocala & The Villages | Defend I.T. Solutions",
-  "metaDescription": "Upgrade aging laptops and desktops with SSDs, RAM, batteries, and thermal service in Central Florida to improve speed and extend system life.",
+  "title": "Laptop & PC Speed Upgrades",
+  "headline": "Speed up an aging computer with the upgrades that actually make a difference.",
+  "description": "Laptop and PC upgrade help for homeowners and small businesses in Ocala, Belleview, The Villages, and nearby Central Florida communities. We install SSDs, add RAM, replace worn batteries, and handle thermal service when a good computer is worth keeping.",
+  "metaTitle": "Laptop & PC Upgrades in Ocala & The Villages | Defend I.T. Solutions",
+  "metaDescription": "Speed up aging laptops and desktops with SSD, RAM, battery, and thermal upgrades in Central Florida when replacement is not the smartest next step.",
   "keywords": [
     "PC upgrades Ocala FL",
     "PC upgrades Belleview FL",
@@ -69,9 +69,9 @@
       ]
     },
     {
-      "heading": "When This Is the Right Fit",
+      "heading": "When Another Service May Be a Better Fit",
       "paragraph": [
-        "Choose PC & Laptop Upgrades when the computer is fundamentally worth keeping and the main goal is speed, storage, memory, battery life, or reduced heat. If the system is crashing, failing to boot, or physically damaged, Computer Repair is usually the better starting point. If your highest priority is recovering files, Backup & Data Recovery may come first."
+        "Choose Laptop & PC Speed Upgrades when the computer is fundamentally worth keeping and the main goal is better speed, storage, memory, battery life, or reduced heat. If the system is crashing, failing to boot, or physically damaged, Computer Repair is usually the better starting point. If your highest priority is recovering files, Data Recovery & Backup Help may come first."
       ]
     },
     {
@@ -87,11 +87,11 @@
       "slug": "computer-repair"
     },
     {
-      "label": "Backup & Data Recovery",
+      "label": "Data Recovery & Backup Help",
       "slug": "data-recovery"
     },
     {
-      "label": "Software Installation & Troubleshooting",
+      "label": "Software Troubleshooting & Installs",
       "slug": "software-troubleshooting"
     }
   ],
@@ -111,11 +111,11 @@
   ],
   "related": [
     {
-      "label": "Software Installation & Troubleshooting",
+      "label": "Software Troubleshooting & Installs",
       "slug": "software-troubleshooting"
     },
     {
-      "label": "Data Recovery & Encrypted Backup Solutions",
+      "label": "Data Recovery & Backup Help",
       "slug": "data-recovery"
     },
     {
@@ -124,7 +124,7 @@
     }
   ],
   "cta": {
-    "label": "Upgrade My PC",
+    "label": "Schedule My Upgrade",
     "link": "/contact#schedule-service"
   }
 }

@@ -70,7 +70,7 @@
     {
       "heading": "When Another Service May Be a Better Fit",
       "paragraph": [
-        "Choose Computer Repair when the main question is whether the machine can be diagnosed, repaired, stabilized, or brought back to usable condition. If the main problem is an active infection, Virus & Malware Removal is usually the better starting point. If the computer works but you mainly want better speed or battery life, PC & Laptop Upgrades may be more cost-effective. If your highest priority is retrieving important files, Backup & Data Recovery may be the better match."
+        "Choose Computer Repair when the main question is whether the machine can be diagnosed, repaired, stabilized, or brought back to usable condition. If the main problem is an active infection, Virus & Malware Removal is usually the better starting point. If the computer works but you mainly want better speed or battery life, PC & Laptop Upgrades may be more cost-effective. If your highest priority is retrieving important files, Data Recovery & Backup Help may be the better match."
       ]
     },
     {
@@ -82,7 +82,7 @@
   ],
   "internalLinks": [
     { "label": "Virus & Malware Removal", "slug": "virus-removal" },
-    { "label": "Backup & Data Recovery", "slug": "data-recovery" },
+    { "label": "Data Recovery & Backup Help", "slug": "data-recovery" },
     { "label": "PC & Laptop Upgrades", "slug": "pc-upgrades" }
   ],
   "faq": [
@@ -101,7 +101,7 @@
   ],
   "related": [
     { "label": "Virus & Malware Removal", "slug": "virus-removal" },
-    { "label": "Backup & Data Recovery", "slug": "data-recovery" },
+    { "label": "Data Recovery & Backup Help", "slug": "data-recovery" },
     { "label": "PC & Laptop Upgrades", "slug": "pc-upgrades" }
   ],
   "cta": {

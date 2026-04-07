@@ -1,10 +1,10 @@
 {
   "id": "custom-solutions",
-  "title": "Custom Technology Solutions",
-  "headline": "Get a plan for privacy-focused projects that do not fit standard repair or support.",
-  "description": "Custom technology consulting and implementation planning for privacy, security, networking, automation, and self-hosted projects serving homeowners and small businesses in Ocala, Belleview, The Villages, and surrounding Central Florida communities.",
-  "metaTitle": "Custom Technology Consulting in Ocala & The Villages | Defend I.T. Solutions",
-  "metaDescription": "Planning and implementation help for privacy-focused home tech, self-hosted services, advanced networking, and other projects that do not fit standard repair work in Central Florida.",
+  "title": "Custom Technology Project Planning",
+  "headline": "Start with a consultation for privacy-focused projects that do not fit standard repair or support.",
+  "description": "Custom technology project planning for homeowners and small businesses in Ocala, Belleview, The Villages, and nearby Central Florida communities. This page is for privacy-focused, networking, self-hosted, and multi-device projects that need consultation before implementation.",
+  "metaTitle": "Custom Technology Project Planning in Ocala & The Villages | Defend I.T. Solutions",
+  "metaDescription": "Consultation and implementation planning for privacy-focused networking, self-hosted, and specialized home or small-business technology projects in Central Florida.",
   "keywords": [
     "custom IT solutions Ocala FL",
     "cybersecurity consulting Ocala",
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "heading": "Common Project Types",
+      "heading": "What This Usually Covers",
       "items": [
         "Privacy-focused home networking or advanced router and segmentation planning",
         "Self-hosted storage, file sharing, or service setup for people who want more control",
@@ -57,26 +57,27 @@
     {
       "heading": "What We Do",
       "paragraph": [
-        "We help design and implement specialized technology setups with an emphasis on privacy, security, reliability, and long-term maintainability."
+        "We help scope, design, and implement specialized technology projects with an emphasis on privacy, security, reliability, and long-term maintainability."
       ],
       "items": [
+        "Start with consultation and planning when the right solution is not obvious yet",
         "Plan and implement secure networking for more advanced home or small business environments",
         "Set up private storage, backup, or file-sharing workflows with clearer control",
         "Help organize self-hosted or locally controlled services when cloud dependence is not ideal",
         "Harden specialized smart home or mixed-device environments that need more than default settings",
-        "Provide consultation first when the project needs scope, options, and tradeoff analysis before implementation"
+        "Work through scope, options, constraints, and tradeoffs before hands-on implementation begins"
       ]
     },
     {
-      "heading": "When This Is the Right Fit",
+      "heading": "When Another Service May Be a Better Fit",
       "paragraph": [
-        "Choose Custom Technology Solutions when the project is real but does not fit neatly into repair, malware removal, Wi-Fi setup, or smart home installation. If the need is still straightforward, one of the standard service pages will usually be the faster starting point. This page is best used for special cases, planning-heavy work, and projects with multiple moving parts."
+        "Choose Custom Technology Project Planning when the project is real but does not fit neatly into repair, malware removal, Wi-Fi setup, or smart home installation. If the need is still straightforward, one of the standard local service pages will usually be the faster starting point. This page works best for special cases, planning-heavy work, and projects with multiple moving parts."
       ]
     },
     {
       "heading": "Local Availability",
       "paragraph": [
-        "Custom technology consulting is available in Ocala, Belleview, The Villages, and nearby Central Florida communities. We start by clarifying the goal, constraints, and options so the project has a practical path forward instead of a vague pile of ideas."
+        "Custom technology project planning is available in Ocala, Belleview, The Villages, and nearby Central Florida communities. We start by clarifying the goal, constraints, and options so the project has a practical path forward instead of a vague pile of ideas."
       ]
     }
   ],
@@ -127,7 +128,7 @@
     }
   ],
   "cta": {
-    "label": "Talk to an Expert",
+    "label": "Request Project Consultation",
     "link": "/contact#schedule-service"
   }
 }

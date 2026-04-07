@@ -77,7 +77,7 @@
   "internalLinks": [
     { "label": "Computer Repair", "slug": "computer-repair" },
     { "label": "Wi-Fi & Network Setup", "slug": "network-setup" },
-    { "label": "Scam & Fraud Protection Services", "slug": "scam-protection" }
+    { "label": "Scam & Fraud Protection", "slug": "scam-protection" }
   ],
   "faq": [
     {
@@ -103,7 +103,7 @@
       "slug": "network-setup"
     },
     {
-      "label": "Scam & Fraud Protection Services",
+      "label": "Scam & Fraud Protection",
       "slug": "scam-protection"
     }
   ],

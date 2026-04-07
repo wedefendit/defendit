@@ -91,10 +91,10 @@
     {
       "id": "custom-solutions",
       "title": "Custom Technology Solutions",
-      "headline": "Planning and implementation for specialized projects.",
+      "headline": "Consultation and planning for specialized privacy and networking projects.",
       "icons": ["puzzle", "monitor-cog", "user"],
-      "summary": "Privacy-focused consulting and implementation help for specialized home and small-business technology projects that do not fit standard repair or support work.",
-      "cta": "Discuss My Needs"
+      "summary": "Project planning and implementation help for privacy-focused home and small-business technology work that does not fit standard repair, Wi-Fi, or smart-home service pages.",
+      "cta": "Request Consultation"
     }
   ]
 }
