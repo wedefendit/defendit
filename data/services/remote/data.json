@@ -4,53 +4,53 @@
     {
       "id": "remote-tech-tutoring",
       "title": "Remote IT & Cybersecurity Tutoring",
-      "headline": "One-on-one remote IT and cybersecurity tutoring.",
+      "headline": "Live one-on-one tutoring for IT, cybersecurity, and homelab skills.",
       "icons": ["graduation-cap", "laptop", "message-circle"],
-      "summary": "One-on-one remote IT and cybersecurity tutoring for students, professionals, and hobbyists covering programming, Linux, networking, virtualization, and digital security.",
+      "summary": "Live online tutoring for students, career changers, and hobbyists covering Linux, networking, programming, cybersecurity, and practical digital safety.",
       "cta": "Book a Session"
     },
     {
       "id": "remote-support",
       "title": "Remote Tech Support",
-      "headline": "Instant help without a house call.",
+      "headline": "Secure remote help for Central Florida Remote Support Plan members.",
       "icons": ["monitor", "wifi", "headphones"],
       "requiresPlan": true,
-      "summary": "We connect to your computer over a secure connection to solve issues, provide training, or configure security, no matter where you are.",
+      "summary": "Get secure remote help for software issues, settings, printers, email, and everyday computer problems once your remote support plan is in place.",
       "cta": "Get Help Now"
     },
     {
       "id": "remote-security-assessment",
       "title": "Remote Security Assessment",
-      "headline": "Evaluate and strengthen your setup remotely.",
+      "headline": "Remote security review for Central Florida plan members.",
       "icons": ["shield-check", "search", "alert-circle"],
       "requiresPlan": true,
-      "summary": "We audit your system security remotely, identify weak points, and help you fix them without needing to be on-site.",
+      "summary": "Review devices, accounts, browser settings, updates, and backups remotely to find weak points and tighten them with clear next steps.",
       "cta": "Schedule Assessment"
     },
     {
       "id": "remote-privacy-hardening",
       "title": "Privacy Hardening & Digital Safety",
-      "headline": "Lock down your data, wherever you are.",
+      "headline": "Remote privacy help for Central Florida plan members.",
       "icons": ["lock", "eye-off", "key-round"],
       "requiresPlan": true,
-      "summary": "We guide you through privacy tools, encrypted messaging, VPNs, and browser hardening via remote session.",
+      "summary": "Harden browsers, messaging apps, DNS, VPN settings, and device privacy controls through a guided remote session for enrolled plan members.",
       "cta": "Protect My Privacy"
     },
     {
       "id": "remote-training",
       "title": "1-on-1 Remote Tech Training",
-      "headline": "Learn securely and confidently at your pace.",
+      "headline": "Beginner-friendly online training for everyday tech confidence.",
       "icons": ["graduation-cap", "mouse-pointer-click", "presentation"],
-      "summary": "We offer remote training sessions on everything from cybersecurity basics to using your devices more confidently.",
+      "summary": "Private online training for everyday computer, phone, internet, and online-safety skills, with patient guidance for beginners, seniors, and families.",
       "cta": "Book a Session"
     },
     {
       "id": "remote-virus-removal",
       "title": "Remote Virus & Malware Removal",
-      "headline": "Remove threats without anyone stepping foot inside.",
+      "headline": "Remote malware cleanup for Central Florida plan members.",
       "icons": ["shield-plus", "bug", "alert-triangle"],
       "requiresPlan": true,
-      "summary": "We remotely scan for and remove malware, spyware, and other threats using secure tools. Fast, safe, and private.",
+      "summary": "Clean up spyware, pop-ups, browser hijacks, and other malware remotely when secure access is already in place through your support plan.",
       "cta": "Clean My System"
     }
   ]

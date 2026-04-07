@@ -2,7 +2,9 @@
   "id": "remote-training",
   "title": "1-on-1 Remote Tech Training",
   "headline": "Learn securely and confidently at your pace.",
-  "description": "Get personalized, one-on-one technology training through private Zoom sessions. We help individuals of all ages build confidence with digital tools. From basic skills to secure habits.",
+  "description": "Private online technology training for everyday users who want more confidence with computers, phones, internet safety, and common digital tools. Clear, patient instruction without jargon.",
+  "metaTitle": "1-on-1 Remote Tech Training Online | Defend I.T. Solutions",
+  "metaDescription": "Private online tech training for beginners, seniors, families, and everyday users. Learn computer basics, safer online habits, passwords, backups, and common digital tasks with patient guidance.",
   "keywords": [
     "Remote tech training",
     "Online computer classes",
@@ -12,6 +14,7 @@
   ],
   "url": "/services/remote/remote-training",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": ["United States"],
   "sections": [
     {
       "heading": "Did You Know?",
@@ -19,6 +22,13 @@
         "Interactive, live training helps people retain knowledge and avoid common mistakes better than videos or self-guided tutorials.",
         "Frustration with technology often comes from skipped steps or one-size-fits-all solutions. Personalized instruction focuses on what matters to you.",
         "Simple missteps with devices or accounts are responsible for many privacy issues. A little training can go a long way in keeping you safe."
+      ]
+    },
+    {
+      "heading": "Who This Helps",
+      "paragraph": [
+        "This service is for beginners, seniors, families, and everyday users who want patient, one-on-one help with the technology they actually use.",
+        "It is a good fit when you want practical digital confidence, safer online habits, and clear explanations instead of trying to piece everything together alone."
       ]
     },
     {
@@ -34,12 +44,34 @@
       ]
     },
     {
-      "heading": "How It Works",
+      "heading": "How Sessions Work",
       "paragraph": [
         "Sessions are held over Zoom with clear, step-by-step instruction tailored to your pace and goals.",
         "We work with individuals, couples, and families. No technical background required.",
         "There is no software to install, and no support plan is required. All you need is an internet connection and a willingness to learn."
       ]
+    }
+  ],
+  "internalLinks": [
+    { "label": "Remote IT & Cybersecurity Tutoring", "slug": "remote-tech-tutoring" },
+    { "label": "Remote Tech Support", "slug": "remote-support" },
+    {
+      "label": "Remote Privacy Hardening & Digital Safety Support",
+      "slug": "remote-privacy-hardening"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Is this service only for beginners?",
+      "answer": "No, but it is especially useful for beginners and everyday users who want patient, one-on-one guidance with common technology tasks and safer online habits."
+    },
+    {
+      "question": "Do I need a support plan for remote training?",
+      "answer": "No. Remote training is booked separately and does not require a remote support plan."
+    },
+    {
+      "question": "Can you help seniors or family members who are not technical?",
+      "answer": "Yes. Sessions are designed to be clear, practical, and easy to follow for non-technical users."
     }
   ],
   "related": [

@@ -3,7 +3,9 @@
   "requiresPlan": true,
   "title": "Remote Security Assessment",
   "headline": "Evaluate and strengthen your setup remotely.",
-  "description": "We offer remote security audits for local clients with a support plan. Identify weak points, tighten settings, and secure your systems from real-world threats without anyone stepping foot in your home or office.",
+  "description": "Remote security assessment for Central Florida Remote Support Plan members. Review devices, accounts, browser settings, updates, and backups to find weak points and prioritize what to fix first.",
+  "metaTitle": "Remote Security Assessment for Central Florida Plan Members | Defend I.T. Solutions",
+  "metaDescription": "Review devices, accounts, updates, browser settings, and backup posture with a remote security assessment for Central Florida Remote Support Plan members.",
   "keywords": [
     "Remote security audit",
     "Remote vulnerability scan",
@@ -13,6 +15,7 @@
   ],
   "url": "/services/remote/remote-security-assessment",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": ["Ocala FL", "Belleview FL", "The Villages FL", "Central Florida"],
   "sections": [
     {
       "heading": "Did You Know?",
@@ -23,7 +26,7 @@
       ]
     },
     {
-      "heading": "Included in Every Assessment",
+      "heading": "What We Review",
       "paragraph": [
         "We take a comprehensive look at your system settings, device posture, and digital habits to find weaknesses before someone else does."
       ],
@@ -46,10 +49,32 @@
       ]
     }
   ],
+  "internalLinks": [
+    { "label": "Remote Support Service Plan", "slug": "remote-support-plan" },
+    {
+      "label": "Remote Privacy Hardening & Digital Safety Support",
+      "slug": "remote-privacy-hardening"
+    },
+    { "label": "Remote Virus & Malware Removal", "slug": "remote-virus-removal" }
+  ],
+  "faq": [
+    {
+      "question": "Do I need a Remote Support Plan for this service?",
+      "answer": "Yes. Remote security assessments are available only to clients with an active Remote Support Plan."
+    },
+    {
+      "question": "What do you look at during a remote security assessment?",
+      "answer": "The assessment can include operating system updates, installed software, account protection, browser settings, backups, firewall behavior, and other practical security controls."
+    },
+    {
+      "question": "Will I get clear next steps afterward?",
+      "answer": "Yes. You receive a practical summary with prioritized recommendations so you know what matters most and what to fix first."
+    }
+  ],
   "related": [
+    { "label": "Remote Support Service Plan", "slug": "remote-support-plan" },
     { "label": "Remote Privacy Hardening", "slug": "remote-privacy-hardening" },
-    { "label": "Remote Virus Removal", "slug": "remote-virus-removal" },
-    { "label": "Remote Support", "slug": "remote-support" }
+    { "label": "Remote Virus Removal", "slug": "remote-virus-removal" }
   ],
   "cta": {
     "label": "Book My Assessment",

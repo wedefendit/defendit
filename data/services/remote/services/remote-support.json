@@ -3,7 +3,9 @@
   "requiresPlan": true,
   "title": "Remote Tech Support",
   "headline": "Instant help without a house call.",
-  "description": "We offer secure remote tech support for local clients with a support plan. Get expert help with common issues, software fixes, and device configuration. No waiting, no confusion.",
+  "description": "Secure remote tech support for Central Florida Remote Support Plan members. Get help with software issues, printer problems, settings, login trouble, and everyday computer tasks without an on-site visit.",
+  "metaTitle": "Remote Tech Support for Central Florida Plan Members | Defend I.T. Solutions",
+  "metaDescription": "Secure remote help for Central Florida Remote Support Plan members. Resolve software issues, login problems, email sync, printer setup, and everyday computer problems without a house call.",
   "keywords": [
     "Remote tech support",
     "Online computer help",
@@ -13,6 +15,7 @@
   ],
   "url": "/services/remote/remote-support",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": ["Ocala FL", "Belleview FL", "The Villages FL", "Central Florida"],
   "sections": [
     {
       "heading": "Did You Know?",
@@ -23,7 +26,7 @@
       ]
     },
     {
-      "heading": "What We Fix",
+      "heading": "What We Help With",
       "paragraph": [
         "Remote support is ideal for troubleshooting everyday tech problems, making system adjustments, or getting hands-on help with apps and settings."
       ],
@@ -45,10 +48,29 @@
       ]
     }
   ],
+  "internalLinks": [
+    { "label": "Remote Support Service Plan", "slug": "remote-support-plan" },
+    { "label": "Remote Virus & Malware Removal", "slug": "remote-virus-removal" },
+    { "label": "Remote Security Assessment", "slug": "remote-security-assessment" }
+  ],
+  "faq": [
+    {
+      "question": "Do I need the Remote Support Plan first?",
+      "answer": "Yes. Remote tech support is available only to clients with an active Remote Support Plan, which starts with an initial setup visit."
+    },
+    {
+      "question": "What kinds of problems can you fix remotely?",
+      "answer": "Remote sessions are a good fit for software errors, update failures, login issues, email syncing, settings changes, printer setup, and many other everyday computer problems."
+    },
+    {
+      "question": "Is remote access secure?",
+      "answer": "Yes. Sessions use secure remote access tools, require your approval before connecting, and let you watch the work in real time."
+    }
+  ],
   "related": [
+    { "label": "Remote Support Service Plan", "slug": "remote-support-plan" },
     { "label": "Remote Virus Removal", "slug": "remote-virus-removal" },
-    { "label": "Remote Tech Tutoring", "slug": "remote-tech-tutoring" },
-    { "label": "Remote Training", "slug": "remote-training" }
+    { "label": "Remote Security Assessment", "slug": "remote-security-assessment" }
   ],
   "cta": {
     "label": "Get Started with Remote Support Today",

@@ -3,7 +3,9 @@
   "requiresPlan": true,
   "title": "Remote Privacy Hardening & Digital Safety Support",
   "headline": "Protect your digital life no matter where you are.",
-  "description": "Remote privacy help for individuals and small teams. Lock down your devices, apps, and online activity with expert guidance. Encrypted tools, secure settings, and no guesswork.",
+  "description": "Remote privacy hardening for Central Florida Remote Support Plan members. Lock down browsers, apps, messaging, DNS, and device settings with practical guidance and clear explanations.",
+  "metaTitle": "Remote Privacy Hardening for Central Florida Plan Members | Defend I.T. Solutions",
+  "metaDescription": "Remote privacy hardening for Central Florida Remote Support Plan members, including browser privacy, encrypted messaging, DNS filtering, VPN guidance, and safer device settings.",
   "keywords": [
     "Privacy hardening",
     "Remote privacy support",
@@ -11,8 +13,9 @@
     "Encrypted messaging setup",
     "VPN and DNS security"
   ],
-  "url": "/services/remote/privacy-hardening",
+  "url": "/services/remote/remote-privacy-hardening",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": ["Ocala FL", "Belleview FL", "The Villages FL", "Central Florida"],
   "sections": [
     {
       "heading": "Did You Know?",
@@ -23,7 +26,7 @@
       ]
     },
     {
-      "heading": "What We Cover",
+      "heading": "What We Help With",
       "items": [
         "Configure hardened, privacy-respecting browsers with vetted extensions",
         "Set up encrypted email and messaging platforms that avoid metadata leakage",
@@ -42,13 +45,32 @@
       ]
     }
   ],
+  "internalLinks": [
+    { "label": "Remote Support Service Plan", "slug": "remote-support-plan" },
+    { "label": "Remote Security Assessment", "slug": "remote-security-assessment" },
+    { "label": "Remote Virus & Malware Removal", "slug": "remote-virus-removal" }
+  ],
+  "faq": [
+    {
+      "question": "Do I need a Remote Support Plan for privacy hardening?",
+      "answer": "Yes. Remote privacy hardening is available only to clients with an active Remote Support Plan."
+    },
+    {
+      "question": "What kinds of privacy changes can you help with?",
+      "answer": "This can include browser hardening, DNS filtering, messaging and email privacy settings, VPN guidance, and reducing unnecessary tracking across devices and apps."
+    },
+    {
+      "question": "Will you explain what you change?",
+      "answer": "Yes. The goal is to improve privacy without leaving you confused, so changes are explained in plain English as we go."
+    }
+  ],
   "related": [
+    { "label": "Remote Support Service Plan", "slug": "remote-support-plan" },
     {
       "label": "Remote Security Assessment",
       "slug": "remote-security-assessment"
     },
-    { "label": "Remote Virus Removal", "slug": "remote-virus-removal" },
-    { "label": "Remote Tech Tutoring", "slug": "remote-tech-tutoring" }
+    { "label": "Remote Virus Removal", "slug": "remote-virus-removal" }
   ],
   "cta": {
     "label": "Start My Privacy Session",

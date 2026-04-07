@@ -3,7 +3,9 @@
   "title": "Remote Virus & Malware Removal",
   "headline": "Remove threats without anyone stepping foot inside.",
   "requiresPlan": true,
-  "description": "We provide remote virus and malware removal for local clients with active support plans. Using secure tools and expert methods, we eliminate infections and restore trust in your system without an in-person visit.",
+  "description": "Remote virus and malware removal for Central Florida Remote Support Plan members. Clean up spyware, browser hijacks, fake security tools, and other common infections without an in-person visit.",
+  "metaTitle": "Remote Virus & Malware Removal for Central Florida Plan Members | Defend I.T. Solutions",
+  "metaDescription": "Remote malware cleanup for Central Florida Remote Support Plan members, including spyware, browser hijacks, fake antivirus tools, and post-cleanup guidance to reduce reinfection.",
   "keywords": [
     "Remote virus removal",
     "Online malware cleanup",
@@ -13,6 +15,7 @@
   ],
   "url": "/services/remote/remote-virus-removal",
   "image": "https://www.wedefendit.com/og-image.png",
+  "serviceArea": ["Ocala FL", "Belleview FL", "The Villages FL", "Central Florida"],
   "sections": [
     {
       "heading": "Did You Know?",
@@ -41,13 +44,32 @@
       ]
     }
   ],
+  "internalLinks": [
+    { "label": "Remote Support Service Plan", "slug": "remote-support-plan" },
+    { "label": "Remote Security Assessment", "slug": "remote-security-assessment" },
+    { "label": "Remote Tech Support", "slug": "remote-support" }
+  ],
+  "faq": [
+    {
+      "question": "Do I need a Remote Support Plan first?",
+      "answer": "Yes. Remote virus removal is available only to clients who already have an active Remote Support Plan and secure remote access in place."
+    },
+    {
+      "question": "Can all malware be removed remotely?",
+      "answer": "Many common infections can be handled remotely, but some severe cases may require deeper recovery steps or a different approach depending on the condition of the system."
+    },
+    {
+      "question": "Do you help reduce reinfection after cleanup?",
+      "answer": "Yes. Cleanup is only part of the service. We also review safer settings and next steps to help keep the same problem from happening again."
+    }
+  ],
   "related": [
+    { "label": "Remote Support Service Plan", "slug": "remote-support-plan" },
     {
       "label": "Remote Security Assessment",
       "slug": "remote-security-assessment"
     },
-    { "label": "Remote Support", "slug": "remote-support" },
-    { "label": "Remote Privacy Hardening", "slug": "remote-privacy-hardening" }
+    { "label": "Remote Support", "slug": "remote-support" }
   ],
   "cta": {
     "label": "Schedule My Virus Removal",

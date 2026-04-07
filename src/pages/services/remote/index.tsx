@@ -20,15 +20,15 @@ export default function RemoteServicesPage() {
     <ServicePage
       meta={{
         title:
-          "Remote Tech Support, Cybersecurity & IT Tutoring | Defend I.T. Solutions",
+          "Remote Tech Support, Online Training & Cybersecurity Help | Defend I.T. Solutions",
         description:
-          "Nationwide remote IT services including remote tech support, cybersecurity assessments, privacy hardening, malware removal, and one-on-one remote tech tutoring.",
+          "Remote tech tutoring, online training, privacy help, and plan-based remote support from Defend I.T. Solutions. Tutoring and training are available online, while support-plan services are for Central Florida clients.",
         url: "https://www.wedefendit.com/services/remote",
         image: "https://www.wedefendit.com/og-image.png",
         keywords:
-          "remote tech support, remote IT services, cybersecurity tutoring, IT tutoring online, remote malware removal, privacy hardening, remote computer help",
+          "remote tech support, online tech training, remote cybersecurity tutoring, remote privacy help, remote malware removal, Central Florida remote support plan, online computer help",
       }}
-      h1="Remote IT Services, Cybersecurity & Tech Tutoring"
+      h1="Remote Tech Support, Online Training & Cybersecurity Help"
       services={remote.services}
       remote={true}
     />
