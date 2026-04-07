@@ -61,7 +61,7 @@ function TrustBar() {
       </div>
       <div className="flex items-center gap-2">
         <span className="text-green-600 dark:text-green-400">✓</span>
-        <span>Clear Pricing</span>
+        <span>Clear Quotes Before Work Begins</span>
       </div>
       <div className="flex items-center gap-2">
         <span className="text-green-600 dark:text-green-400">✓</span>

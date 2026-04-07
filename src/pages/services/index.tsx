@@ -28,7 +28,7 @@ export default function ServicesPage() {
         title:
           "Computer Repair, Virus Removal & Wi-Fi Help in Central Florida | Defend I.T. Solutions",
         description:
-          "Computer repair, virus removal, scam protection, Wi-Fi and home network help, on-site tech support, and password manager setup for Ocala, Belleview, The Villages, and nearby Central Florida communities.",
+          "Practical, local help with computer repair, virus removal, scam protection, Wi-Fi and home network issues, on-site tech support, and password manager setup for homes and small businesses in Ocala, Belleview, The Villages, and nearby Central Florida communities",
         image: "https://www.wedefendit.com/og-image.png",
         url: canonical,
         canonical,
