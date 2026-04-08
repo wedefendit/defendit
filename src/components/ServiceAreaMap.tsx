@@ -71,8 +71,8 @@ export default function ServiceAreaMap() {
       </h2>
 
       <p className="text-gray-600 dark:text-gray-400 text-center max-w-2xl mx-auto">
-        We provide on-site and remote I.T. services across Ocala, Belleview, The
-        Villages, and surrounding Central Florida communities.
+        We provide on-site and remote support across Ocala, Belleview, The
+        Villages, and nearby Central Florida communities.
       </p>
 
       <div

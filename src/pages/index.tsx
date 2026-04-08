@@ -148,9 +148,9 @@ export default function Home() {
           </h2>
           <p className="text-center text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
             We help with everyday tech problems and the security issues that
-            come with them. That includes infected computers, scam scares, weak
-            Wi-Fi, confusing device setups, and homes or small offices that want
-            more secure systems.
+            come with them. That means malware cleanup, scam help, Wi-Fi
+            trouble, device setup, and safer systems for homes and small
+            businesses without the jargon or pressure.
           </p>
 
           <div className="grid max-w-2xl gap-6 mx-auto lg:max-w-5xl lg:grid-cols-3">
@@ -168,9 +168,10 @@ export default function Home() {
               </h2>
 
               <p className="mt-6 max-w-[66ch] text-base leading-7 text-gray-700 dark:text-gray-400 sm:text-lg sm:leading-8">
-                Defend I.T. Solutions is a locally owned business focused on
-                practical cybersecurity and tech support for homes and small
-                businesses.
+                Defend I.T. Solutions brings a security-minded approach to the
+                kind of tech problems people actually run into. The work is
+                local, straightforward, and built around clear recommendations
+                instead of upsells or scare tactics.
               </p>
 
               <div className="mt-8 grid gap-x-10 gap-y-5 text-gray-700 dark:text-gray-300 md:grid-cols-2">

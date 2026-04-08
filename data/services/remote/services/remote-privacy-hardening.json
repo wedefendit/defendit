@@ -3,7 +3,7 @@
   "requiresPlan": true,
   "title": "Remote Privacy Hardening & Digital Safety Support",
   "headline": "Protect your digital life no matter where you are.",
-  "description": "Remote privacy hardening for Central Florida Remote Support Plan members. Lock down browsers, apps, messaging, DNS, and device settings with practical guidance and clear explanations.",
+  "description": "A remote session focused on browser, device, messaging, DNS, and VPN privacy settings.",
   "metaTitle": "Remote Privacy Hardening for Central Florida Plan Members | Defend I.T. Solutions",
   "metaDescription": "Remote privacy hardening for Central Florida Remote Support Plan members, including browser privacy, encrypted messaging, DNS filtering, VPN guidance, and safer device settings.",
   "keywords": [
@@ -38,7 +38,7 @@
     {
       "heading": "How It Works",
       "paragraph": [
-        "This service is available only to local customers with an active remote support plan.",
+        "This is for people who want cleaner, more private defaults without turning their setup into a science project.",
         "Once your plan is active, you can schedule a secure remote session and we'll review your current setup together.",
         "We apply hardened privacy settings using trusted tools and clear explanations every step of the way.",
         "You stay in full control, with no guesswork, no jargon, and no unnecessary software."

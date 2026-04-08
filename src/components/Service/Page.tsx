@@ -193,7 +193,7 @@ export default function ServicePage(props: ServicesPageProps) {
             
             <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 dark:text-slate-300 sm:text-lg">
               {isRemote
-                ? "Remote help, guided training, and plan-based services for problems that do not need an on-site visit."
+                ? "Some problems can be handled well online. This section covers remote sessions for local clients, guided training, and plan-based follow-up support."
                 : "Start with the problem you need solved. We focus on clear, practical help for homes and small businesses in Ocala, Belleview, The Villages, and nearby Central Florida communities."}
             </p>
             </div>

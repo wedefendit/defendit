@@ -45,8 +45,8 @@ function HeadingSection() {
         Contact Defend I.T. Solutions
       </h1>
       <h2 className="mx-auto mb-6 mt-2 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg md:text-xl">
-        Get expert help today. We provide on-site and remote tech support across
-        Ocala, Belleview, and The Villages.
+        Tell us what is going on, and we&apos;ll point you in the right
+        direction.
       </h2>
     </header>
   );

@@ -3,7 +3,7 @@
   "requiresPlan": true,
   "title": "Remote Security Assessment",
   "headline": "Evaluate and strengthen your setup remotely.",
-  "description": "Remote security assessment for Central Florida Remote Support Plan members. Review devices, accounts, browser settings, updates, and backups to find weak points and prioritize what to fix first.",
+  "description": "A guided remote review of the security basics for local clients with a support plan.",
   "metaTitle": "Remote Security Assessment for Central Florida Plan Members | Defend I.T. Solutions",
   "metaDescription": "Review devices, accounts, updates, browser settings, and backup posture with a remote security assessment for Central Florida Remote Support Plan members.",
   "keywords": [
@@ -42,7 +42,7 @@
     {
       "heading": "How It Works",
       "paragraph": [
-        "This service is available only to local clients with an active remote support plan.",
+        "We walk through the areas that usually create avoidable risk—updates, accounts, browsers, backups, and device settings—and give you a prioritized list of what to fix first.",
         "We connect securely and walk through your devices in real time, guiding you through each step of the audit.",
         "Nothing is collected or stored. You stay in full control of your data the entire time.",
         "At the end, you receive a summary with prioritized improvements tailored to your specific setup."

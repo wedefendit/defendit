@@ -3,7 +3,7 @@
   "requiresPlan": true,
   "title": "Remote Tech Support",
   "headline": "Instant help without a house call.",
-  "description": "Secure remote tech support for Central Florida Remote Support Plan members. Get help with software issues, printer problems, settings, login trouble, and everyday computer tasks without an on-site visit.",
+  "description": "Remote help for software, settings, and everyday computer problems once secure access is in place.",
   "metaTitle": "Remote Tech Support for Central Florida Plan Members | Defend I.T. Solutions",
   "metaDescription": "Secure remote help for Central Florida Remote Support Plan members. Resolve software issues, login problems, email sync, printer setup, and everyday computer problems without a house call.",
   "keywords": [
@@ -31,17 +31,17 @@
         "Remote support is ideal for troubleshooting everyday tech problems, making system adjustments, or getting hands-on help with apps and settings."
       ],
       "items": [
-        "Resolve software errors, frozen apps, and system update failures",
-        "Fix slow performance caused by background tasks or resource-hungry processes",
-        "Help with login problems, email syncing, and password resets",
-        "Install and troubleshoot printers, webcams, or other accessories",
-        "Walk you through tasks like installing software, setting up tools, or adjusting settings"
+        "Email and account setup problems",
+        "Printer and peripheral setup",
+        "Software issues and settings cleanup",
+        "Browser problems and pop-up cleanup",
+        "General troubleshooting for already-enrolled devices"
       ]
     },
     {
       "heading": "How It Works",
       "paragraph": [
-        "Remote support is only available to local clients with an active support plan.",
+        "This service is for issues that do not need hands-on hardware work. We connect securely, work through the problem with you or on your behalf depending on the plan, and leave you with clear next steps.",
         "We begin with a one-time visit to securely install and configure your remote access software.",
         "After that, you can request support anytime. No waiting, no confusion.",
         "We only connect when you approve the session, and you stay in control the entire time."

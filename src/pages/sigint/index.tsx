@@ -169,14 +169,15 @@ export default function SigintPage() {
               <span>OSINT dashboard project by Defend I.T. Solutions</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-[1.05] text-gray-900 dark:text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-[1.05] text-gray-900 dark:text-white mb-3">
               <span className="text-blue-600 dark:text-sky-400">
                 SIGINT Dashboard&trade;
               </span>
-              <span className="block text-xl sm:text-2xl md:text-4xl font-medium text-gray-700 dark:text-gray-300 mt-3">
-                Real-Time Intelligence, Correlated
-              </span>
             </h1>
+
+            <p className="text-xl sm:text-2xl md:text-4xl font-medium text-gray-700 dark:text-gray-300 mb-6">
+              Real-Time Intelligence, Correlated
+            </p>
 
             <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed">
               Live aircraft, vessels, weather alerts, earthquakes, fires,
@@ -185,7 +186,7 @@ export default function SigintPage() {
               Individual, Team, and Enterprise tiers.
             </p>
 
-            <div className="flex flex-col items-center justify-center gap-4 mb-12 sm:flex-row sm:flex-wrap">
+            <div className="mb-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap sm:gap-5">
               <a
                 href="https://sigint-5154d935429b.herokuapp.com"
                 target="_blank"

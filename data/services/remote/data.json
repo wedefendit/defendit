@@ -7,7 +7,7 @@
       "headline": "Remote help for everyday computer and software problems.",
       "icons": ["monitor", "wifi", "headphones"],
       "requiresPlan": true,
-      "summary": "Remote help for software problems, settings, printers, email, and everyday computer issues once your support plan is in place.",
+      "summary": "For clients with secure remote access in place, we can handle many software and settings issues without an on-site visit.",
       "cta": "Request Remote Help"
     },
     {
@@ -16,39 +16,39 @@
       "headline": "Remote malware cleanup when secure access is already in place.",
       "icons": ["shield-plus", "bug", "alert-triangle"],
       "requiresPlan": true,
-      "summary": "Remote help cleaning up pop-ups, browser hijacks, spyware, and similar infections when secure access is already in place through your support plan.",
+      "summary": "When the device can be reached safely, we can clean up pop-ups, browser hijacks, and similar infections through a remote session.",
       "cta": "Request Remote Malware Help"
     },
     {
       "id": "remote-training",
       "title": "1-on-1 Remote Tech Training",
-      "headline": "Beginner-friendly online training for everyday tech confidence.",
+      "headline": "Private online help for everyday technology.",
       "icons": ["graduation-cap", "mouse-pointer-click", "presentation"],
-      "summary": "Private online training for everyday computer, phone, internet, and online-safety skills, with patient guidance for beginners, seniors, and families.",
-      "cta": "Request Training"
+      "summary": "Patient one-on-one help for people who want guided support with computers, phones, internet basics, or common digital tasks.",
+      "cta": "Request Remote Training"
     },
     {
       "id": "remote-security-assessment",
       "title": "Remote Security Assessment",
-      "headline": "A guided security review for local clients with a support plan.",
+      "headline": "A guided remote review of the security basics.",
       "icons": ["shield-check", "search", "alert-circle"],
       "requiresPlan": true,
-      "summary": "Review devices, accounts, browser settings, updates, and backups to spot weak points and clean up the basics.",
+      "summary": "We walk through devices, accounts, browsers, updates, and backups to spot weak points and give you a clear list of what to fix first.",
       "cta": "Request a Security Review"
     },
     {
       "id": "remote-privacy-hardening",
       "title": "Privacy Hardening & Digital Safety",
-      "headline": "Remote privacy help for local clients with a support plan.",
+      "headline": "Remote help tightening the privacy settings that matter.",
       "icons": ["lock", "eye-off", "key-round"],
       "requiresPlan": true,
-      "summary": "Tighten browsers, messaging apps, DNS, VPN settings, and device privacy controls through a guided remote session.",
+      "summary": "A guided session to clean up browser, device, messaging, DNS, and VPN settings without turning it into a lecture.",
       "cta": "Request Privacy Help"
     },
     {
       "id": "remote-tech-tutoring",
       "title": "Remote IT & Cybersecurity Tutoring",
-      "headline": "Focused one-on-one help for specific tech topics.",
+      "headline": "Focused one-on-one help for specific technical topics.",
       "icons": ["graduation-cap", "laptop", "message-circle"],
       "summary": "Live remote guidance for students and career changers who want help with a class, project, lab, or specific skill area.",
       "cta": "Request Tutoring"

@@ -21,19 +21,19 @@ const valueData = [
   {
     title: "Security First",
     description:
-      "Your privacy, devices, and data come first. We recommend modern, appropriately-sized protections based on your actual needs.",
+      "We recommend sensible protections that fit the situation, not generic checklists or enterprise overkill.",
     icon: ShieldCheck,
   },
   {
     title: "Local and Personal",
     description:
-      "No call centers. No outsourced scripts. Just real local support.",
+      "No call centers. No outsourced scripts. Just real local support from a business that works in this community.",
     icon: MapPin,
   },
   {
     title: "Clear, Honest Support",
     description:
-      "We explain problems clearly and give straightforward recommendations. We strive to help you make informed decisions without pressure.",
+      "We explain what is wrong, what matters, and what can wait so you can make a decision without pressure.",
     icon: MessageCircle,
   },
 ] as const;
@@ -179,21 +179,21 @@ export default function About() {
             <p className="text-lg text-gray-900 dark:text-white">
               Defend I.T. Solutions is a founder-led local business based in
               Ocala, serving homeowners and small businesses across Ocala,
-              Belleview, and the The Villages.
+              Belleview, and The Villages.
             </p>
 
             <p className="text-lg mt-4 text-gray-700 dark:text-gray-300">
-              We help with practical problems like malware removal, scam
-              prevention and education, troubleshooting Wi-Fi issues, handling
-              new device setup, sound guidance on safer account habits, and
-              general day-to-day technology problems. Our goal is to make
-              technology feel safer and easier to manage, not more confusing.
+              The focus is practical help with malware, scam prevention, Wi-Fi
+              issues, device setup, safer account habits, and the day-to-day
+              technology problems that waste time and create stress.
             </p>
 
             <p className="text-lg mt-4 text-gray-700 dark:text-gray-300">
-              Whether the job is on-site or remote, the approach stays the same.
-              We strive to provide clear recommendations, honest guidance, and
-              never pressure you to buy more than you need.
+              This business exists because too many people are expected to
+              trust devices and networks they were never given enough
+              information to judge. The goal is to solve the problem, reduce
+              avoidable risk, and leave people with technology that feels
+              easier to use and easier to trust.
             </p>
           </section>
 
@@ -215,8 +215,8 @@ export default function About() {
                 Explore Our Services
               </h2>
               <p className="text-gray-700 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-                From computer repair and virus removal to scam protection and
-                Wi-Fi assistance, explore the services we offer across Central
+                From computer repair and malware cleanup to scam protection and
+                Wi-Fi help, explore the local services we offer across Central
                 Florida.
               </p>
               <Link

@@ -27,12 +27,12 @@ export const SafetyTipsList: React.FC = () => {
   return (
     <>
       <header className="text-center mb-12">
-        <h1 className="text-4xl font-extrabold text-slate-800 dark:text-slate-200">
-          Ways to Stay Safe Online
-        </h1>
+        <h2 className="text-4xl font-extrabold text-slate-800 dark:text-slate-200">
+          Start with the basics
+        </h2>
         <p className="mt-3 text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-          These Best Practices Help Protect Your Devices, Identity, and Personal
-          Data From Cyber Threats.
+          These are the habits and warning signs we talk through most often
+          with local clients and community groups.
         </p>
       </header>
 

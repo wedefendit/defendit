@@ -1,8 +1,8 @@
 {
   "id": "virus-removal",
   "title": "Virus & Malware Removal",
-  "headline": "Remove malware, restore trust, and reduce the chance it happens again.",
-  "description": "Local virus and malware removal for laptops and desktops in Ocala, Belleview, The Villages, and nearby Central Florida communities, including threat cleanup, system repair, and post-remediation hardening to reduce reinfection.",
+  "headline": "Malware cleanup for computers showing pop-ups, browser hijacks, or other suspicious behavior.",
+  "description": "We remove common infections, explain what happened in plain language, and help close the holes that let it happen.",
   "metaTitle": "Virus & Malware Removal in Ocala & The Villages | Defend I.T. Solutions",
   "metaDescription": "Malware cleanup for infected computers in Central Florida, including pop-ups, browser hijacks, spyware removal, and post-cleanup hardening to reduce reinfection.",
   "keywords": [
@@ -54,15 +54,14 @@
     {
       "heading": "What We Do",
       "paragraph": [
-        "We remove active malware, repair common system damage, and harden the device enough for safer everyday use using proven, security-first methods."
+        "This service is for systems that feel wrong—unexpected pop-ups, fake warnings, new toolbars, login weirdness, or computers that suddenly slowed down after something suspicious was opened or installed."
       ],
       "items": [
-        "Non-destructive malware and spyware removal",
-        "System integrity checks and repair",
-        "Browser, startup, and persistence cleanup",
-        "Security hardening after removal",
-        "Full wipe-and-rebuild option for deeply compromised systems",
-        "Clear guidance on password resets, account follow-up, and safer next steps when the incident went beyond the computer"
+        "Remove common malware, adware, and browser hijackers",
+        "Check for suspicious startup items, extensions, and persistence",
+        "Review account or browser changes made by the infection",
+        "Explain what happened and what to watch for next",
+        "Make practical follow-up recommendations to reduce the chance of reinfection"
       ]
     },
     {

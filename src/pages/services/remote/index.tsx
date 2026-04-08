@@ -28,7 +28,7 @@ export default function RemoteServicesPage() {
         keywords:
           "remote tech support, online tech training, remote cybersecurity tutoring, remote privacy help, remote malware removal, Central Florida remote support plan, online computer help",
       }}
-      h1="Remote Tech Support, Online Training & Cybersecurity Help"
+      h1="Remote Help, Training, and Ongoing Support"
       services={remote.services}
       remote={true}
     />

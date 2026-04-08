@@ -107,7 +107,8 @@ export default function RemoteSupportPlanPage() {
             </h1>
 
             <p className="relative max-w-2xl text-base text-slate-600 dark:text-slate-300 sm:text-lg">
-              Secure and private remote support for verified local clients.
+              Private remote support for verified local clients who want faster
+              follow-up help without giving up control.
             </p>
 
             {/* Feature Highlights - Now Visual Cards */}
@@ -192,26 +193,15 @@ export default function RemoteSupportPlanPage() {
               Why a Support Plan
             </h2>
             <p className="mt-2 text-gray-700 dark:text-gray-300">
-              We operate a private remote access environment (DISNet™) with a
-              scoped support tunnel (DISecureLink™) and our own remote service
-              infrastructure. Access is restricted to enrolled clients and
-              managed devices.
+              We use a private remote support environment for enrolled local
+              clients and approved devices. The point is simple: make
+              follow-up help faster and easier without turning remote access
+              into a free-for-all.
             </p>
             <p className="mt-2 text-gray-700 dark:text-gray-300">
-              The plan funds the secure operation of this environment:
-              provisioning, monitoring, updates, audits, and capacity reserved
-              for clients. Ensuring help is fast, private, and reliable when you
-              need it.
-            </p>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              New to our services?{" "}
-              <Link
-                href="/contact"
-                className="text-blue-600 dark:text-sky-400 hover:underline"
-              >
-                Contact us
-              </Link>
-              .
+              The plan covers the secure setup behind that access, including
+              enrollment, provisioning, upkeep, and support capacity reserved
+              for plan clients.
             </p>
           </section>
 
@@ -415,39 +405,14 @@ export default function RemoteSupportPlanPage() {
               What Is Included
             </h2>
             <ul className="mt-2 list-disc pl-5 sm:pl-6 text-gray-700 dark:text-gray-300 text-sm sm:text-base space-y-2 marker:text-sky-500 dark:marker:text-sky-400">
-              <li>Priority scheduling for common issues</li>
-              <li>Access control options: unattended or on-demand</li>
+              <li>Priority scheduling for common remote issues</li>
+              <li>Secure remote sessions with consent-based access</li>
               <li>
-                Encrypted remote sessions with screen sharing and clipboard
-                support
+                On-demand or unattended support options, depending on the plan
               </li>
-              <li>
-                DIS Connect™ for launching and managing sessions (not required)
-              </li>
-              <li>
-                Access for up to 14* enrolled devices{" "}
-                <Link
-                  href="#more-devices"
-                  className="text-blue-600 dark:text-sky-400 hover:underline"
-                >
-                  (see options)
-                </Link>{" "}
-                <span className="text-gray-600 dark:text-gray-400">
-                  (subscription members)
-                </span>
-              </li>
-              <li>
-                Reduced labor rates for most remote services{" "}
-                <span className="text-gray-600 dark:text-gray-400">
-                  (subscription members)
-                </span>
-              </li>
-              <li>
-                After-hours support for urgent problems{" "}
-                <span className="text-gray-600 dark:text-gray-400">
-                  (subscription members)
-                </span>
-              </li>
+              <li>Enrollment for approved devices</li>
+              <li>Lower remote labor rates for subscription members</li>
+              <li>After-hours help for urgent issues, where available</li>
             </ul>
           </section>
 
@@ -460,21 +425,9 @@ export default function RemoteSupportPlanPage() {
               Who Is Eligible
             </h2>
             <p className="mt-2 text-gray-700 dark:text-gray-300">
-              Clients in Ocala, Belleview, The Villages, and nearby areas.
-            </p>
-            <p className="mt-2 text-gray-700 dark:text-gray-300">
-              Each device must be enrolled locally. No open enrollment or remote
-              setup for non-local clients.
-            </p>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              See our{" "}
-              <Link
-                href="/awareness"
-                className="text-blue-600 dark:text-sky-400 hover:underline"
-              >
-                security awareness
-              </Link>{" "}
-              resources.
+              This plan is for local clients in Ocala, Belleview, The
+              Villages, and nearby areas. Devices must be enrolled locally
+              before remote support is available.
             </p>
           </section>
 
@@ -573,9 +526,9 @@ export default function RemoteSupportPlanPage() {
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.06),transparent_54%)] dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_52%)]" />
               <div className="relative">
               <p className="text-gray-900 dark:text-white mb-4">
-                Explore all our remote service offerings for local clients,
-                including troubleshooting, maintenance, security assessments,
-                and more.
+                Once enrolled, you can use remote sessions for
+                troubleshooting, malware cleanup, guided training, and
+                selected security or privacy work.
               </p>
               <Link
                 href="/services/remote"
@@ -603,8 +556,8 @@ export default function RemoteSupportPlanPage() {
                 Get Started with Remote Support
               </p>
               <p className="text-sm mb-6 max-w-2xl mx-auto text-gray-700 dark:text-gray-300">
-                Initial on-site setup and enrollment are included at no
-                additional cost* when you join the Remote Support Plan.
+                Initial on-site setup and device enrollment are handled locally
+                as part of getting the plan in place.
               </p>
               <Link
                 href="/contact"

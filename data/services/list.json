@@ -5,7 +5,7 @@
       "title": "On-Site Tech Support",
       "headline": "In-home help when you need it.",
       "icons": ["badge-check", "home", "wrench"],
-      "summary": "House-call tech support when the issue touches more than one thing and you want one visit to sort it out.",
+      "summary": "When the problem touches more than one device, account, or room, an in-person visit is often the fastest way to sort it out.",
       "cta": "Book On-Site Support"
     },
     {
@@ -13,7 +13,7 @@
       "title": "Virus & Malware Removal",
       "headline": "Remove infections and secure your system.",
       "icons": ["shield-plus", "worm", "alert-triangle"],
-      "summary": "Cleanup for pop-ups, browser hijacks, suspicious logins, and infected systems, plus practical follow-up steps to help keep it from happening again.",
+      "summary": "We clean up infected systems, pop-ups, browser hijacks, and suspicious behavior, then walk through the steps that help keep it from happening again.",
       "cta": "Remove Malware"
     },
     {
@@ -21,7 +21,7 @@
       "title": "Wi-Fi & Network Setup",
       "headline": "Reliable Wi-Fi and network setup for homes and small offices.",
       "icons": ["router", "ethernet-port", "house-plug"],
-      "summary": "Set up routers, mesh systems, access points, and wired connections for better coverage, better stability, and fewer day-to-day headaches.",
+      "summary": "Set up or straighten out routers, mesh kits, access points, and wired connections so the network is stable, fast, and easier to live with.",
       "cta": "Set Up My Network"
     },
     {
@@ -29,7 +29,7 @@
       "title": "Home Network Security & Wi-Fi Hardening",
       "headline": "Make your home Wi-Fi and connected devices safer without making them harder to use.",
       "icons": ["house-wifi", "router", "shield-check"],
-      "summary": "Make your Wi-Fi and connected devices safer with better settings, guest access, cleaner device separation, and fewer risky defaults.",
+      "summary": "Safer settings, guest access, device separation, and fewer risky defaults for homes and small offices that want more than a basic router setup.",
       "cta": "Secure My Network"
     },
     {
@@ -37,7 +37,7 @@
       "title": "Scam & Fraud Protection",
       "headline": "Practical help spotting scams and protecting yourself online.",
       "icons": ["presentation", "glasses", "shield-alert"],
-      "summary": "Calm, practical help spotting scams, tightening a few key settings, and knowing what to do next when something feels off.",
+      "summary": "Calm, practical help after a scam scare or near miss, plus guidance on what to change so the same trick is less likely to work again.",
       "cta": "Get Scam Protection"
     },
     {
@@ -45,7 +45,7 @@
       "title": "Password Manager Setup & Account Safety",
       "headline": "Set up a password manager and clean up risky login habits.",
       "icons": ["lock", "key-round", "book-lock"],
-      "summary": "Set up a password manager, clean up weak logins, and build safer account habits without making daily access harder.",
+      "summary": "Get a password manager set up the right way and clean up weak or reused logins without making everyday access harder.",
       "cta": "Get Account Safety Help"
     },
     {
@@ -53,7 +53,7 @@
       "title": "Computer Repair",
       "headline": "Help for slow, crashing, or non-booting computers.",
       "icons": ["pc-case", "monitor-smartphone", "wrench"],
-      "summary": "Help for slow, crashing, overheating, or non-booting computers, with honest repair guidance and a focus on protecting your files.",
+      "summary": "For slow, crashing, overheating, or non-booting computers, with honest repair guidance and a focus on protecting your files.",
       "cta": "Get Computer Repair"
     },
     {
@@ -61,7 +61,7 @@
       "title": "Data Recovery & Backup Help",
       "headline": "Recover important files and stop future loss.",
       "icons": ["hard-drive", "clock", "file-check"],
-      "summary": "Help with deleted files, failing drives, and non-booting systems when recovery is possible, plus backup planning so you are less likely to go through it again.",
+      "summary": "Help recovering deleted files or failing drives when possible, and building a backup plan that lowers the chance of going through it twice.",
       "cta": "Get Data Recovery Help"
     },
     {
@@ -69,7 +69,7 @@
       "title": "Laptop & PC Speed Upgrades",
       "headline": "Speed up a computer that is still worth keeping.",
       "icons": ["hard-drive", "gauge", "bolt"],
-      "summary": "Upgrades like SSDs, RAM, batteries, and thermal service when the computer is worth keeping and you want it to feel usable again.",
+      "summary": "Worth keeping the computer? Upgrades like SSDs, RAM, batteries, and cleanup can make it feel usable again.",
       "cta": "Get Upgrade Help"
     },
     {
@@ -77,7 +77,7 @@
       "title": "Software Troubleshooting & Installs",
       "headline": "Fix Windows and Mac software problems without a full wipe.",
       "icons": ["cpu", "settings", "terminal"],
-      "summary": "Fix update failures, driver problems, app crashes, login issues, and messy installs without jumping straight to a full wipe.",
+      "summary": "Fix messy installs, update failures, driver problems, login issues, and app crashes without jumping straight to a full reset.",
       "cta": "Get Software Help"
     },
     {

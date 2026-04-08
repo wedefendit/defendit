@@ -124,8 +124,9 @@ export default function AwarenessPage() {
                 Online Safety Tips for Seniors, Families, and Community Groups
               </h1>
 
-              <p className="mx-auto max-w-xl text-sm text-slate-600 dark:text-slate-400">
-                No tracking or scare tactics. No confusing tech jargon.
+              <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 dark:text-slate-300 sm:text-lg">
+                Plain-English guidance on scams, safer browsing, stronger
+                accounts, and everyday habits that reduce risk.
               </p>
             </div>
           </header>

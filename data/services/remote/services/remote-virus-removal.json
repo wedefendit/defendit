@@ -3,7 +3,7 @@
   "title": "Remote Virus & Malware Removal",
   "headline": "Remove threats without anyone stepping foot inside.",
   "requiresPlan": true,
-  "description": "Remote virus and malware removal for Central Florida Remote Support Plan members. Clean up spyware, browser hijacks, fake security tools, and other common infections without an in-person visit.",
+  "description": "Remote malware cleanup for enrolled devices when secure access is already in place.",
   "metaTitle": "Remote Virus & Malware Removal for Central Florida Plan Members | Defend I.T. Solutions",
   "metaDescription": "Remote malware cleanup for Central Florida Remote Support Plan members, including spyware, browser hijacks, fake antivirus tools, and post-cleanup guidance to reduce reinfection.",
   "keywords": [
@@ -38,7 +38,7 @@
     {
       "heading": "How It Works",
       "paragraph": [
-        "Remote malware removal is only available for local clients who are enrolled in an active support plan.",
+        "If the device can still be reached safely, we can clean up many common infections remotely and then close the settings or habits that helped cause the problem.",
         "During your initial setup visit, we install a secure access tool with your consent. Once active, you can request help anytime, and we clean your system remotely.",
         "You stay in control throughout the process. Every session requires your approval, and you can watch live or disconnect at any time."
       ]
