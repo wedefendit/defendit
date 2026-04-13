@@ -28,7 +28,9 @@ import type { Badge, Difficulty, GameScore } from "./types";
 type GameShellContextValue = {
   gameId: string;
   difficulty: Difficulty;
+  setDifficulty: (next: Difficulty) => void;
   resetCount: number;
+  reset: () => void;
   recordScore: (score: Omit<GameScore, "gameId" | "bestScore" | "completedAt">) => void;
   awardBadge: (badge: Badge) => void;
   hasBadge: (badgeId: string) => boolean;
@@ -52,6 +54,16 @@ type GameShellProps = Readonly<{
   howToPlay?: ReactNode;
   children: ReactNode;
   initialDifficulty?: Difficulty;
+  /**
+   * "full" (default) — renders the outer card, title, difficulty picker,
+   * reset button, and how-to-play collapse. Use for pages that embed a game
+   * in normal site content flow.
+   *
+   * "headless" — only provides context + children + the badge earned dialog.
+   * The game owns its own chrome (header, difficulty picker, reset, help).
+   * Use for full-viewport game layouts like The Digital House.
+   */
+  chrome?: "full" | "headless";
 }>;
 
 export function GameShell({
@@ -61,6 +73,7 @@ export function GameShell({
   howToPlay,
   children,
   initialDifficulty = "easy",
+  chrome = "full",
 }: GameShellProps) {
   const [difficulty, setDifficulty] = useState<Difficulty>(initialDifficulty);
   const [resetCount, setResetCount] = useState(0);
@@ -110,13 +123,25 @@ export function GameShell({
     () => ({
       gameId,
       difficulty,
+      setDifficulty: onDifficultyChange,
       resetCount,
+      reset: onReset,
       recordScore,
       awardBadge,
       hasBadge,
       bestScore,
     }),
-    [gameId, difficulty, resetCount, recordScore, awardBadge, hasBadge, bestScore],
+    [
+      gameId,
+      difficulty,
+      onDifficultyChange,
+      resetCount,
+      onReset,
+      recordScore,
+      awardBadge,
+      hasBadge,
+      bestScore,
+    ],
   );
 
   useEffect(() => {
@@ -124,6 +149,44 @@ export function GameShell({
     const t = globalThis.setTimeout(() => setEarnedBadge(null), 6000);
     return () => globalThis.clearTimeout(t);
   }, [earnedBadge]);
+
+  if (chrome === "headless") {
+    return (
+      <GameShellContext.Provider value={ctxValue}>
+        {children}
+        {earnedBadge && (
+          <dialog
+            open
+            aria-label="Badge earned"
+            className="fixed inset-x-3 top-20 bottom-auto z-80 mx-auto flex max-w-sm items-start gap-3 rounded-2xl border border-sky-300/70 bg-white/95 p-4 shadow-2xl ring-1 ring-sky-200/60 backdrop-blur-md min-[820px]:inset-x-0 min-[820px]:top-auto min-[820px]:bottom-6 dark:border-sky-700/60 dark:bg-slate-900/95 dark:ring-sky-800/50"
+          >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sky-100 text-lg font-bold text-sky-700 dark:bg-sky-900/60 dark:text-sky-200">
+              ★
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold uppercase tracking-wide text-sky-700 dark:text-sky-300">
+                Badge earned
+              </p>
+              <p className="mt-0.5 text-sm font-semibold text-slate-900 dark:text-slate-50">
+                {earnedBadge.name}
+              </p>
+              <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-300">
+                {earnedBadge.description}
+              </p>
+            </div>
+            <button
+              type="button"
+              aria-label="Dismiss badge notification"
+              onClick={() => setEarnedBadge(null)}
+              className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            >
+              ×
+            </button>
+          </dialog>
+        )}
+      </GameShellContext.Provider>
+    );
+  }
 
   return (
     <GameShellContext.Provider value={ctxValue}>

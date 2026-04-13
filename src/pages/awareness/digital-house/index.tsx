@@ -12,7 +12,7 @@ licensees of Defend I.T. Solutions LLC and may not be disclosed to any third
 party without express written consent.
 */
 
-import { PageContainer, Meta } from "@/components";
+import { Meta } from "@/components";
 import { GameShell } from "@/games/shared/GameShell";
 import { DigitalHouse } from "@/games/digital-house/DigitalHouse";
 
@@ -27,28 +27,19 @@ export default function DigitalHousePage() {
         url={canonical}
         canonical={canonical}
       />
-      <PageContainer>
-        <GameShell
-          gameId="digital-house"
-          title="The Digital House"
-          description="Place each device into a network zone and watch how trust, exposure, and containment change."
-          howToPlay={
-            <>
-              <p>
-                Drag each device into one of three network zones: your main
-                network, a guest network, or a smart-device / IoT network.
-              </p>
-              <p>
-                As you place them, the house updates in real time to show how
-                trust, exposure, and containment change. There are tradeoffs —
-                not every placement is right or wrong.
-              </p>
-            </>
-          }
-        >
-          <DigitalHouse />
-        </GameShell>
-      </PageContainer>
+      {/*
+        Full-viewport game — bypasses PageContainer because the normal
+        centered content flow fights the h-[100dvh] grid. GameShell in
+        "headless" mode only provides context + the badge dialog; the
+        game owns its own header, difficulty picker, reset, and help button.
+      */}
+      <GameShell
+        gameId="digital-house"
+        title="The Digital House"
+        chrome="headless"
+      >
+        <DigitalHouse />
+      </GameShell>
     </>
   );
 }

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx playwright:*)",
+      "Bash(python3 -m json.tool test-results/playwright/digital-house-Digital-House-phone-audit-phone-medium-414x896-chromium/phone-medium-414x896-metrics.json)"
+    ]
+  }
+}

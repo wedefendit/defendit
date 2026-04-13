@@ -12,13 +12,14 @@ licensees of Defend I.T. Solutions LLC and may not be disclosed to any third
 party without express written consent.
 */
 
-import type { GameScore, GamesState } from "./types";
+import type { GamePreferences, GameScore, GamesState } from "./types";
 
 const STORAGE_KEY = "dis-games-state";
 
 const EMPTY_STATE: GamesState = {
   badges: [],
   scores: {},
+  preferences: {},
 };
 
 function isBrowser(): boolean {
@@ -26,7 +27,19 @@ function isBrowser(): boolean {
 }
 
 function cloneEmpty(): GamesState {
-  return { badges: [], scores: {} };
+  return { badges: [], scores: {}, preferences: {} };
+}
+
+function sanitizePreferences(value: unknown): GamePreferences {
+  if (!value || typeof value !== "object") return {};
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>).map(([gameId, prefs]) => [
+      gameId,
+      prefs && typeof prefs === "object"
+        ? { ...(prefs as Record<string, unknown>) }
+        : {},
+    ]),
+  );
 }
 
 export function getState(): GamesState {
@@ -38,6 +51,7 @@ export function getState(): GamesState {
     return {
       badges: Array.isArray(parsed.badges) ? parsed.badges : [],
       scores: parsed.scores && typeof parsed.scores === "object" ? parsed.scores : {},
+      preferences: sanitizePreferences(parsed.preferences),
     };
   } catch {
     return cloneEmpty();
@@ -110,6 +124,42 @@ export function addBadge(badgeId: string): GamesState {
 export function clearBadges(): GamesState {
   const state = getState();
   const next: GamesState = { ...state, badges: [] };
+  setState(next);
+  return next;
+}
+
+export function getGamePreference<T = unknown>(gameId: string, key: string): T | undefined {
+  const prefs = getState().preferences[gameId];
+  if (!prefs) return undefined;
+  return prefs[key] as T | undefined;
+}
+
+export function setGamePreference(gameId: string, key: string, value: unknown): GamesState {
+  const state = getState();
+  const next: GamesState = {
+    ...state,
+    preferences: {
+      ...state.preferences,
+      [gameId]: {
+        ...(state.preferences[gameId] ?? {}),
+        [key]: value,
+      },
+    },
+  };
+  setState(next);
+  return next;
+}
+
+export function clearGamePreference(gameId: string, key: string): GamesState {
+  const state = getState();
+  const existing = state.preferences[gameId];
+  if (!existing || !(key in existing)) return state;
+  const { [key]: _removed, ...rest } = existing;
+  void _removed;
+  const nextPreferences = { ...state.preferences };
+  if (Object.keys(rest).length === 0) delete nextPreferences[gameId];
+  else nextPreferences[gameId] = rest;
+  const next: GamesState = { ...state, preferences: nextPreferences };
   setState(next);
   return next;
 }

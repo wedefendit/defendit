@@ -17,7 +17,7 @@ Copyright © 2025 Defend I.T. Solutions LLC. All Rights Reserved.
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import companyInfo from "../../data/company-info.json";
 
 const { name } = companyInfo;
@@ -71,6 +71,12 @@ function DesktopNavItem({
   current,
 }: Readonly<{ item: NavItem; current: string }>) {
   const [open, setOpen] = useState(false);
+  // After clicking a child link the route changes and the layout reflows
+  // (game routes hide the Logo + footer, which is a big shift). The cursor
+  // can end up "newly inside" the parent <li> after the reflow and
+  // mouseenter would re-trigger the dropdown. This cooldown ref suppresses
+  // mouseenter for ~700ms after a click so navigation + reflow can settle.
+  const cooldownRef = useRef(false);
   const active = isBranchActive(item, current);
   const baseClass = active
     ? "text-blue-500 dark:text-sky-400 font-semibold underline underline-offset-4"
@@ -90,18 +96,31 @@ function DesktopNavItem({
     );
   }
 
+  const handleMouseEnter = () => {
+    if (cooldownRef.current) return;
+    setOpen(true);
+  };
+
   const handleBlur = (e: React.FocusEvent<HTMLLIElement>) => {
     if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
       setOpen(false);
     }
   };
 
+  const handleChildClick = () => {
+    setOpen(false);
+    cooldownRef.current = true;
+    globalThis.setTimeout(() => {
+      cooldownRef.current = false;
+    }, 700);
+  };
+
   return (
     <li
       className="relative"
-      onMouseEnter={() => setOpen(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setOpen(false)}
-      onFocus={() => setOpen(true)}
+      onFocus={handleMouseEnter}
       onBlur={handleBlur}
     >
       <div className="inline-flex items-center gap-1">
@@ -143,7 +162,7 @@ function DesktopNavItem({
                   <Link
                     href={child.href}
                     title={`${child.name} - Defend I.T. Solutions`}
-                    onClick={() => setOpen(false)}
+                    onClick={handleChildClick}
                     className={[
                       "block whitespace-nowrap rounded-md px-3 py-2 font-medium transition-colors",
                       childActive

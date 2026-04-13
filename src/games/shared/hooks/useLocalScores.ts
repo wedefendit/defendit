@@ -43,7 +43,7 @@ export function useLocalScores() {
 
   const clearAll = useCallback(() => {
     storage.clearState();
-    setLocalState({ badges: [], scores: {} });
+    setLocalState({ badges: [], scores: {}, preferences: {} });
   }, []);
 
   const hasBadge = useCallback(

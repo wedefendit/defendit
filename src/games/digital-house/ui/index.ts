@@ -12,5 +12,7 @@ licensees of Defend I.T. Solutions LLC and may not be disclosed to any third
 party without express written consent.
 */
 
-// Device tray, analysis panel, end-state summary — built in the next step.
-export {};
+export * from "./DeviceIcon";
+export * from "./RoomCell";
+export * from "./ScoreRingBar";
+export * from "./furniture";

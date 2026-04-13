@@ -13,32 +13,52 @@ party without express written consent.
 */
 
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Navbar } from "./Nav";
 import { Logo } from "./Icons";
 import { Footer } from "./Footer";
 import React, { ReactNode } from "react";
 import { ThemeToggle } from "./ThemeToggler";
 
-interface LayoutProps {
+type LayoutProps = Readonly<{
   children?: ReactNode;
-}
+}>;
+
+/**
+ * Routes that render as full-viewport games. On these pages the decorative
+ * logo, circuit background, and footer are skipped so the game owns its own
+ * viewport below the sticky nav.
+ */
+const GAME_ROUTES: ReadonlySet<string> = new Set(["/awareness/digital-house"]);
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const router = useRouter();
+  const isGameRoute = GAME_ROUTES.has(router.pathname);
+
   return (
     <section
       id="main-scroll-container"
-      className="relative w-full min-h-screen flex flex-col z-10 justify-between items-center"
+      className={
+        isGameRoute
+          ? "relative z-10 flex min-h-screen w-full flex-col min-[820px]:h-dvh min-[820px]:overflow-hidden"
+          : "relative w-full min-h-screen flex flex-col z-10 justify-between items-center"
+      }
     >
       <header className="w-full md:sticky md:top-0 dark:bg-gray-900/40  backdrop-blur-md bg-gray-50/40 z-10">
         <Navbar />
       </header>
-      <ThemeToggle />
-      <Link href="/" title="Defend I.T. Solutions Home">
-        <Logo
-          className="mb-3 h-52 w-52 -mt-2 text-gray-800 transition-all duration-700 animate-fade-in dark:text-sky-400 sm:mb-3 sm:h-56 sm:w-56 sm:-mt-3 md:mb-4 md:h-64 md:w-64 md:-mt-4 lg:h-80 lg:w-80 z-20"
-          xlinkTitle="Defend I.T. Solutions Home"
-        />
-      </Link>
+      {/* ThemeToggle applies the `dark` class to <html>. Digital House mounts
+          an inline toggle in its own header so the fixed control does not sit
+          over the mobile device tray. */}
+      {!isGameRoute && <ThemeToggle />}
+      {!isGameRoute && (
+        <Link href="/" title="Defend I.T. Solutions Home">
+          <Logo
+            className="mb-3 h-52 w-52 -mt-2 text-gray-800 transition-all duration-700 animate-fade-in dark:text-sky-400 sm:mb-3 sm:h-56 sm:w-56 sm:-mt-3 md:mb-4 md:h-64 md:w-64 md:-mt-4 lg:h-80 lg:w-80 z-20"
+            xlinkTitle="Defend I.T. Solutions Home"
+          />
+        </Link>
+      )}
 
       <div
         className="absolute inset-0 h-full w-full bg-[url('/circuit.png')] bg-center bg-repeat bg-scroll opacity-3.25 pointer-events-none z-0 md:bg-fixed"
@@ -46,7 +66,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       />
 
       {children}
-      <Footer />
+      {!isGameRoute && <Footer />}
     </section>
   );
 };

@@ -45,3 +45,5 @@ AGENTS.md
 CLAUDE.md
 docs/
 .codex
+playwright-report/
+test-results/

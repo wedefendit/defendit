@@ -35,9 +35,12 @@ export type GameScore = {
   bestScore: number;
 };
 
+export type GamePreferences = Record<string, Record<string, unknown>>;
+
 export type GamesState = {
   badges: string[];
   scores: Record<string, GameScore>;
+  preferences: GamePreferences;
 };
 
 export type Score = {
