@@ -200,7 +200,7 @@ function MobileNavItem({
           className={
             active
               ? "text-blue-500 dark:text-sky-400 font-semibold underline underline-offset-4"
-              : "hover:text-blue-500 dark:hover:text-sky-400 text-gray-300 hover:underline underline-offset-4 font-semibold"
+              : "hover:text-blue-500 dark:hover:text-sky-400 text-gray-700 dark:text-gray-300 hover:underline underline-offset-4 font-semibold"
           }
         >
           {item.name}
@@ -221,7 +221,7 @@ function MobileNavItem({
           "flex w-full items-center justify-between gap-3 font-semibold",
           branchActive
             ? "text-blue-500 dark:text-sky-400"
-            : "text-gray-300 hover:text-blue-500 dark:hover:text-sky-400",
+            : "text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-sky-400",
         ].join(" ")}
       >
         <span className={branchActive ? "underline underline-offset-4" : ""}>
@@ -237,7 +237,7 @@ function MobileNavItem({
         </span>
       </button>
       {open && (
-        <ul className="mt-4 ml-2 space-y-4 border-l border-gray-700 pl-4">
+        <ul className="mt-4 ml-2 space-y-4 border-l border-gray-300 dark:border-gray-700 pl-4">
           {item.children.map((child) => {
             const childActive = hrefExact(child.href, current);
             return (
@@ -248,7 +248,7 @@ function MobileNavItem({
                   className={
                     childActive
                       ? "text-blue-500 dark:text-sky-400 font-semibold underline underline-offset-4"
-                      : "hover:text-blue-500 dark:hover:text-sky-400 text-gray-300 hover:underline underline-offset-4 font-semibold"
+                      : "hover:text-blue-500 dark:hover:text-sky-400 text-gray-700 dark:text-gray-300 hover:underline underline-offset-4 font-semibold"
                   }
                 >
                   {child.name}

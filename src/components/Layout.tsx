@@ -26,10 +26,13 @@ type LayoutProps = Readonly<{
 
 /**
  * Routes that render as full-viewport games. On these pages the decorative
- * logo, circuit background, and footer are skipped so the game owns its own
- * viewport below the sticky nav.
+ * logo, floating ThemeToggle, and footer are skipped so the game owns the
+ * full viewport below the sticky nav. The circuit background stays visible.
  */
-const GAME_ROUTES: ReadonlySet<string> = new Set(["/awareness/digital-house"]);
+const GAME_ROUTES: ReadonlySet<string> = new Set([
+  "/awareness/digital-house",
+  "/awareness/gridrunner",
+]);
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
