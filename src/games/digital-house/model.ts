@@ -6,9 +6,12 @@ export type Placement = Readonly<{ roomId: RoomId; zoneId: ZoneId }>;
 export type PlacementMap = Record<DeviceId, Placement | null>;
 export type BadgeJustEarned = "rookie" | "architect" | null;
 export type ScoreDelta = { key: number; value: number } | null;
-export type ActiveToast =
-  | { key: number; type: "halfway" | "streak"; label: string; hint: string }
-  | null;
+export type ActiveToast = {
+  key: number;
+  type: "halfway" | "streak";
+  label: string;
+  hint: string;
+} | null;
 export type LastPlacement = Readonly<{
   deviceId: DeviceId;
   zoneId: ZoneId;
@@ -30,7 +33,10 @@ export type CoachStepConfig = Readonly<{
   position: "above" | "below";
 }>;
 
-export function coachSteps(difficulty: Difficulty, mobile: boolean): CoachStepConfig[] {
+export function coachSteps(
+  difficulty: Difficulty,
+  mobile: boolean,
+): CoachStepConfig[] {
   const inventoryTarget = mobile
     ? "[data-testid='dh-device-strip']"
     : "[data-testid='dh-inventory-panel']";
@@ -39,7 +45,7 @@ export function coachSteps(difficulty: Difficulty, mobile: boolean): CoachStepCo
     {
       target: "[data-testid='dh-house-panel']",
       heading: "Build a secure home network",
-      body: "Your home has three network zones: Main for personal and work devices, Guest for visitor access, and IoT for smart home gear. Mixing the wrong devices on the same zone creates real security risk.",
+      body: "Your home has three network zones: Main for personal and work devices, Guest for visitor access, and IoT for smart devices. Putting the wrong devices on the same network creates real security risk.",
       position: "below",
     },
     {
@@ -51,7 +57,7 @@ export function coachSteps(difficulty: Difficulty, mobile: boolean): CoachStepCo
     {
       target: "[data-testid='dh-score-hud']",
       heading: "Watch your score",
-      body: "Each placement affects privacy, blast radius, and recovery. The analysis strip breaks down what went right or wrong after every move.",
+      body: "Each placement affects privacy, blast radius, and recovery. The analysis card shows what went right or wrong after every move.",
       position: "below",
     },
   ];
@@ -131,11 +137,17 @@ export const TOOLBAR_LABEL: Record<DeviceId, string> = {
 // ---- Device sets ----
 
 export const RISKY_DEVICE_IDS = new Set<DeviceId>([
-  "guest-phone", "smart-tv", "smart-speaker",
-  "game-console", "doorbell-camera", "camera-hub",
+  "guest-phone",
+  "smart-tv",
+  "smart-speaker",
+  "game-console",
+  "doorbell-camera",
+  "camera-hub",
 ]);
 export const TRUSTED_DEVICE_IDS = new Set<DeviceId>([
-  "work-laptop", "personal-phone", "tablet",
+  "work-laptop",
+  "personal-phone",
+  "tablet",
 ]);
 
 // ---- Shared card style ----

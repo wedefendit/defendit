@@ -108,6 +108,7 @@ export function DeviceStrip({
       dragTimerRef.current = setTimeout(() => {
         dragTimerRef.current = null;
         dragOriginRef.current = null;
+        if (navigator.vibrate) navigator.vibrate(12);
         onTouchDragStart(deviceId, e);
       }, 250);
     },

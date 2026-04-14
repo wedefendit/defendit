@@ -119,8 +119,9 @@ export function ScoreRingBar({
             />
           )}
         </div>
-        <progress
+        <div
           className="mt-1 h-0.5 w-full overflow-hidden rounded-full bg-slate-200/70 dark:bg-slate-800/80"
+          role="progressbar"
           aria-valuenow={placedCount}
           aria-valuemin={0}
           aria-valuemax={totalDevices}
@@ -133,7 +134,7 @@ export function ScoreRingBar({
               transition: "width 0.45s cubic-bezier(0.22,1,0.36,1)",
             }}
           />
-        </progress>
+        </div>
       </div>
     );
   }
@@ -232,11 +233,12 @@ export function ScoreRingBar({
             </div>
           </div>
         </div>
-        <progress
+        <div
           className={[
             "w-full overflow-hidden rounded-full bg-slate-200/70 dark:bg-slate-800/80",
             compact ? "mt-3 h-1" : "mt-3 h-1.5",
           ].join(" ")}
+          role="progressbar"
           aria-valuenow={placedCount}
           aria-valuemin={0}
           aria-valuemax={totalDevices}
@@ -249,7 +251,7 @@ export function ScoreRingBar({
               transition: "width 0.45s cubic-bezier(0.22,1,0.36,1)",
             }}
           />
-        </progress>
+        </div>
       </div>
     </div>
   );

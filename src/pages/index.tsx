@@ -16,6 +16,7 @@ import Link from "next/link";
 import { localBusinessLd } from "@/lib/json-ld";
 import companyInfo from "../../data/company-info.json";
 import { Meta, PageContainer } from "@/components";
+import { InteractiveTraining } from "@/components/InteractiveTraining";
 
 const { contact } = companyInfo;
 
@@ -158,6 +159,10 @@ export default function Home() {
               <BenefitCard key={benefit.title} {...benefit} />
             ))}
           </div>
+        </section>
+
+        <section className="py-12 px-6 max-w-6xl">
+          <InteractiveTraining />
         </section>
 
         <section className="py-12 px-4">

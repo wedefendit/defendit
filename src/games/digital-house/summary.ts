@@ -72,8 +72,7 @@ function isEntertainmentFinding(finding: PlacementFinding): boolean {
 
 function isCameraFinding(finding: PlacementFinding): boolean {
   return (
-    finding.deviceId === "doorbell-camera" ||
-    finding.deviceId === "camera-hub"
+    finding.deviceId === "doorbell-camera" || finding.deviceId === "camera-hub"
   );
 }
 
@@ -84,20 +83,21 @@ function guestRiskItem(
   if (difficulty === "easy") {
     return {
       id: "guest-phone",
-      label: "Easy mode still leaves the guest phone off a true Guest network.",
+      label: "Easy mode doesn't let you create a separate guest network.",
     };
   }
 
   if (finding.actualZone === "main") {
     return {
       id: "guest-phone",
-      label: "Guest phone is on Main, sharing trust it should not have.",
+      label:
+        "The guest phone is on your personal network where it shouldn't be.",
     };
   }
 
   return {
     id: "guest-phone",
-    label: "Guest phone is not isolated on a true Guest network.",
+    label: "The guest phone isn't on its own separate network yet.",
   };
 }
 
@@ -106,8 +106,8 @@ function cameraRiskItem(findings: PlacementFinding[]): OpenRiskItem {
     id: "camera-off-iot",
     label:
       findings.length === 1
-        ? "A camera is still outside the isolated IoT segment."
-        : "Camera devices are still outside the isolated IoT segment.",
+        ? "A camera still has more access than it needs."
+        : "Cameras still have more access than they need.",
     count: findings.length > 1 ? findings.length : undefined,
   };
 }
@@ -122,8 +122,8 @@ function trustedRiskItem(findings: PlacementFinding[]): OpenRiskItem {
       id: "trusted-critical",
       label:
         criticalCount === 1
-          ? "A trusted device is exposed on the IoT network."
-          : "Trusted devices are exposed on the IoT network.",
+          ? "One of your personal devices is sitting on the smart device network."
+          : "Your personal devices are sitting on the smart device network.",
       count: criticalCount > 1 ? criticalCount : undefined,
     };
   }
@@ -132,8 +132,8 @@ function trustedRiskItem(findings: PlacementFinding[]): OpenRiskItem {
     id: "trusted-wrong",
     label:
       findings.length === 1
-        ? "A trusted device is still off your Main network."
-        : "Trusted devices are still off your Main network.",
+        ? "One of your personal devices isn't on the main network."
+        : "Some of your personal devices aren't on the main network.",
     count: findings.length > 1 ? findings.length : undefined,
   };
 }
@@ -142,13 +142,13 @@ function printerRiskItem(finding: PlacementFinding): OpenRiskItem {
   if (finding.actualZone === "main") {
     return {
       id: "printer-main",
-      label: "The printer is still sitting on your Main network.",
+      label: "The printer is still on your personal network.",
     };
   }
 
   return {
     id: "printer-guest",
-    label: "The printer is still sitting on a more trusted segment than it needs.",
+    label: "The printer has more access than it needs.",
   };
 }
 
@@ -162,8 +162,8 @@ function entertainmentRiskItem(findings: PlacementFinding[]): OpenRiskItem {
       id: "entertainment-main",
       label:
         criticalCount === 1
-          ? "An entertainment device is still sitting on your Main network."
-          : "Entertainment devices are still sitting on your Main network.",
+          ? "An entertainment device is still on your personal network."
+          : "Entertainment devices are still on your personal network.",
       count: criticalCount > 1 ? criticalCount : undefined,
     };
   }
@@ -172,8 +172,8 @@ function entertainmentRiskItem(findings: PlacementFinding[]): OpenRiskItem {
     id: "entertainment-off-iot",
     label:
       findings.length === 1
-        ? "An entertainment device is still outside the isolated IoT segment."
-        : "Entertainment devices are still outside the isolated IoT segment.",
+        ? "An entertainment device still has more access than it needs."
+        : "Entertainment devices still have more access than they need.",
     count: findings.length > 1 ? findings.length : undefined,
   };
 }
@@ -182,29 +182,31 @@ export function scanWins(placements: PlacementMap): string[] {
   const wins: string[] = [];
 
   if (zoneOf(placements, "guest-phone") === "guest") {
-    wins.push("Guest access isolated on its own network.");
+    wins.push("Guest access is on its own separate network.");
   }
   if (
     zoneOf(placements, "doorbell-camera") === "iot" &&
     zoneOf(placements, "camera-hub") === "iot"
   ) {
-    wins.push("Both cameras contained on the IoT network.");
+    wins.push("Both cameras are separated from your personal devices.");
   }
   if (
     zoneOf(placements, "work-laptop") === "main" &&
     zoneOf(placements, "personal-phone") === "main"
   ) {
-    wins.push("Work and personal devices sharing one trusted zone.");
+    wins.push("Work and personal devices are together on the same network.");
   }
   if (
     zoneOf(placements, "smart-tv") === "iot" &&
     zoneOf(placements, "smart-speaker") === "iot" &&
     zoneOf(placements, "game-console") === "iot"
   ) {
-    wins.push("Entertainment devices separated from your trusted network.");
+    wins.push("Entertainment devices are separated from your personal stuff.");
   }
   if (zoneOf(placements, "printer") === "iot") {
-    wins.push("Printer treated as the untrusted IoT device it actually is.");
+    wins.push(
+      "Printer is separated from your personal devices where it belongs.",
+    );
   }
   if (wins.length === 0) {
     wins.push("You completed the exercise.");
@@ -294,7 +296,7 @@ export function scanImprovements(
   if (firstFinding(result, (finding) => finding.deviceId === "guest-phone")) {
     improvements.add(
       difficulty === "easy"
-        ? "Easy mode cannot assign a true Guest network. Try Medium or Hard to isolate the guest phone there."
+        ? "Easy mode doesn't have a guest network. Try Medium or Hard to separate visitor devices."
         : "Move the guest phone onto the Guest network.",
     );
   }
@@ -308,7 +310,9 @@ export function scanImprovements(
   }
 
   if (findingsFor(result, isTrustedFinding).length > 0) {
-    improvements.add("Move laptops, phones, and tablets back onto the Main network.");
+    improvements.add(
+      "Move laptops, phones, and tablets back onto the Main network.",
+    );
   }
 
   if (firstFinding(result, (finding) => finding.deviceId === "printer")) {
@@ -320,7 +324,9 @@ export function scanImprovements(
   }
 
   if (improvements.size === 0) {
-    improvements.add("Solid layout. Enable MFA everywhere.");
+    improvements.add(
+      "Solid layout. Turn on two-step verification on all your accounts.",
+    );
   }
 
   return Array.from(improvements);

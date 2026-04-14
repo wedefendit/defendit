@@ -23,54 +23,54 @@ import type { ZoneId } from "../engine/zones";
  */
 export const DEVICE_TIPS: Record<DeviceId, Record<ZoneId, string>> = {
   "work-laptop": {
-    main: "Right where it belongs, protected alongside your trusted devices.",
-    guest: "Cut off from the devices it actually needs to reach.",
-    iot: "Exposed to every smart device in the house.",
+    main: "Right where it belongs, safe with your other personal devices.",
+    guest: "Can't reach the other devices it needs to work with.",
+    iot: "Sitting next to every smart device in the house.",
   },
   "personal-phone": {
-    main: "Safe alongside your other trusted devices.",
-    guest: "Isolated from the files and services it depends on.",
-    iot: "Sharing space with the least-patched devices in the house.",
+    main: "Safe alongside your other personal devices.",
+    guest: "Cut off from the files and apps it needs.",
+    iot: "Sitting next to devices that rarely get security updates.",
   },
   tablet: {
     main: "Good fit with the rest of your daily devices.",
-    guest: "Works for browsing, but loses local network access.",
-    iot: "Unnecessary exposure to IoT gear.",
+    guest: "Works for browsing, but can't reach your other devices.",
+    iot: "Sitting next to smart devices it doesn't need to be near.",
   },
   "guest-phone": {
-    main: "A visitor now has full network trust, the exact thing to avoid.",
-    guest: "Perfect. Isolated internet for friends, no shared trust.",
-    iot: "Better than Main, but still not isolated on a true Guest network.",
+    main: "A visitor's phone can now see everything on your network.",
+    guest: "Perfect. Your guest gets internet without seeing your stuff.",
+    iot: "Better than Main, but visitors really belong on their own network.",
   },
   printer: {
-    main: "Convenient, but printers rarely get patched.",
-    guest: "Isolated but harder to actually print to.",
-    iot: "Safer. The printer does its job without touching trusted devices.",
+    main: "Convenient, but printers rarely get security updates.",
+    guest: "Separated, but harder to actually print to.",
+    iot: "Safer. The printer works fine without access to your personal devices.",
   },
   "smart-tv": {
-    main: "TVs phone home constantly. Too much trust for a streaming box.",
-    guest: "Still more reach into the house than a TV needs.",
-    iot: "Contained. Streams fine, sees nothing it shouldn't.",
+    main: "Smart TVs constantly send data back to the manufacturer. Too much access for a TV.",
+    guest: "Still more access to your home than a TV needs.",
+    iot: "Streams fine from here and can't see anything it shouldn't.",
   },
   "smart-speaker": {
-    main: "Always-listening device sitting on your trusted network.",
-    guest: "Limited reach, but not where it belongs either.",
-    iot: "Contained. Same function, far safer.",
+    main: "An always-listening device with full access to your personal network.",
+    guest: "Limited access, but not really where it belongs either.",
+    iot: "Works exactly the same from here, just much safer.",
   },
   "game-console": {
-    main: "Gaming traffic and chat services in your trusted zone.",
-    guest: "Unnecessary guest clutter.",
-    iot: "Gaming happens away from sensitive devices.",
+    main: "Online gaming and voice chat running on your personal network.",
+    guest: "Doesn't really need to be on the guest network.",
+    iot: "Gaming works fine from here, away from your personal devices.",
   },
   "doorbell-camera": {
-    main: "Direct path from outside to every trusted device.",
-    guest: "Exterior device, still with too much reach.",
-    iot: "Exterior devices belong here, contained and reachable.",
+    main: "A camera facing the street with full access to your personal devices.",
+    guest: "An outdoor camera with more access than it needs.",
+    iot: "Right where it belongs. Works fine, stays separate from everything else.",
   },
   "camera-hub": {
-    main: "A compromised camera becomes a path to your work files.",
-    guest: "Cameras need isolation, not guest-level trust.",
-    iot: "Isolated. If the hub is breached, the breach stays contained.",
+    main: "If someone hacks the camera, they can reach your work files.",
+    guest: "Cameras need their own space, not visitor-level access.",
+    iot: "If someone breaks in through the cameras, the damage stays limited to this network.",
   },
 };
 
@@ -80,11 +80,11 @@ export const DEVICE_TIPS: Record<DeviceId, Record<ZoneId, string>> = {
  */
 export const COMBO_TIPS: Record<AppliedCombo["id"], string> = {
   "guest-mixed-with-trusted":
-    "Guest device mixed with trusted devices, the layout we tell people to break first.",
+    "A visitor's device is sharing a network with your personal devices.",
   "camera-on-main":
-    "Camera on Main. Direct path from outside to your trusted devices.",
+    "Camera on Main. A camera facing the street can see your personal devices.",
   "entertainment-clutter":
-    "Smart devices cluttering the trusted zone.",
+    "Smart devices are cluttering up your personal network.",
   "single-zone-dump":
-    "Everything in one zone. Any single device can reach everything else.",
+    "Everything is on one network. If any device gets hacked, the rest are exposed.",
 };

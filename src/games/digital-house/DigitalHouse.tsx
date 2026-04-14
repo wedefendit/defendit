@@ -160,7 +160,7 @@ export function DigitalHouse() {
           data-testid="dh-main"
           className="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden px-4 py-2"
         >
-          <div className="mx-auto flex min-h-0 max-h-full w-full max-w-[860px] flex-1 flex-col gap-1 overflow-hidden">
+          <div className="mx-auto flex min-h-0 w-full max-w-[860px] flex-1 flex-col gap-1 overflow-hidden">
             {/* Score HUD with rings */}
             <div className="w-full shrink-0">{scoreHud}</div>
 
@@ -173,6 +173,16 @@ export function DigitalHouse() {
               className="relative min-h-0 w-full flex-1 overflow-visible"
             >
               <MobileScaledHouseFrame {...c.houseProps} />
+
+              {/* Idle hint */}
+              {c.idleHint && !c.showOnboarding && (
+                <div className="pointer-events-none absolute inset-x-2 bottom-2 z-20 flex justify-center">
+                  <IdleHintBanner
+                    hint={c.idleHint}
+                    onDismiss={c.dismissIdleHint}
+                  />
+                </div>
+              )}
             </section>
 
             {/* Inventory — capped height, scrolls internally */}
@@ -193,6 +203,16 @@ export function DigitalHouse() {
               className="dh-house-panel relative flex min-h-0 flex-1 items-center justify-center self-stretch overflow-visible p-2 xl:p-3"
             >
               <ScaledHouseFrame {...c.houseProps} />
+
+              {/* Idle hint */}
+              {c.idleHint && !c.showOnboarding && (
+                <div className="pointer-events-none absolute inset-x-2 bottom-2 z-20 flex justify-center">
+                  <IdleHintBanner
+                    hint={c.idleHint}
+                    onDismiss={c.dismissIdleHint}
+                  />
+                </div>
+              )}
             </section>
 
             <aside
