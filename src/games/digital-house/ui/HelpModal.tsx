@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { HelpCircle, X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronDown, HelpCircle, X } from "lucide-react";
 
 export type HelpModalProps = Readonly<{
   onDismiss: (dontShowAgain: boolean) => void;
@@ -7,6 +7,28 @@ export type HelpModalProps = Readonly<{
 
 export function HelpModal({ onDismiss }: HelpModalProps) {
   const [dontShowAgain, setDontShowAgain] = useState(false);
+  const [canScroll, setCanScroll] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  const checkScroll = useCallback(() => {
+    const el = dialogRef.current;
+    if (!el) return;
+    const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 12;
+    setCanScroll(!atBottom && el.scrollHeight > el.clientHeight);
+  }, []);
+
+  useEffect(() => {
+    const el = dialogRef.current;
+    if (!el) return;
+    checkScroll();
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    const ro = new ResizeObserver(checkScroll);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      ro.disconnect();
+    };
+  }, [checkScroll]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -19,7 +41,7 @@ export function HelpModal({ onDismiss }: HelpModalProps) {
   return (
     <div
       style={{ animation: "dh-fadeIn 0.25s ease" }}
-      className="fixed inset-0 z-95 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-md"
+      className="fixed inset-0 z-95 flex items-center justify-center bg-slate-950/80 p-6 backdrop-blur-md min-[768px]:p-8"
     >
       <button
         type="button"
@@ -30,12 +52,19 @@ export function HelpModal({ onDismiss }: HelpModalProps) {
         tabIndex={-1}
       />
       <div
+        ref={dialogRef}
         role="dialog"
         data-testid="dh-help-modal"
         aria-modal="true"
         aria-label="How to play"
-        style={{ animation: "dh-modalRise 0.5s cubic-bezier(0.22,1.2,0.36,1)" }}
-        className="relative z-10 max-h-[calc(100dvh-24px)] w-full max-w-lg overflow-y-auto rounded-2xl border border-slate-200/80 bg-white/96 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_58%)] p-6 text-slate-900 shadow-[0_30px_80px_rgba(15,23,42,0.18)] ring-1 ring-white/90 min-[768px]:max-w-xl min-[768px]:p-8 min-[1024px]:max-w-2xl sm:p-8 dark:border-sky-400/25 dark:bg-slate-900/96 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_58%)] dark:text-slate-100 dark:shadow-[0_30px_80px_rgba(2,6,23,0.6)] dark:ring-white/5"
+        style={{
+          animation: "dh-modalRise 0.5s cubic-bezier(0.22,1.2,0.36,1)",
+          scrollbarWidth: "thin",
+          scrollbarColor: "rgba(148,163,184,0.3) transparent",
+          WebkitOverflowScrolling: "touch",
+          overscrollBehavior: "contain",
+        }}
+        className="relative z-10 max-h-[calc(100dvh-48px)] w-full max-w-lg overflow-y-auto rounded-2xl border border-slate-200/80 bg-white/96 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_58%)] p-4 text-slate-900 shadow-[0_30px_80px_rgba(15,23,42,0.18)] ring-1 ring-white/90 min-[768px]:max-w-xl min-[768px]:p-8 min-[1024px]:max-w-2xl sm:p-6 dark:border-sky-400/25 dark:bg-slate-900/96 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_58%)] dark:text-slate-100 dark:shadow-[0_30px_80px_rgba(2,6,23,0.6)] dark:ring-white/5"
       >
         <button
           type="button"
@@ -134,6 +163,22 @@ export function HelpModal({ onDismiss }: HelpModalProps) {
             Dismiss
           </button>
         </div>
+
+        {/* Scroll hint -- fades out when user reaches bottom */}
+        {canScroll && (
+          <div
+            aria-hidden
+            className="pointer-events-none sticky -bottom-4 left-0 right-0 flex justify-center pb-1 sm:-bottom-6"
+          >
+            <div className="absolute inset-x-0 bottom-0 h-12 rounded-b-2xl bg-gradient-to-t from-white/95 via-white/60 to-transparent dark:from-slate-900/95 dark:via-slate-900/60" />
+            <div
+              className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full border border-slate-300/60 bg-white/90 text-slate-500 shadow-sm dark:border-slate-600/60 dark:bg-slate-800/90 dark:text-slate-400"
+              style={{ animation: "dh-hintPulse 2s ease infinite" }}
+            >
+              <ChevronDown size={14} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

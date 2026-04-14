@@ -13,8 +13,8 @@ party without express written consent.
 */
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { Award, Sparkles, X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Award, ChevronDown, Sparkles, X } from "lucide-react";
 import type { Difficulty } from "../../shared/types";
 import type { ScoreResult } from "../engine";
 import type { BadgeJustEarned, PlacementMap } from "../model";
@@ -75,33 +75,64 @@ export function EndSummaryModal({
     return () => globalThis.removeEventListener("keydown", handleKey);
   }, [onDismiss]);
 
+  const [canScroll, setCanScroll] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  const checkScroll = useCallback(() => {
+    const el = dialogRef.current;
+    if (!el) return;
+    const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 12;
+    setCanScroll(!atBottom && el.scrollHeight > el.clientHeight);
+  }, []);
+
+  useEffect(() => {
+    const el = dialogRef.current;
+    if (!el) return;
+    checkScroll();
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    const ro = new ResizeObserver(checkScroll);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      ro.disconnect();
+    };
+  }, [checkScroll]);
+
   return (
     <div
       style={{ animation: "dh-fadeIn 0.45s ease" }}
-      className="fixed inset-0 z-90 flex items-center justify-center bg-slate-950/85 p-4 backdrop-blur-md"
+      className="fixed inset-0 z-90 flex items-center justify-center bg-slate-950/85 p-6 backdrop-blur-md min-[768px]:p-8"
     >
       <button
         type="button"
         aria-label="Close summary"
-        onClick={onDismiss}
-        className="absolute inset-0 h-full w-full cursor-default bg-transparent"
+        onClick={() => onDismiss()}
+        className="absolute inset-0 z-0 h-full w-full cursor-default touch-manipulation bg-transparent"
+        style={{ touchAction: "manipulation" }}
         tabIndex={-1}
       />
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label="After-action report"
-        style={{ animation: "dh-modalRise 0.7s cubic-bezier(0.22,1.2,0.36,1)" }}
-        className="relative z-10 max-h-[calc(100dvh-24px)] w-full max-w-md overflow-y-auto rounded-2xl border border-slate-200/80 bg-white/96 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_58%)] p-5 text-slate-900 shadow-[0_30px_80px_rgba(15,23,42,0.2)] ring-1 ring-white/90 sm:p-7 dark:border-sky-400/28 dark:bg-slate-900/96 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_58%)] dark:text-slate-100 dark:shadow-[0_30px_80px_rgba(2,6,23,0.6)] dark:ring-white/5"
+        style={{
+          animation: "dh-modalRise 0.7s cubic-bezier(0.22,1.2,0.36,1)",
+          scrollbarWidth: "thin",
+          scrollbarColor: "rgba(148,163,184,0.3) transparent",
+          WebkitOverflowScrolling: "touch",
+          overscrollBehavior: "contain",
+        }}
+        className="relative z-10 max-h-[calc(100dvh-48px)] w-full max-w-md overflow-y-auto rounded-2xl border border-slate-200/80 bg-white/96 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_58%)] p-4 text-slate-900 shadow-[0_30px_80px_rgba(15,23,42,0.2)] ring-1 ring-white/90 sm:p-7 dark:border-sky-400/28 dark:bg-slate-900/96 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_58%)] dark:text-slate-100 dark:shadow-[0_30px_80px_rgba(2,6,23,0.6)] dark:ring-white/5"
       >
         <button
           type="button"
-          onClick={onDismiss}
+          onClick={() => onDismiss()}
           aria-label="Dismiss"
-          className="absolute right-3 top-3 touch-manipulation rounded-md p-1.5 text-slate-500 transition-colors hover:bg-slate-200 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+          className="absolute right-2 top-2 z-20 touch-manipulation rounded-md p-2.5 text-slate-500 transition-colors hover:bg-slate-200 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200"
           style={{ touchAction: "manipulation" }}
         >
-          <X size={16} />
+          <X size={18} />
         </button>
 
         {/* Header */}
@@ -198,6 +229,22 @@ export function EndSummaryModal({
             Get Help →
           </Link>
         </div>
+
+        {/* Scroll hint -- fades out when user reaches bottom */}
+        {canScroll && (
+          <div
+            aria-hidden
+            className="pointer-events-none sticky -bottom-4 left-0 right-0 flex justify-center pb-1 sm:-bottom-7"
+          >
+            <div className="absolute inset-x-0 bottom-0 h-12 rounded-b-2xl bg-gradient-to-t from-white/95 via-white/60 to-transparent dark:from-slate-900/95 dark:via-slate-900/60" />
+            <div
+              className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full border border-slate-300/60 bg-white/90 text-slate-500 shadow-sm dark:border-slate-600/60 dark:bg-slate-800/90 dark:text-slate-400"
+              style={{ animation: "dh-hintPulse 2s ease infinite" }}
+            >
+              <ChevronDown size={14} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

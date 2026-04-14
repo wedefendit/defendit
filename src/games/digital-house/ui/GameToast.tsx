@@ -45,16 +45,41 @@ export function GameToast({
           : undefined,
       }}
       className={[
-        "pointer-events-none fixed left-1/2 z-80 max-w-[calc(100vw-24px)] -translate-x-1/2 rounded-full border px-3 py-2 backdrop-blur-md ring-1 min-[820px]:bottom-auto min-[820px]:top-24 min-[820px]:px-5 min-[820px]:py-2.5",
+        "pointer-events-none fixed left-1/2 z-80 max-w-[calc(100vw-24px)] -translate-x-1/2 border backdrop-blur-md ring-1",
+        mobile
+          ? "rounded-xl px-2.5 py-1.5"
+          : "rounded-full px-5 py-2.5 min-[820px]:bottom-auto min-[820px]:top-24",
         accentClasses,
       ].join(" ")}
     >
-      <div className="flex items-center gap-2">
-        <span className={accent === "amber" ? "text-amber-600 dark:text-amber-300" : "text-sky-600 dark:text-sky-300"}>
+      <div className="flex items-center gap-1.5">
+        <span
+          className={
+            accent === "amber"
+              ? "text-amber-600 dark:text-amber-300"
+              : "text-sky-600 dark:text-sky-300"
+          }
+        >
           {icon}
         </span>
-        <span className="text-sm font-bold tracking-wide">{label}</span>
-        <span className="text-xs font-medium opacity-80">{hint}</span>
+        <span
+          className={
+            mobile
+              ? "text-xs font-bold tracking-wide"
+              : "text-sm font-bold tracking-wide"
+          }
+        >
+          {label}
+        </span>
+        <span
+          className={
+            mobile
+              ? "text-[10px] font-medium opacity-80"
+              : "text-xs font-medium opacity-80"
+          }
+        >
+          {hint}
+        </span>
       </div>
     </div>
   );

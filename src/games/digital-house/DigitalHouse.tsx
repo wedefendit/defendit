@@ -75,7 +75,7 @@ export function DigitalHouse() {
   return (
     <div
       data-testid="dh-root"
-      className="relative isolate flex min-h-0 flex-1 flex-col overflow-hidden text-slate-950 dark:text-slate-50"
+      className="relative flex min-h-0 flex-1 flex-col overflow-hidden text-slate-950 dark:text-slate-50"
     >
       {/* Keyframes */}
       <style>

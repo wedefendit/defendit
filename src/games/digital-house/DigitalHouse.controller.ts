@@ -270,8 +270,29 @@ function useTouchDrag(
   const startDrag = useCallback((deviceId: DeviceId, originTouch: Touch) => {
     const ghost = document.createElement("div");
     ghost.style.cssText =
-      "position:fixed;z-index:9999;pointer-events:none;width:44px;height:44px;border-radius:12px;background:rgba(56,189,248,0.85);border:2px solid #0ea5e9;box-shadow:0 8px 24px rgba(56,189,248,0.5);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;font-weight:900;transform:translate(-50%,-50%) scale(1.1);";
-    ghost.textContent = "↓";
+      "position:fixed;z-index:9999;pointer-events:none;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%) scale(1.1);";
+
+    // Clone the actual device icon from the DOM
+    const card = document.querySelector(
+      `[data-testid="dh-device-${deviceId}"]`,
+    );
+    const iconSpan = card?.querySelector("span");
+    if (iconSpan) {
+      const clone = iconSpan.cloneNode(true) as HTMLElement;
+      clone.style.width = "44px";
+      clone.style.height = "44px";
+      clone.style.borderRadius = "12px";
+      // Grab the computed background so we keep the category color
+      const bg = getComputedStyle(iconSpan).backgroundColor;
+      clone.style.backgroundColor = bg;
+      clone.style.boxShadow = `0 8px 24px ${bg.replace(")", ", 0.55)").replace("rgb(", "rgba(")}`;
+      ghost.appendChild(clone);
+    } else {
+      // Fallback: plain blue box
+      ghost.style.background = "rgba(56,189,248,0.85)";
+      ghost.style.border = "2px solid #0ea5e9";
+      ghost.style.boxShadow = "0 8px 24px rgba(56,189,248,0.5)";
+    }
     ghost.style.left = originTouch.clientX + "px";
     ghost.style.top = originTouch.clientY + "px";
     document.body.appendChild(ghost);

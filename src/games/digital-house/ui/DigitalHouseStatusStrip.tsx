@@ -61,7 +61,7 @@ export function AnalysisStrip({
   result: _,
   desktop = false,
 }: AnalysisStripProps) {
-  const base = `dh-analysis-card relative overflow-hidden rounded-xl border border-slate-200/80 bg-white/60 backdrop-blur-md dark:border-slate-700/60 transition-all duration-300 dark:bg-slate-900/50 ${desktop ? "min-h-[68px] rounded-2xl px-5 py-4" : "min-h-[40px] px-3 py-1"}`;
+  const base = `dh-analysis-card relative rounded-xl border border-slate-200/80 bg-white/60 backdrop-blur-md dark:border-slate-700/60 transition-all duration-300 dark:bg-slate-900/50 ${desktop ? "min-h-[68px] rounded-2xl px-5 py-4" : "min-h-[40px] px-3 py-1"}`;
 
   // Placement feedback
   if (lastPlacement) {
@@ -79,19 +79,13 @@ export function AnalysisStrip({
       >
         <div
           className={
-            desktop
-              ? "flex items-start gap-3"
-              : "flex h-full items-center gap-2"
+            desktop ? "flex items-start gap-3" : "flex flex-col gap-0.5"
           }
         >
           {desktop && (
             <DeviceIcon deviceId={dev.id} category={dev.category} size="md" />
           )}
-          <div
-            className={
-              desktop ? "min-w-0 flex-1" : "flex min-w-0 items-center gap-2"
-            }
-          >
+          <div className={desktop ? "min-w-0 flex-1" : "min-w-0"}>
             {desktop && (
               <div className="flex items-center gap-1.5">
                 <span
@@ -104,21 +98,30 @@ export function AnalysisStrip({
               </div>
             )}
             {!desktop && (
-              <span
-                aria-hidden
-                className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${s.dot}`}
-              />
+              <div className="flex items-center gap-1.5">
+                <span
+                  aria-hidden
+                  className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${s.dot}`}
+                />
+                <span
+                  className={`text-[10px] font-black uppercase tracking-[0.12em] ${s.hl}`}
+                >
+                  {dev.name}
+                </span>
+              </div>
             )}
-            <span
-              className={`shrink-0 text-[10px] font-black uppercase tracking-[0.12em] ${s.hl} ${desktop ? "mt-1 block text-[11px]" : ""}`}
-            >
-              {dev.name}
-            </span>
+            {desktop && (
+              <span
+                className={`shrink-0 text-[11px] font-black uppercase tracking-[0.12em] ${s.hl} mt-1 block`}
+              >
+                {dev.name}
+              </span>
+            )}
             <span
               className={
                 desktop
                   ? "mt-1 text-[13px] leading-snug text-slate-700 dark:text-slate-200"
-                  : "min-w-0 truncate text-[11px] leading-snug text-slate-700 dark:text-slate-200"
+                  : "mt-0.5 block text-[11px] leading-snug text-slate-700 dark:text-slate-200"
               }
             >
               {tip}
@@ -140,9 +143,7 @@ export function AnalysisStrip({
       >
         <div
           className={
-            desktop
-              ? "flex items-start gap-3"
-              : "flex h-full items-center gap-2"
+            desktop ? "flex items-start gap-3" : "flex flex-col gap-0.5"
           }
         >
           {desktop && (
@@ -155,13 +156,9 @@ export function AnalysisStrip({
               size="md"
             />
           )}
-          <div
-            className={
-              desktop ? "min-w-0 flex-1" : "flex min-w-0 items-center gap-2"
-            }
-          >
+          <div className={desktop ? "min-w-0 flex-1" : "min-w-0"}>
             <span
-              className={`shrink-0 text-[10px] font-black uppercase tracking-[0.12em] text-sky-700 dark:text-sky-300 ${desktop ? "block text-[11px]" : ""}`}
+              className={`text-[10px] font-black uppercase tracking-[0.12em] text-sky-700 dark:text-sky-300 ${desktop ? "block text-[11px]" : ""}`}
             >
               {selectedDevice.name}
             </span>
@@ -169,7 +166,7 @@ export function AnalysisStrip({
               className={
                 desktop
                   ? "mt-1 text-[13px] leading-snug text-slate-600 dark:text-slate-300"
-                  : "min-w-0 truncate text-[11px] leading-snug text-slate-600 dark:text-slate-300"
+                  : "mt-0.5 block text-[11px] leading-snug text-slate-600 dark:text-slate-300"
               }
             >
               {selectedDevice.description}
