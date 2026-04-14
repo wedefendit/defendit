@@ -394,9 +394,8 @@ function Ring({
           y={size / 2}
           textAnchor="middle"
           dy="0.35em"
+          transform={`rotate(90 ${size / 2} ${size / 2})`}
           style={{
-            transform: "rotate(90deg)",
-            transformOrigin: "center",
             fontSize: size * 0.3,
             fontWeight: 800,
             fill: tierTextColor(t),

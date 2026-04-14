@@ -143,6 +143,7 @@ export const RISKY_DEVICE_IDS = new Set<DeviceId>([
   "game-console",
   "doorbell-camera",
   "camera-hub",
+  "printer",
 ]);
 export const TRUSTED_DEVICE_IDS = new Set<DeviceId>([
   "work-laptop",

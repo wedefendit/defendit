@@ -12,12 +12,7 @@ licensees of Defend I.T. Solutions LLC and may not be disclosed to any third
 party without express written consent.
 */
 
-import {
-  DEVICES,
-  isCamera,
-  isTrusted,
-  type DeviceId,
-} from "./devices";
+import { DEVICES, isCamera, isTrusted, type DeviceId } from "./devices";
 import type { ZoneId } from "./zones";
 
 export type ScoreDelta = {
@@ -87,7 +82,7 @@ const BASE_MATRIX: Record<DeviceId, Record<ZoneId, ScoreDelta>> = {
     iot: { privacy: -6, blastRadius: -4, recovery: -4 },
   },
   printer: {
-    main: { privacy: -2, blastRadius: -4, recovery: -6 },
+    main: { privacy: -8, blastRadius: -10, recovery: -12 },
     guest: { privacy: -10, blastRadius: -10, recovery: -8 },
     iot: { privacy: 2, blastRadius: 4, recovery: 2 },
   },
@@ -240,7 +235,10 @@ function isEntertainmentDevice(deviceId: DeviceId): boolean {
 function buildPlacementFinding(
   placement: DevicePlacement,
 ): PlacementFinding | null {
-  const severity = classifyPlacementSeverity(placement.deviceId, placement.zoneId);
+  const severity = classifyPlacementSeverity(
+    placement.deviceId,
+    placement.zoneId,
+  );
   if (!severity) return null;
 
   return {

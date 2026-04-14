@@ -596,13 +596,14 @@ export function useDigitalHouseController() {
 
   const returnDevice = useCallback((deviceId: DeviceId) => {
     setPlacements((prev) => ({ ...prev, [deviceId]: null }));
-    setSelectedId(deviceId);
+    setSelectedId(null);
     setLastPlacement(null);
     setOpenZoneRoom(null);
   }, []);
 
   const handleSelect = useCallback((deviceId: DeviceId) => {
     setSelectedId((prev) => (prev === deviceId ? null : deviceId));
+    setLastPlacement(null);
     setOpenZoneRoom(null);
   }, []);
 
