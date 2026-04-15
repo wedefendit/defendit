@@ -129,7 +129,11 @@ async function collectFrameMetrics(page: Page): Promise<FrameMetrics> {
   });
 }
 
-async function attachScreenshot(page: Page, testInfo: TestInfo, name: string) {
+async function attachScreenshot(
+  page: Page,
+  testInfo: TestInfo,
+  name: string,
+) {
   const path = testInfo.outputPath(name + ".png");
   await page.screenshot({ path, fullPage: false });
   await testInfo.attach(name, { path, contentType: "image/png" });
@@ -152,7 +156,9 @@ async function attachMetrics(
 /* ------------------------------------------------------------------ */
 
 test.describe("GRIDRUNNER page integration", () => {
-  test("route loads with nav, circuit bg, and no footer", async ({ page }) => {
+  test("route loads with nav, circuit bg, and no footer", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await openGridRunner(page);
 
@@ -160,9 +166,6 @@ test.describe("GRIDRUNNER page integration", () => {
     await expect(page.locator("nav").first()).toBeVisible();
 
     // Circuit background is present (the texture div)
-    page.locator('[aria-hidden="true"]').filter({
-      has: page.locator(":scope"),
-    });
     const hasBg = await page.evaluate(() => {
       const els = Array.from(document.querySelectorAll('[aria-hidden="true"]'));
       return els.some((el) => {
@@ -212,9 +215,7 @@ test.describe("GRIDRUNNER semantic HTML", () => {
     expect(frameLabel, "gr-frame should have an aria-label").toBeTruthy();
   });
 
-  test("title screen has <h1>, name input, and new game button", async ({
-    page,
-  }) => {
+  test("title screen has <h1>, name input, and new game button", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await openGridRunner(page);
 
@@ -305,7 +306,11 @@ test.describe("GRIDRUNNER frame containment", () => {
       expect(metrics.frame.width).toBeGreaterThan(0);
       expect(metrics.frame.height).toBeGreaterThan(0);
 
-      await attachScreenshot(page, testInfo, `frame-${vp.width}x${vp.height}`);
+      await attachScreenshot(
+        page,
+        testInfo,
+        `frame-${vp.width}x${vp.height}`,
+      );
     });
   }
 });
@@ -359,7 +364,9 @@ test.describe("GRIDRUNNER no vertical overflow", () => {
 /* ------------------------------------------------------------------ */
 
 test.describe("GRIDRUNNER frame fills available space", () => {
-  test("phone portrait: frame width >= 85% of viewport", async ({ page }) => {
+  test("phone portrait: frame width >= 85% of viewport", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await openGridRunner(page);
     const metrics = await collectFrameMetrics(page);
@@ -459,6 +466,46 @@ test.describe("GRIDRUNNER tile proportions", () => {
       await attachScreenshot(page, testInfo, `tiles-${vp.width}x${vp.height}`);
     });
   }
+
+  test("grid always renders 16x12 cells (fixed viewport)", async ({
+    page,
+  }, testInfo) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await startNewGame(page);
+
+    // The overworld is 16x12 and the arcade is 12x10, but both must
+    // render into the same 16x12 viewport grid (192 cells total).
+    // This guarantees tile sizes are identical across all maps.
+    const gridInfo = await page.evaluate(() => {
+      const map = document.querySelector('[data-testid="gr-map"]') as HTMLElement;
+      if (!map) return null;
+      const style = map.style;
+      const cols = style.gridTemplateColumns;
+      const rows = style.gridTemplateRows;
+      return {
+        cellCount: map.children.length,
+        colsDef: cols,
+        rowsDef: rows,
+        width: map.getBoundingClientRect().width,
+        height: map.getBoundingClientRect().height,
+      };
+    });
+
+    expect(gridInfo, "Grid should exist").not.toBeNull();
+    if (!gridInfo) return;
+
+    // Must always be 16*12 = 192 cells
+    expect(
+      gridInfo.cellCount,
+      `Grid has ${gridInfo.cellCount} cells, expected 192 (16x12)`,
+    ).toBe(192);
+
+    // Grid template must use fixed viewport dimensions
+    expect(gridInfo.colsDef).toContain("repeat(16");
+    expect(gridInfo.rowsDef).toContain("repeat(12");
+
+    await attachScreenshot(page, testInfo, "fixed-viewport-grid");
+  });
 });
 
 /* ------------------------------------------------------------------ */
@@ -559,7 +606,9 @@ test.describe("GRIDRUNNER mobile controls", () => {
     }
   });
 
-  test("action buttons A and B are present with labels", async ({ page }) => {
+  test("action buttons A and B are present with labels", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await startNewGame(page);
 
@@ -656,18 +705,7 @@ test.describe("GRIDRUNNER dark mode enforcement", () => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await openGridRunner(page);
 
-    // Nav background should be dark-toned (dark mode applied)
-    await page
-      .locator("nav")
-      .first()
-      .evaluate((el) => {
-        const bg = getComputedStyle(el).backgroundColor;
-        return bg;
-      });
-
-    // The header has dark:bg-gray-900/40 which is a dark RGBA value.
-    // In light mode it would be bg-gray-50/40. We check it's not the light value.
-    // Just verify dark class is on html -- that guarantees dark variants apply.
+    // Verify dark class is on html -- that guarantees dark variants apply.
     const hasDark = await page.evaluate(() =>
       document.documentElement.classList.contains("dark"),
     );

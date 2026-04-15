@@ -2,7 +2,7 @@
 Copyright © 2025 Defend I.T. Solutions LLC. All Rights Reserved.
 */
 
-import type { GameMap, MapTile } from "../engine/types";
+import type { GameMap, MapTile } from "../../engine/types";
 
 /** Shorthand factory */
 const G: MapTile = { kind: "ground", walkable: true };

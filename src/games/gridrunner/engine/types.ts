@@ -96,3 +96,46 @@ export interface GridRunnerSave {
 /* ------------------------------------------------------------------ */
 
 export type GameScreen = "title" | "overworld" | "building" | "battle" | "intel";
+
+/* ------------------------------------------------------------------ */
+/*  Enemy & Battle                                                    */
+/* ------------------------------------------------------------------ */
+
+export interface EnemyMove {
+  name: string;
+  power: number;
+  accuracy: number;
+  weight: number;
+  description: string;
+}
+
+export interface EnemyDef {
+  id: string;
+  name: string;
+  baseHp: number;
+  speed: number;
+  defense: number;
+  moves: EnemyMove[];
+  xpReward: number;
+  bitsReward: number;
+}
+
+export interface BattleEnemy {
+  def: EnemyDef;
+  hp: number;
+  maxHp: number;
+}
+
+export interface BattleState {
+  enemy: BattleEnemy;
+  phase: "player_turn" | "enemy_turn" | "resolving" | "won" | "lost";
+  log: string[];
+  turnCount: number;
+  xpEarned: number;
+  bitsEarned: number;
+}
+
+export interface ZoneConfig {
+  encounterRate: number;
+  enemies: string[];
+}
