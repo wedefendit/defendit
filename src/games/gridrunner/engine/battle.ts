@@ -4,6 +4,7 @@ Copyright © 2025 Defend I.T. Solutions LLC. All Rights Reserved.
 
 import type { BattleEnemy, BattleState, EnemyMove, PlayerState, ToolInstance, ToolType } from "./types";
 import { pickEnemyMove } from "./enemies";
+import { rollLootDrop, toolDisplayName } from "./loot";
 
 /* ------------------------------------------------------------------ */
 /*  Log formatting                                                    */
@@ -20,7 +21,17 @@ function fmt(turn: number, tag: LogTag, msg: string): string {
 /*  Type effectiveness (GDD §8.4)                                     */
 /* ------------------------------------------------------------------ */
 
-function typeMultiplier(_attackerType: ToolType, _defenderType?: ToolType): number {
+/** Weak-against mapping: if your tool type matches the enemy's strong suit */
+const WEAK_AGAINST: Readonly<Record<ToolType, ToolType>> = {
+  recon: "defense",
+  exploit: "persistence",
+  defense: "recon",
+  persistence: "exploit",
+};
+
+function typeMultiplier(attackerType: ToolType, enemyWeakness?: ToolType): number {
+  if (enemyWeakness && attackerType === enemyWeakness) return 1.5;
+  if (enemyWeakness && WEAK_AGAINST[attackerType] === enemyWeakness) return 0.75;
   return 1.0;
 }
 
@@ -33,7 +44,7 @@ function calcPlayerDamage(
   _player: PlayerState,
   enemy: BattleEnemy,
 ): number {
-  const base = tool.power * typeMultiplier(tool.type);
+  const base = tool.power * typeMultiplier(tool.type, enemy.def.weakness);
   const reduced = Math.max(1, base - enemy.def.defense);
   return Math.round(reduced);
 }
@@ -88,14 +99,37 @@ export function resolvePlayerTurn(
 
   if (updatedEnemy.hp <= 0) {
     log.push(fmt(turn, "WIN", `${updatedEnemy.def.name} defeated.`));
+
+    // Roll loot
+    const loot = rollLootDrop(updatedPlayer.level, battle.isBoss);
+    if (loot) {
+      log.push(fmt(turn, "SYS", `LOOT: ${toolDisplayName(loot)} (Pwr ${loot.power}, Acc ${loot.accuracy}%, EN ${loot.energyCost})`));
+    }
+
+    // Preview level-ups
+    const xpGain = updatedEnemy.def.xpReward;
+    let previewXp = updatedPlayer.xp + xpGain;
+    let previewNext = updatedPlayer.xpToNext;
+    let lvls = 0;
+    while (previewXp >= previewNext && updatedPlayer.level + lvls < 20) {
+      previewXp -= previewNext;
+      previewNext = Math.round(previewNext * 1.5);
+      lvls += 1;
+    }
+    if (lvls > 0) {
+      log.push(fmt(turn, "SYS", `LEVEL UP: ${updatedPlayer.level} -> ${updatedPlayer.level + lvls}`));
+    }
+
     return {
       state: {
         ...battle,
         enemy: updatedEnemy,
         log,
         phase: "won",
-        xpEarned: updatedEnemy.def.xpReward,
+        xpEarned: xpGain,
         bitsEarned: updatedEnemy.def.bitsReward,
+        lootDrop: loot,
+        levelsGained: lvls,
       },
       player: updatedPlayer,
     };
@@ -177,7 +211,7 @@ export function attemptRun(
   return Math.random() * 100 < chance;
 }
 
-export function createBattle(enemy: BattleEnemy): BattleState {
+export function createBattle(enemy: BattleEnemy, isBoss: boolean): BattleState {
   return {
     enemy,
     phase: "player_turn",
@@ -185,5 +219,8 @@ export function createBattle(enemy: BattleEnemy): BattleState {
     turnCount: 1,
     xpEarned: 0,
     bitsEarned: 0,
+    lootDrop: null,
+    levelsGained: 0,
+    isBoss,
   };
 }

@@ -16,9 +16,27 @@ export const enemies: Record<string, EnemyDef> = {
     speed: 6,
     defense: 2,
     moves: [
-      { name: "DDoS Ping", power: 10, accuracy: 90, weight: 40, description: "Floods the connection" },
-      { name: "Downloaded Exploit", power: 15, accuracy: 75, weight: 35, description: "Runs a copied exploit kit" },
-      { name: "Rage Quit", power: 0, accuracy: 100, weight: 25, description: "Heals self 10 HP" },
+      {
+        name: "DDoS Ping",
+        power: 10,
+        accuracy: 90,
+        weight: 40,
+        description: "Floods the connection",
+      },
+      {
+        name: "Downloaded Exploit",
+        power: 15,
+        accuracy: 75,
+        weight: 35,
+        description: "Runs a copied exploit kit",
+      },
+      {
+        name: "Rage Quit",
+        power: 0,
+        accuracy: 100,
+        weight: 25,
+        description: "Heals self 10 HP",
+      },
     ],
     xpReward: 18,
     bitsReward: 8,
@@ -30,9 +48,27 @@ export const enemies: Record<string, EnemyDef> = {
     speed: 7,
     defense: 3,
     moves: [
-      { name: "Deface", power: 15, accuracy: 88, weight: 35, description: "Defaces a public-facing site" },
-      { name: "Doxx Attempt", power: 20, accuracy: 78, weight: 30, description: "Leaks personal data" },
-      { name: "Manifesto", power: 0, accuracy: 100, weight: 35, description: "Buffs own power 10%" },
+      {
+        name: "Deface",
+        power: 15,
+        accuracy: 88,
+        weight: 35,
+        description: "Defaces a public-facing site",
+      },
+      {
+        name: "Doxx Attempt",
+        power: 20,
+        accuracy: 78,
+        weight: 30,
+        description: "Leaks personal data",
+      },
+      {
+        name: "Manifesto",
+        power: 0,
+        accuracy: 100,
+        weight: 35,
+        description: "Buffs own power 10%",
+      },
     ],
     xpReward: 28,
     bitsReward: 12,
@@ -44,9 +80,27 @@ export const enemies: Record<string, EnemyDef> = {
     speed: 8,
     defense: 3,
     moves: [
-      { name: "Encrypt", power: 20, accuracy: 85, weight: 40, description: "Encrypts files on contact" },
-      { name: "Ransom Note", power: 10, accuracy: 95, weight: 35, description: "Demands payment" },
-      { name: "Spread", power: 15, accuracy: 80, weight: 25, description: "Propagates across the network" },
+      {
+        name: "Encrypt",
+        power: 20,
+        accuracy: 85,
+        weight: 40,
+        description: "Encrypts files on contact",
+      },
+      {
+        name: "Ransom Note",
+        power: 10,
+        accuracy: 95,
+        weight: 35,
+        description: "Demands payment",
+      },
+      {
+        name: "Spread",
+        power: 15,
+        accuracy: 80,
+        weight: 25,
+        description: "Propagates across the network",
+      },
     ],
     xpReward: 25,
     bitsReward: 12,
@@ -61,14 +115,39 @@ export const bosses: Record<string, EnemyDef> = {
   lazarus: {
     id: "lazarus",
     name: "Lazarus Group",
-    baseHp: 200,
+    baseHp: 150,
     speed: 10,
     defense: 5,
+    weakness: "defense",
     moves: [
-      { name: "Ransomware Deploy", power: 35, accuracy: 85, weight: 25, description: "Deploys ransomware across the network" },
-      { name: "Crypto Miner", power: 15, accuracy: 90, weight: 30, description: "Mines crypto, draining energy" },
-      { name: "Bank Heist", power: 25, accuracy: 88, weight: 25, description: "Wires funds to offshore accounts" },
-      { name: "Swift Exploit", power: 40, accuracy: 75, weight: 20, description: "Exploits the SWIFT banking network" },
+      {
+        name: "Ransomware Deploy",
+        power: 35,
+        accuracy: 85,
+        weight: 25,
+        description: "Deploys ransomware across the network",
+      },
+      {
+        name: "Crypto Miner",
+        power: 15,
+        accuracy: 90,
+        weight: 30,
+        description: "Mines crypto, draining energy",
+      },
+      {
+        name: "Bank Heist",
+        power: 25,
+        accuracy: 88,
+        weight: 25,
+        description: "Wires funds to offshore accounts",
+      },
+      {
+        name: "Swift Exploit",
+        power: 40,
+        accuracy: 75,
+        weight: 20,
+        description: "Exploits the SWIFT banking network",
+      },
     ],
     xpReward: 300,
     bitsReward: 100,
@@ -80,8 +159,11 @@ export const bosses: Record<string, EnemyDef> = {
 /* ------------------------------------------------------------------ */
 
 export const zones: Record<string, ZoneConfig> = {
-  arcade: { encounterRate: 0.10, enemies: ["script-kiddie"] },
-  bank: { encounterRate: 0.12, enemies: ["script-kiddie", "hacktivist", "ransomware-bot"] },
+  arcade: { encounterRate: 0.1, enemies: ["script-kiddie"] },
+  bank: {
+    encounterRate: 0.12,
+    enemies: ["script-kiddie", "hacktivist", "ransomware-bot"],
+  },
 };
 
 /* ------------------------------------------------------------------ */

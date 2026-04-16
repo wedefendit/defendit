@@ -1,15 +1,5 @@
 /*
 Copyright © 2025 Defend I.T. Solutions LLC. All Rights Reserved.
-
-This software and its source code are the proprietary property of
-Defend I.T. Solutions LLC and are protected by United States and
-international copyright laws. Unauthorized reproduction, distribution,
-modification, display, or use of this software, in whole or in part, without the
-prior written permission of Defend I.T. Solutions LLC, is strictly prohibited.
-
-This software is provided for use only by authorized employees, contractors, or
-licensees of Defend I.T. Solutions LLC and may not be disclosed to any third
-party without express written consent.
 */
 
 import { DPad, type DPadDirection } from "./DPad";
@@ -20,19 +10,21 @@ type GameControlsProps = Readonly<{
   onDPadRelease?: (dir: DPadDirection) => void;
   onActionPress?: (btn: ActionButton) => void;
   onActionRelease?: (btn: ActionButton) => void;
+  onSelect?: () => void;
+  onStart?: () => void;
 }>;
 
 /**
- * Bottom control bar: d-pad on the left, A/B buttons on the right.
- * Visible on ALL screen sizes -- the Game Boy frame aesthetic requires
- * controls as part of the visual identity. On desktop they're clickable
- * as secondary input alongside keyboard. Only hidden on title screen.
+ * Bottom control bar: d-pad left, Select/Start center, A/B right.
+ * Game Boy layout. Visible on ALL screen sizes.
  */
 export function GameControls({
   onDPadPress,
   onDPadRelease,
   onActionPress,
   onActionRelease,
+  onSelect,
+  onStart,
 }: GameControlsProps) {
   return (
     <footer
@@ -41,6 +33,30 @@ export function GameControls({
       className="flex shrink-0 items-center justify-between border-t border-[#1a3a4a] bg-[#080c16] px-4 py-2"
     >
       <DPad onPress={onDPadPress} onRelease={onDPadRelease} />
+
+      <nav aria-label="Menu buttons" className="flex flex-col items-center gap-2">
+        <div className="flex gap-3">
+          <button
+            type="button"
+            data-testid="gr-btn-select"
+            aria-label="Select (open Disc)"
+            onClick={onSelect}
+            className="gr-font-mono touch-none rounded-sm border border-[#1a3a4a] bg-[#0a1220] px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-[#aabbcc] active:brightness-150"
+          >
+            SELECT
+          </button>
+          <button
+            type="button"
+            data-testid="gr-btn-start"
+            aria-label="Start (open menu)"
+            onClick={onStart}
+            className="gr-font-mono touch-none rounded-sm border border-[#1a3a4a] bg-[#0a1220] px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-[#aabbcc] active:brightness-150"
+          >
+            START
+          </button>
+        </div>
+      </nav>
+
       <ActionButtons onPress={onActionPress} onRelease={onActionRelease} />
     </footer>
   );

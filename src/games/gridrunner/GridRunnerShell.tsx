@@ -23,6 +23,8 @@ type GridRunnerShellProps = Readonly<{
   onDPadRelease?: (dir: DPadDirection) => void;
   onActionPress?: (btn: ActionButton) => void;
   onActionRelease?: (btn: ActionButton) => void;
+  onSelect?: () => void;
+  onStart?: () => void;
   hideControls?: boolean;
 }>;
 
@@ -79,6 +81,8 @@ export function GridRunnerShell({
   onDPadRelease,
   onActionPress,
   onActionRelease,
+  onSelect,
+  onStart,
   hideControls,
 }: GridRunnerShellProps) {
   return (
@@ -101,6 +105,8 @@ export function GridRunnerShell({
             onDPadRelease={onDPadRelease}
             onActionPress={onActionPress}
             onActionRelease={onActionRelease}
+            onSelect={onSelect}
+            onStart={onStart}
           />
         )}
       </section>

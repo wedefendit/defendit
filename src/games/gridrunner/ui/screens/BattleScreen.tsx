@@ -3,7 +3,12 @@ Copyright © 2025 Defend I.T. Solutions LLC. All Rights Reserved.
 */
 
 import { useEffect, useRef } from "react";
-import type { BattleState, PlayerState, ToolInstance } from "../../engine/types";
+import type {
+  BattleState,
+  PlayerState,
+  ToolInstance,
+} from "../../engine/types";
+import { toolDisplayName } from "../../engine/loot";
 
 type BattleScreenProps = Readonly<{
   battle: BattleState;
@@ -16,6 +21,31 @@ type BattleScreenProps = Readonly<{
 }>;
 
 /* ------------------------------------------------------------------ */
+/*  Constants                                                         */
+/* ------------------------------------------------------------------ */
+
+const TAG_COLORS: Record<string, string> = {
+  SYS: "text-[#00f0ff]",
+  ATK: "text-[#00f0ff]",
+  HIT: "text-[#00ff41]",
+  MISS: "text-[#aabbcc]",
+  DMG: "text-[#ff003c]",
+  HEAL: "text-[#ff00de]",
+  WIN: "text-[#00ff41]",
+  LOSS: "text-[#ff003c]",
+  WARN: "text-[#ff6b00]",
+  RUN: "text-[#ff6b00]",
+};
+
+const RARITY_COLORS: Record<string, string> = {
+  common: "text-[#e0e0e0]",
+  uncommon: "text-[#00ff41]",
+  rare: "text-[#4da6ff]",
+  epic: "text-[#a855f7]",
+  legendary: "text-[#ff9500]",
+};
+
+/* ------------------------------------------------------------------ */
 /*  Sub-components                                                    */
 /* ------------------------------------------------------------------ */
 
@@ -24,27 +54,34 @@ function HpBar({
   max,
   color,
   label,
-}: {
+}: Readonly<{
   current: number;
   max: number;
   color: "cyan" | "magenta" | "red";
   label: string;
-}) {
+}>) {
   const pct = Math.max(0, Math.min(100, (current / max) * 100));
   const colorMap = {
-    cyan: { text: "text-[#00f0ff]", bar: "bg-[#00f0ff] shadow-[0_0_6px_#00f0ff]" },
-    magenta: { text: "text-[#ff00de]", bar: "bg-[#ff00de] shadow-[0_0_6px_#ff00de]" },
-    red: { text: "text-[#ff003c]", bar: "bg-[#ff003c] shadow-[0_0_6px_#ff003c]" },
+    cyan: {
+      text: "text-[#00f0ff]",
+      bar: "bg-[#00f0ff] shadow-[0_0_4px_#00f0ff]",
+    },
+    magenta: {
+      text: "text-[#ff00de]",
+      bar: "bg-[#ff00de] shadow-[0_0_4px_#ff00de]",
+    },
+    red: {
+      text: "text-[#ff003c]",
+      bar: "bg-[#ff003c] shadow-[0_0_4px_#ff003c]",
+    },
   };
   const c = colorMap[color];
 
   return (
-    <div className="flex items-center gap-2">
-      <span className={`gr-font-mono shrink-0 min-w-[20px] text-xs ${c.text}`}>
-        {label}
-      </span>
+    <div className="flex items-center gap-1.5">
+      <span className={`gr-font-mono shrink-0 text-xs ${c.text}`}>{label}</span>
       <div
-        className="relative h-2.5 flex-1 overflow-hidden rounded-sm border border-[#1a3a4a] bg-[#0d1520]"
+        className="relative h-2 flex-1 overflow-hidden rounded-sm border border-[#1a3a4a] bg-[#0d1520]"
         role="meter"
         aria-label={`${label} ${current} of ${max}`}
         aria-valuenow={current}
@@ -56,32 +93,17 @@ function HpBar({
           style={{ width: `${pct}%` }}
         />
       </div>
-      <span className="gr-font-mono shrink-0 min-w-[50px] text-right text-xs tabular-nums text-[#8899aa]">
+      <span className="gr-font-mono shrink-0 text-xs tabular-nums text-[#aabbcc]">
         {current}/{max}
       </span>
     </div>
   );
 }
 
-const TAG_COLORS: Record<string, string> = {
-  SYS: "text-[#00f0ff]",
-  ATK: "text-[#00f0ff]",
-  HIT: "text-[#00ff41]",
-  MISS: "text-[#8899aa]",
-  DMG: "text-[#ff003c]",
-  HEAL: "text-[#ff00de]",
-  WIN: "text-[#00ff41]",
-  LOSS: "text-[#ff003c]",
-  WARN: "text-[#ff6b00]",
-  RUN: "text-[#ff6b00]",
-};
-
 function LogLine({ line }: Readonly<{ line: string }>) {
   const tagMatch = line.match(/\[T\d+\]\s+\[(\w+)\]/);
   const tag = tagMatch?.[1] ?? "";
   const colorClass = TAG_COLORS[tag] ?? "text-[#6688aa]";
-
-  // Split into timestamp+tag prefix and message
   const prefixEnd = line.indexOf("]", line.indexOf("]") + 1) + 1;
   const prefix = line.slice(0, prefixEnd);
   const message = line.slice(prefixEnd);
@@ -103,7 +125,7 @@ function BattleLog({ log }: Readonly<{ log: string[] }>) {
   return (
     <div
       data-testid="gr-battle-log"
-      className="gr-font-mono flex-1 min-h-0 overflow-y-auto rounded-sm border border-[#1a3a4a] bg-[#060a12] p-2 text-[clamp(9px,1.5vw,12px)]"
+      className="gr-font-mono min-h-[3.5rem] max-h-24 overflow-y-auto rounded-sm border border-[#1a3a4a] bg-[#060a12] px-2 py-1 text-xs"
     >
       {log.map((line, i) => (
         <LogLine key={i} line={line} />
@@ -114,7 +136,7 @@ function BattleLog({ log }: Readonly<{ log: string[] }>) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Main screen                                                       */
+/*  Option A Battle Layout                                            */
 /* ------------------------------------------------------------------ */
 
 export function BattleScreen({
@@ -133,102 +155,141 @@ export function BattleScreen({
     <section
       data-testid="gr-battle"
       aria-label="Battle"
-      className="flex flex-1 flex-col gap-2 overflow-hidden bg-[#0a0e1a] p-2 sm:p-3"
+      className="flex flex-1 flex-col overflow-hidden bg-[#0a0e1a] p-2"
     >
-      {/* Arena: player left, enemy right */}
-      <div className="flex items-center justify-around py-2 sm:py-4">
-        <figure className="flex flex-col items-center gap-1">
-          <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-[#00f0ff] text-base font-bold text-[#0a0e1a] shadow-[0_0_12px_#00f0ff]">
-            OP
+      {/* Arena -- enemy top-right, player bottom-left */}
+      <div className="relative flex flex-1 min-h-0 flex-col justify-between px-2 py-1">
+        {/* Enemy: top-right with HP */}
+        <div className="flex items-start justify-end gap-2">
+          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="gr-font-mono text-xs font-bold text-[#ff003c]">
+              {battle.enemy.def.name}
+            </span>
+            <HpBar
+              current={battle.enemy.hp}
+              max={battle.enemy.maxHp}
+              color="red"
+              label="HP"
+            />
           </div>
-          <figcaption className="gr-font-mono text-xs text-[#00f0ff]">
-            {playerName}
-          </figcaption>
-        </figure>
+          <figure className="shrink-0">
+            <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-[#ff003c] text-base font-bold text-[#0a0e1a] shadow-[0_0_12px_#ff003c44]">
+              {battle.enemy.def.name.charAt(0).toUpperCase()}
+            </div>
+          </figure>
+        </div>
 
-        <span className="gr-font-display text-lg font-bold text-[#1a3a4a]">
-          VS
-        </span>
+        {/* Spacer for future battle animations */}
+        <div className="flex-1" />
 
-        <figure className="flex flex-col items-center gap-1">
-          <div className="gr-font-mono flex h-10 w-10 items-center justify-center rounded-sm bg-[#ff003c] text-[10px] font-bold text-[#0a0e1a] shadow-[0_0_12px_#ff003c44]">
-            {battle.enemy.def.name.charAt(0).toUpperCase()}
+        {/* Player: bottom-left with HP + EN */}
+        <div className="flex items-end gap-2">
+          <figure className="shrink-0">
+            <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-[#00f0ff] text-base font-bold text-[#0a0e1a] shadow-[0_0_12px_#00f0ff]">
+              OP
+            </div>
+          </figure>
+          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="gr-font-mono text-xs font-bold text-[#00f0ff]">
+              {playerName} Lv.{player.level}
+            </span>
+            <HpBar
+              current={player.integrity}
+              max={player.maxIntegrity}
+              color="cyan"
+              label="HP"
+            />
+            <HpBar
+              current={player.compute}
+              max={player.maxCompute}
+              color="magenta"
+              label="EN"
+            />
           </div>
-          <figcaption className="gr-font-mono text-xs text-[#ff003c]">
-            {battle.enemy.def.name}
-          </figcaption>
-        </figure>
+        </div>
       </div>
 
-      {/* Status bars */}
-      <div className="flex flex-col gap-1">
-        <HpBar current={player.integrity} max={player.maxIntegrity} color="cyan" label="HP" />
-        <HpBar current={player.compute} max={player.maxCompute} color="magenta" label="EN" />
-        <HpBar current={battle.enemy.hp} max={battle.enemy.maxHp} color="red" label="THREAT" />
-      </div>
-
-      {/* Battle log */}
+      {/* Compact log */}
       <BattleLog log={battle.log} />
 
-      {/* Actions */}
+      {/* Tools: 2x2 grid + RUN row */}
       {!isOver && (
-        <nav
-          data-testid="gr-battle-actions"
-          aria-label="Battle actions"
-          className="flex flex-wrap gap-1.5 sm:gap-2"
-        >
-          {equippedTools.map((tool, i) =>
-            tool ? (
-              <button
-                key={tool.id}
-                type="button"
-                data-testid={`gr-battle-tool-${i}`}
-                disabled={!isPlayerTurn || player.compute < tool.energyCost}
-                onClick={() => onUseTool(tool)}
-                className="gr-font-mono flex-1 min-w-0 rounded-sm border border-[#00f0ff] bg-[#0f1b2d] px-2 py-2.5 text-xs font-bold uppercase tracking-wider text-[#00f0ff] transition-opacity disabled:opacity-30"
-              >
-                <span className="block truncate">{tool.baseToolId}</span>
-                <span className="block text-[9px] opacity-50">{tool.energyCost} EN</span>
-              </button>
-            ) : null,
-          )}
+        <>
+          <nav
+            data-testid="gr-battle-actions"
+            aria-label="Battle actions"
+            className="grid shrink-0 grid-cols-2 gap-1 pt-1"
+          >
+            {equippedTools.map((tool, i) =>
+              tool ? (
+                <button
+                  key={tool.id}
+                  type="button"
+                  data-testid={`gr-battle-tool-${i}`}
+                  disabled={!isPlayerTurn || player.compute < tool.energyCost}
+                  onClick={() => onUseTool(tool)}
+                  className="gr-font-mono min-h-[44px] rounded-sm border border-[#00f0ff] bg-[#0f1b2d] px-2 py-1.5 text-center text-xs font-bold uppercase text-[#00f0ff] transition-opacity disabled:opacity-30"
+                >
+                  <span className="text-[#aabbcc]">[{i + 1}]</span>{" "}
+                  {tool.baseToolId}{" "}
+                  <span className="opacity-50">{tool.energyCost}EN</span>
+                </button>
+              ) : null,
+            )}
+          </nav>
           <button
             type="button"
             data-testid="gr-battle-run"
             disabled={!isPlayerTurn}
             onClick={onRun}
-            className="gr-font-mono rounded-sm border border-[#ff6b00] bg-[#0f1b2d] px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#ff6b00] transition-opacity disabled:opacity-30"
+            className="gr-font-mono mt-1 min-h-[44px] w-full shrink-0 rounded-sm border border-[#ff6b00] bg-[#0f1b2d] px-2 py-1.5 text-center text-xs font-bold uppercase text-[#ff6b00] transition-opacity disabled:opacity-30"
           >
-            RUN
+            <span className="text-[#aabbcc]">[5]</span> RUN
           </button>
-        </nav>
+        </>
       )}
 
       {/* Win / Lose result */}
       {isOver && (
         <div
           data-testid="gr-battle-result"
-          className={`flex flex-col items-center gap-2 rounded-sm border-2 bg-[#0f1b2d] p-3 ${
+          className={`flex shrink-0 flex-col items-center gap-2 rounded-sm border-2 bg-[#0f1b2d] p-3 ${
             battle.phase === "won" ? "border-[#00ff41]" : "border-[#ff003c]"
           }`}
         >
           <p
-            className={`gr-font-display text-lg font-bold tracking-widest ${
+            className={`gr-font-display text-base font-bold tracking-widest ${
               battle.phase === "won" ? "text-[#00ff41]" : "text-[#ff003c]"
             }`}
           >
-            {battle.phase === "won" ? "THREAT NEUTRALIZED" : "SYSTEM COMPROMISED"}
+            {battle.phase === "won"
+              ? "THREAT NEUTRALIZED"
+              : "SYSTEM COMPROMISED"}
           </p>
           {battle.phase === "won" && (
-            <p className="gr-font-mono text-xs text-[#00f0ff]">
-              +{battle.xpEarned} XP | +{battle.bitsEarned} Bits
-            </p>
+            <div className="flex flex-col items-center gap-1">
+              <p className="gr-font-mono text-xs text-[#00f0ff]">
+                +{battle.xpEarned} XP | +{battle.bitsEarned} Bits
+              </p>
+              {battle.levelsGained > 0 && (
+                <p className="gr-font-mono text-sm font-bold text-[#ff6b00]">
+                  LEVEL UP +{battle.levelsGained}
+                </p>
+              )}
+              {battle.lootDrop && (
+                <p
+                  className={`gr-font-mono text-xs ${RARITY_COLORS[battle.lootDrop.rarity]}`}
+                >
+                  LOOT: {toolDisplayName(battle.lootDrop)}
+                </p>
+              )}
+            </div>
           )}
           <button
             type="button"
             data-testid="gr-battle-continue"
             onClick={onBattleEnd}
-            className="gr-font-mono mt-1 rounded-sm border-2 border-[#00f0ff] bg-[#0f1b2d] px-6 py-2.5 text-sm font-bold uppercase tracking-widest text-[#00f0ff]"
+            className="gr-font-mono mt-1 rounded-sm border-2 border-[#00f0ff] bg-[#0f1b2d] px-6 py-2 text-sm font-bold uppercase tracking-widest text-[#00f0ff]"
           >
             CONTINUE
           </button>

@@ -109,14 +109,20 @@ function buildViewport(
 
 function TileCell({ tile }: { tile: MapTile | null }) {
   const kind = tile?.kind ?? "void";
-  const tileClasses = TILE_CLASSES[kind as keyof typeof TILE_CLASSES] ?? TILE_CLASSES.void;
-  const showLabel = tile?.label && (tile.kind === "entry" || tile.kind === "locked");
+  const tileClasses =
+    TILE_CLASSES[kind as keyof typeof TILE_CLASSES] ?? TILE_CLASSES.void;
+  const showLabel =
+    tile?.label && (tile.kind === "entry" || tile.kind === "locked");
   const labelColor = tile ? (LABEL_COLORS[tile.kind] ?? "") : "";
 
   return (
-    <div className={`absolute inset-0 flex items-center justify-center border ${tileClasses}`}>
+    <div
+      className={`absolute inset-0 flex items-center justify-center border ${tileClasses}`}
+    >
       {showLabel && (
-        <span className={`gr-font-mono text-center text-[clamp(5px,1.2vw,8px)] leading-none opacity-70 ${labelColor}`}>
+        <span
+          className={`gr-font-mono text-center text-[clamp(8px,1.5vw,12px)] leading-none opacity-70 ${labelColor}`}
+        >
           {tile!.kind === "locked" ? "LOCKED" : "ENTER"}
         </span>
       )}
@@ -130,7 +136,7 @@ function PlayerAvatar({ facing }: { facing: Direction }) {
       data-testid="gr-player"
       className="absolute inset-0 z-10 flex items-center justify-center"
     >
-      <div className="flex h-[70%] w-[70%] items-center justify-center rounded-sm bg-[#00f0ff] text-[clamp(6px,1.5vw,12px)] font-bold text-[#0a0e1a] shadow-[0_0_8px_#00f0ff,0_0_3px_#00f0ff]">
+      <div className="flex h-[70%] w-[70%] items-center justify-center rounded-sm bg-[#00f0ff] text-[clamp(8px,1.5vw,12px)] font-bold text-[#0a0e1a] shadow-[0_0_8px_#00f0ff,0_0_3px_#00f0ff]">
         {FACING_ARROW[facing]}
       </div>
     </div>
@@ -152,9 +158,16 @@ function fitGrid(cw: number, ch: number) {
   }
 }
 
-export function OverworldScreen({ map, playerPos, facing, zoneName }: OverworldScreenProps) {
+export function OverworldScreen({
+  map,
+  playerPos,
+  facing,
+  zoneName,
+}: OverworldScreenProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [gridSize, setGridSize] = useState<{ w: number; h: number } | null>(null);
+  const [gridSize, setGridSize] = useState<{ w: number; h: number } | null>(
+    null,
+  );
 
   const measure = useCallback(() => {
     const el = containerRef.current;
@@ -182,7 +195,7 @@ export function OverworldScreen({ map, playerPos, facing, zoneName }: OverworldS
       aria-label={zoneName ?? "Map"}
       className="flex flex-1 flex-col overflow-hidden bg-[#06080f]"
     >
-      <div className="gr-font-mono shrink-0 px-2 py-1 text-center text-[clamp(8px,1.5vw,11px)] tracking-[0.15em] text-[#00f0ff]/50">
+      <div className="gr-font-mono shrink-0 px-2 py-1 text-center text-xs tracking-[0.15em] text-[#00f0ff]/50">
         {zoneName ?? "CYBERSPACE"}
       </div>
 

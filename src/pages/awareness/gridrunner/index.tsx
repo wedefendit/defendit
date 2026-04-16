@@ -1,5 +1,5 @@
 /*
-Copyright © 2025 Defend I.T. Solutions LLC. All Rights Reserved.
+Copyright © 2026 Defend I.T. Solutions LLC. All Rights Reserved.
 
 This software and its source code are the proprietary property of
 Defend I.T. Solutions LLC and are protected by United States and
@@ -33,11 +33,7 @@ export default function GridRunnerPage() {
         only provides context + the badge dialog; the game owns its own
         chrome (frame, HUD, controls).
       */}
-      <GameShell
-        gameId="gridrunner"
-        title="GRIDRUNNER"
-        chrome="headless"
-      >
+      <GameShell gameId="gridrunner" title="GRIDRUNNER" chrome="headless">
         <GridRunner />
       </GameShell>
     </>

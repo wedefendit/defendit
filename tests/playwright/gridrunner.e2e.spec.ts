@@ -129,11 +129,7 @@ async function collectFrameMetrics(page: Page): Promise<FrameMetrics> {
   });
 }
 
-async function attachScreenshot(
-  page: Page,
-  testInfo: TestInfo,
-  name: string,
-) {
+async function attachScreenshot(page: Page, testInfo: TestInfo, name: string) {
   const path = testInfo.outputPath(name + ".png");
   await page.screenshot({ path, fullPage: false });
   await testInfo.attach(name, { path, contentType: "image/png" });
@@ -156,9 +152,7 @@ async function attachMetrics(
 /* ------------------------------------------------------------------ */
 
 test.describe("GRIDRUNNER page integration", () => {
-  test("route loads with nav, circuit bg, and no footer", async ({
-    page,
-  }) => {
+  test("route loads with nav, circuit bg, and no footer", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await openGridRunner(page);
 
@@ -215,7 +209,9 @@ test.describe("GRIDRUNNER semantic HTML", () => {
     expect(frameLabel, "gr-frame should have an aria-label").toBeTruthy();
   });
 
-  test("title screen has <h1>, name input, and new game button", async ({ page }) => {
+  test("title screen has <h1>, name input, and new game button", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await openGridRunner(page);
 
@@ -306,11 +302,7 @@ test.describe("GRIDRUNNER frame containment", () => {
       expect(metrics.frame.width).toBeGreaterThan(0);
       expect(metrics.frame.height).toBeGreaterThan(0);
 
-      await attachScreenshot(
-        page,
-        testInfo,
-        `frame-${vp.width}x${vp.height}`,
-      );
+      await attachScreenshot(page, testInfo, `frame-${vp.width}x${vp.height}`);
     });
   }
 });
@@ -364,9 +356,7 @@ test.describe("GRIDRUNNER no vertical overflow", () => {
 /* ------------------------------------------------------------------ */
 
 test.describe("GRIDRUNNER frame fills available space", () => {
-  test("phone portrait: frame width >= 85% of viewport", async ({
-    page,
-  }) => {
+  test("phone portrait: frame width >= 85% of viewport", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await openGridRunner(page);
     const metrics = await collectFrameMetrics(page);
@@ -477,7 +467,9 @@ test.describe("GRIDRUNNER tile proportions", () => {
     // render into the same 16x12 viewport grid (192 cells total).
     // This guarantees tile sizes are identical across all maps.
     const gridInfo = await page.evaluate(() => {
-      const map = document.querySelector('[data-testid="gr-map"]') as HTMLElement;
+      const map = document.querySelector(
+        '[data-testid="gr-map"]',
+      ) as HTMLElement;
       if (!map) return null;
       const cls = map.className;
       return {
@@ -499,8 +491,13 @@ test.describe("GRIDRUNNER tile proportions", () => {
     ).toBe(192);
 
     // Grid template must use fixed viewport dimensions
-    expect(gridInfo.hasColClass, "Grid should have 16-column Tailwind class").toBe(true);
-    expect(gridInfo.hasRowClass, "Grid should have 12-row Tailwind class").toBe(true);
+    expect(
+      gridInfo.hasColClass,
+      "Grid should have 16-column Tailwind class",
+    ).toBe(true);
+    expect(gridInfo.hasRowClass, "Grid should have 12-row Tailwind class").toBe(
+      true,
+    );
 
     await attachScreenshot(page, testInfo, "fixed-viewport-grid");
   });
@@ -568,7 +565,9 @@ test.describe("GRIDRUNNER touch targets", () => {
 /* ------------------------------------------------------------------ */
 
 test.describe("GRIDRUNNER mobile controls", () => {
-  test("controls visible on all screen sizes (Game Boy aesthetic)", async ({ page }) => {
+  test("controls visible on all screen sizes (Game Boy aesthetic)", async ({
+    page,
+  }) => {
     // Phone
     await page.setViewportSize({ width: 390, height: 844 });
     await startNewGame(page);
@@ -611,9 +610,7 @@ test.describe("GRIDRUNNER mobile controls", () => {
     }
   });
 
-  test("action buttons A and B are present with labels", async ({
-    page,
-  }) => {
+  test("action buttons A and B are present with labels", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await startNewGame(page);
 
@@ -717,5 +714,345 @@ test.describe("GRIDRUNNER dark mode enforcement", () => {
     expect(hasDark).toBe(true);
 
     await attachScreenshot(page, testInfo, "nav-dark-mode");
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/*  Tests: Menu and overlay navigation                                */
+/* ------------------------------------------------------------------ */
+
+test.describe("GRIDRUNNER menu system", () => {
+  test("START opens menu, B closes it", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    // Open menu via START button
+    await page.getByTestId("gr-btn-start").click();
+    const menu = page.getByTestId("gr-menu-overlay");
+    await expect(menu).toBeVisible();
+
+    // Menu has all items (scoped to menu overlay to avoid HUD collisions)
+    await expect(menu.getByText("DISC", { exact: true })).toBeVisible();
+    await expect(menu.getByText("INVENTORY", { exact: true })).toBeVisible();
+    await expect(menu.getByText("OPERATOR", { exact: true })).toBeVisible();
+    await expect(menu.getByText("SAVE", { exact: true })).toBeVisible();
+    await expect(menu.getByText("SETTINGS", { exact: true })).toBeVisible();
+
+    // B closes menu entirely
+    await page.getByTestId("gr-btn-b").click();
+    await expect(menu).toHaveCount(0);
+  });
+
+  test("SELECT opens Disc directly, B closes it", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    await page.getByTestId("gr-btn-select").click();
+    const disc = page.getByTestId("gr-disc-overlay");
+    await expect(disc).toBeVisible();
+
+    // Has tabs
+    await expect(disc.getByRole("button", { name: "TOOLS" })).toBeVisible();
+    await expect(disc.getByRole("button", { name: "TYPES" })).toBeVisible();
+    // B closes entirely (no menu in between)
+    await page.getByTestId("gr-btn-b").click();
+    await expect(disc).toHaveCount(0);
+    await expect(page.getByTestId("gr-menu-overlay")).toHaveCount(0);
+  });
+
+  test("menu sub-screens navigate back to menu on B", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    // Open menu
+    await page.getByTestId("gr-btn-start").click();
+    const menu = page.getByTestId("gr-menu-overlay");
+    await expect(menu).toBeVisible();
+
+    // Navigate to Inventory
+    await menu.getByText("INVENTORY", { exact: true }).click();
+    await expect(page.getByTestId("gr-inventory-overlay")).toBeVisible();
+    await expect(menu).toHaveCount(0);
+
+    // B goes back to menu, not closed
+    await page.getByTestId("gr-btn-b").click();
+    await expect(page.getByTestId("gr-inventory-overlay")).toHaveCount(0);
+    await expect(menu).toBeVisible();
+
+    // Navigate to Operator
+    await menu.getByText("OPERATOR", { exact: true }).click();
+    await expect(page.getByTestId("gr-operator-overlay")).toBeVisible();
+
+    // B goes back to menu
+    await page.getByTestId("gr-btn-b").click();
+    await expect(page.getByTestId("gr-operator-overlay")).toHaveCount(0);
+    await expect(menu).toBeVisible();
+
+    // Close menu entirely
+    await page.getByTestId("gr-btn-b").click();
+    await expect(menu).toHaveCount(0);
+  });
+
+  test("inventory shows equipped tools", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    await page.getByTestId("gr-btn-start").click();
+    await page
+      .getByTestId("gr-menu-overlay")
+      .getByText("INVENTORY", { exact: true })
+      .click();
+    await expect(page.getByTestId("gr-inventory-overlay")).toBeVisible();
+
+    // Should show 4 equipped starter tools
+    await expect(page.getByText(/Slot 1/)).toBeVisible();
+    await expect(page.getByText(/Slot 2/)).toBeVisible();
+    await expect(page.getByText(/Slot 3/)).toBeVisible();
+    await expect(page.getByText(/Slot 4/)).toBeVisible();
+  });
+
+  test("operator shows player stats", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    await page.getByTestId("gr-btn-start").click();
+    await page
+      .getByTestId("gr-menu-overlay")
+      .getByText("OPERATOR", { exact: true })
+      .click();
+    await expect(page.getByTestId("gr-operator-overlay")).toBeVisible();
+
+    // Should show stats
+    await expect(page.getByText("Level")).toBeVisible();
+    await expect(page.getByText("Integrity (HP)")).toBeVisible();
+    await expect(page.getByText("Compute (EN)")).toBeVisible();
+    await expect(page.getByText("Bandwidth (SPD)")).toBeVisible();
+    await expect(page.getByText("Firewall (DEF)")).toBeVisible();
+  });
+
+  test("disc type chart is accessible", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    await page.getByTestId("gr-btn-select").click();
+    const disc = page.getByTestId("gr-disc-overlay");
+    await expect(disc).toBeVisible();
+
+    // Switch to TYPES tab
+    await disc.getByText("TYPES").click();
+
+    // Type chart should show all four types (exact match to avoid "Weak vs Recon" collisions)
+    await expect(disc.getByText("Recon", { exact: true })).toBeVisible();
+    await expect(disc.getByText("Exploit", { exact: true })).toBeVisible();
+    await expect(disc.getByText("Defense", { exact: true })).toBeVisible();
+    await expect(disc.getByText("Persistence", { exact: true })).toBeVisible();
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/*  Tests: Keyboard mappings                                          */
+/* ------------------------------------------------------------------ */
+
+test.describe("GRIDRUNNER keyboard controls", () => {
+  test("Escape opens menu when no overlay, closes overlay when open", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await startNewGame(page);
+
+    // No overlay -- Escape opens menu
+    await page.keyboard.press("Escape");
+    await expect(page.getByTestId("gr-menu-overlay")).toBeVisible();
+
+    // Overlay open -- Escape closes it
+    await page.keyboard.press("Escape");
+    await expect(page.getByTestId("gr-menu-overlay")).toHaveCount(0);
+  });
+
+  test("Tab opens Disc directly", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await startNewGame(page);
+
+    await page.keyboard.press("Tab");
+    await expect(page.getByTestId("gr-disc-overlay")).toBeVisible();
+
+    // Escape closes it
+    await page.keyboard.press("Escape");
+    await expect(page.getByTestId("gr-disc-overlay")).toHaveCount(0);
+  });
+
+  test("M opens menu", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await startNewGame(page);
+
+    await page.keyboard.press("m");
+    await expect(page.getByTestId("gr-menu-overlay")).toBeVisible();
+
+    await page.keyboard.press("m");
+    await expect(page.getByTestId("gr-menu-overlay")).toHaveCount(0);
+  });
+
+  test("Escape from sub-screen goes back to menu", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await startNewGame(page);
+
+    // Open menu, navigate to operator
+    await page.keyboard.press("Escape");
+    const menu = page.getByTestId("gr-menu-overlay");
+    await expect(menu).toBeVisible();
+    await menu.getByText("OPERATOR", { exact: true }).click();
+    await expect(page.getByTestId("gr-operator-overlay")).toBeVisible();
+
+    // Escape goes back to menu
+    await page.keyboard.press("Escape");
+    await expect(page.getByTestId("gr-operator-overlay")).toHaveCount(0);
+    await expect(menu).toBeVisible();
+
+    // Escape again closes menu
+    await page.keyboard.press("Escape");
+    await expect(menu).toHaveCount(0);
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/*  APPEND to end of tests/playwright/gridrunner.e2e.spec.ts          */
+/*  Battle layout regression -- locks in approved Option A mockup     */
+/* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+/*  APPEND to end of tests/playwright/gridrunner.e2e.spec.ts          */
+/*  Battle layout regression -- locks in approved Option A mockup     */
+/* ------------------------------------------------------------------ */
+
+async function enterBattle(page: Page) {
+  await startNewGame(page);
+
+  // Place player at center of arcade row 3 (all ground, far from exits at row 8)
+  await page.evaluate(() => {
+    const raw = localStorage.getItem("dis-gridrunner-save");
+    if (!raw) return;
+    const save = JSON.parse(raw);
+    save.currentZone = "arcade";
+    save.currentPosition = { x: 5, y: 3 };
+    localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+  });
+
+  await page.reload({ waitUntil: "networkidle" });
+  await page.getByTestId("gr-continue").click();
+  await page.waitForTimeout(300);
+
+  // Walk left-right along row 3 (cols 2-9, all ground, no exits/shop/save)
+  for (let i = 0; i < 300; i++) {
+    if (
+      await page
+        .getByTestId("gr-battle")
+        .isVisible()
+        .catch(() => false)
+    )
+      return;
+    // Alternate: 7 rights then 7 lefts to sweep row 3
+    const inRightPhase = Math.floor(i / 7) % 2 === 0;
+    await page.keyboard.press(inRightPhase ? "ArrowRight" : "ArrowLeft");
+    await page.waitForTimeout(30);
+  }
+  throw new Error("No battle triggered after 300 steps in arcade");
+}
+
+test.describe("GRIDRUNNER battle layout regression", () => {
+  test("frame stays within 640px during battle", async ({ page }) => {
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    await enterBattle(page);
+    const box = await page.getByTestId("gr-frame").boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.width).toBeLessThanOrEqual(641);
+  });
+
+  test("tools render as a 2-column grid, not flex-wrap", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await enterBattle(page);
+    const actions = page.getByTestId("gr-battle-actions");
+    await expect(actions).toBeVisible();
+    const display = await actions.evaluate(
+      (el) => globalThis.getComputedStyle(el).display,
+    );
+    expect(display).toBe("grid");
+    const cols = await actions.evaluate(
+      (el) => globalThis.getComputedStyle(el).gridTemplateColumns,
+    );
+    const colCount = cols.split(" ").length;
+    expect(colCount).toBe(2);
+  });
+
+  test("RUN button is separate from the tool grid", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await enterBattle(page);
+    const run = page.getByTestId("gr-battle-run");
+    await expect(run).toBeVisible();
+    const runIsInsideNav = await run.evaluate((el) => {
+      return el.closest("[data-testid='gr-battle-actions']") !== null;
+    });
+    expect(runIsInsideNav).toBe(false);
+  });
+
+  test("tool buttons do not truncate text", async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 568 });
+    await enterBattle(page);
+    const buttons = page.getByTestId("gr-battle-actions").locator("button");
+    const count = await buttons.count();
+    expect(count).toBeGreaterThanOrEqual(2);
+    for (let i = 0; i < count; i++) {
+      const btn = buttons.nth(i);
+      const truncated = await btn.evaluate(
+        (el) => el.scrollWidth > el.clientWidth,
+      );
+      const text = await btn.textContent();
+      expect(truncated, `"${text}" is truncated`).toBe(false);
+    }
+  });
+
+  test("tool buttons and RUN meet 44px touch target", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await enterBattle(page);
+    const toolButtons = page.getByTestId("gr-battle-actions").locator("button");
+    const toolCount = await toolButtons.count();
+    for (let i = 0; i < toolCount; i++) {
+      const box = await toolButtons.nth(i).boundingBox();
+      expect(box).not.toBeNull();
+      expect(box!.height, `Tool ${i} below 44px`).toBeGreaterThanOrEqual(44);
+    }
+    const runBox = await page.getByTestId("gr-battle-run").boundingBox();
+    expect(runBox).not.toBeNull();
+    expect(runBox!.height, "RUN below 44px").toBeGreaterThanOrEqual(44);
+  });
+
+  test("arena uses flex-1 for sprite animation space", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await enterBattle(page);
+    const battle = page.getByTestId("gr-battle");
+    const arenaFlex = await battle.evaluate((el) => {
+      const arena = el.querySelector(":scope > div:first-child");
+      if (!arena) return "missing";
+      return globalThis.getComputedStyle(arena).flexGrow;
+    });
+    expect(arenaFlex).toBe("1");
+  });
+
+  test("log and tools are compact at bottom, not eating arena space", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await enterBattle(page);
+    const battle = page.getByTestId("gr-battle");
+    const battleBox = await battle.boundingBox();
+    expect(battleBox).not.toBeNull();
+    const run = page.getByTestId("gr-battle-run");
+    const runBox = await run.boundingBox();
+    expect(runBox).not.toBeNull();
+    const gapBelowRun =
+      battleBox!.y + battleBox!.height - (runBox!.y + runBox!.height);
+    expect(
+      gapBelowRun,
+      `${gapBelowRun}px wasted below RUN`,
+    ).toBeLessThanOrEqual(16);
   });
 });

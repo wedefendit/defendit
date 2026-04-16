@@ -21,7 +21,7 @@ export function LegalPage({ children }: { children: React.ReactNode }) {
         {children}
 
         <footer className="pt-8 border-t mt-8 text-sm text-center text-gray-500">
-          Prepared by: &copy; 2002-2025 LawDepot.com&reg;
+          Prepared by: &copy; 2002-2026 LawDepot.com&reg;
         </footer>
       </section>
     </main>

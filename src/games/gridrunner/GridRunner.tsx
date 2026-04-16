@@ -1,15 +1,5 @@
 /*
 Copyright © 2025 Defend I.T. Solutions LLC. All Rights Reserved.
-
-This software and its source code are the proprietary property of
-Defend I.T. Solutions LLC and are protected by United States and
-international copyright laws. Unauthorized reproduction, distribution,
-modification, display, or use of this software, in whole or in part, without the
-prior written permission of Defend I.T. Solutions LLC, is strictly prohibited.
-
-This software is provided for use only by authorized employees, contractors, or
-licensees of Defend I.T. Solutions LLC and may not be disclosed to any third
-party without express written consent.
 */
 
 import { GridRunnerShell } from "./GridRunnerShell";
@@ -19,6 +9,12 @@ import { TitleScreen } from "./ui/screens/TitleScreen";
 import { OverworldScreen } from "./ui/screens/OverworldScreen";
 import { BattleScreen } from "./ui/screens/BattleScreen";
 import { PlayerHUD } from "./ui/hud/PlayerHUD";
+import { MenuOverlay } from "./ui/screens/MenuOverlay";
+import { DiscScreen } from "./ui/screens/DiscScreen";
+import { InventoryScreen } from "./ui/screens/InventoryScreen";
+import { OperatorScreen } from "./ui/screens/OperatorScreen";
+import { SaveScreen } from "./ui/screens/SaveScreen";
+import { SettingsScreen } from "./ui/screens/SettingsScreen";
 
 const ZONE_NAMES: Record<string, string> = {
   overworld: "CYBERSPACE -- SECTOR 01",
@@ -32,6 +28,7 @@ const ZONE_NAMES: Record<string, string> = {
 /**
  * Top-level GRIDRUNNER component. Manages the screen state machine:
  *   title -> overworld -> building -> battle -> intel
+ * Overlays (menu, disc, inventory, operator, save, settings) render on top.
  */
 export function GridRunner() {
   useForceDarkMode();
@@ -40,6 +37,7 @@ export function GridRunner() {
   const isTitleScreen = game.screen === "title";
   const isBattle = game.screen === "battle";
   const isMapScreen = game.screen === "overworld" || game.screen === "building";
+  const zoneName = ZONE_NAMES[game.currentZone] ?? game.currentZone.toUpperCase();
 
   return (
     <GridRunnerShell
@@ -48,7 +46,10 @@ export function GridRunner() {
       onDPadRelease={game.handleDPadRelease}
       onActionPress={(btn) => {
         if (btn === "a") game.handleInteract();
+        if (btn === "b") game.handleCloseOverlay();
       }}
+      onSelect={game.handleOpenDisc}
+      onStart={game.handleOpenMenu}
     >
       {isTitleScreen && (
         <TitleScreen
@@ -63,13 +64,13 @@ export function GridRunner() {
             player={game.save.player}
             playerName={game.save.playerName}
             bits={game.save.bits}
-            zoneName={ZONE_NAMES[game.currentZone] ?? game.currentZone.toUpperCase()}
+            zoneName={zoneName}
           />
           <OverworldScreen
             map={game.map}
             playerPos={game.playerPos}
             facing={game.facing}
-            zoneName={ZONE_NAMES[game.currentZone] ?? game.currentZone.toUpperCase()}
+            zoneName={zoneName}
           />
         </>
       )}
@@ -83,6 +84,50 @@ export function GridRunner() {
           onRun={game.handleRun}
           onBattleEnd={game.handleBattleEnd}
         />
+      )}
+
+      {/* Overlays */}
+      {game.overlay === "menu" && (
+        <MenuOverlay
+          onClose={game.handleCloseOverlay}
+          onOpenOverlay={game.handleOpenOverlay}
+          inBattle={isBattle}
+        />
+      )}
+      {game.overlay === "disc" && game.save && (
+        <DiscScreen
+          onClose={game.handleCloseOverlay}
+          equippedTools={game.save.equippedTools}
+          inventory={game.save.inventory}
+        />
+      )}
+      {game.overlay === "inventory" && game.save && (
+        <InventoryScreen
+          onClose={game.handleCloseOverlay}
+          equippedTools={game.save.equippedTools}
+          inventory={game.save.inventory}
+          onEquip={game.handleEquipTool}
+          onScrap={game.handleScrapTool}
+        />
+      )}
+      {game.overlay === "operator" && game.save && (
+        <OperatorScreen
+          onClose={game.handleCloseOverlay}
+          player={game.save.player}
+          playerName={game.save.playerName}
+          bits={game.save.bits}
+          defeatedBosses={game.save.defeatedBosses}
+          playTime={game.save.playTime}
+        />
+      )}
+      {game.overlay === "save" && (
+        <SaveScreen
+          onClose={game.handleCloseOverlay}
+          onSave={game.handleManualSave}
+        />
+      )}
+      {game.overlay === "settings" && (
+        <SettingsScreen onClose={game.handleCloseOverlay} />
       )}
     </GridRunnerShell>
   );

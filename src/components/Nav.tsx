@@ -1,5 +1,5 @@
 /*
-Copyright © 2025 Defend I.T. Solutions LLC. All Rights Reserved.
+Copyright © 2026 Defend I.T. Solutions LLC. All Rights Reserved.
 
 This software and its source code are the proprietary property of
 Defend I.T. Solutions LLC and are protected by United States and
@@ -12,7 +12,7 @@ licensees of Defend I.T. Solutions LLC and may not be disclosed to any third
 party without express written consent.
 */
 /*
-Copyright © 2025 Defend I.T. Solutions LLC. All Rights Reserved.
+Copyright © 2026 Defend I.T. Solutions LLC. All Rights Reserved.
 */
 
 import Link from "next/link";

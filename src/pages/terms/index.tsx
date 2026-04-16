@@ -232,7 +232,7 @@ export default function Terms() {
           )}
         </p>
         <p className="text-left mt-8">
-          <strong>Effective Date:</strong> 13th day of May, 2025
+          <strong>Effective Date:</strong> 13th day of May, 2026
         </p>
       </LegalPage>
     </>

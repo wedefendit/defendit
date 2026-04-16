@@ -1027,4 +1027,4 @@ Daft Punk / Tron: Legacy soundtrack inspired. Dark synthwave, arpeggiated sequen
 
 ---
 
-_Copyright (c) 2025 Defend I.T. Solutions LLC. All Rights Reserved._
+_Copyright (c) 2026 Defend I.T. Solutions LLC. All Rights Reserved._

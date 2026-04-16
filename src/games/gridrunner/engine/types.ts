@@ -121,6 +121,8 @@ export interface EnemyDef {
   moves: EnemyMove[];
   xpReward: number;
   bitsReward: number;
+  /** Tool type this enemy is weak against (1.5x damage). Bosses only. */
+  weakness?: ToolType;
 }
 
 export interface BattleEnemy {
@@ -136,6 +138,9 @@ export interface BattleState {
   turnCount: number;
   xpEarned: number;
   bitsEarned: number;
+  lootDrop: ToolInstance | null;
+  levelsGained: number;
+  isBoss: boolean;
 }
 
 export interface ZoneConfig {

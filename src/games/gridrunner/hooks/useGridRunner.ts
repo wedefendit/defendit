@@ -20,11 +20,7 @@ import {
   shouldEncounter,
   spawnEnemy,
 } from "../engine/enemies";
-import {
-  attemptRun,
-  createBattle,
-  resolvePlayerTurn,
-} from "../engine/battle";
+import { attemptRun, createBattle, resolvePlayerTurn } from "../engine/battle";
 
 /* ------------------------------------------------------------------ */
 /*  State                                                             */
@@ -39,6 +35,16 @@ interface GameState {
   currentZone: string;
   overworldPos: Position;
   battle: BattleState | null;
+  overlay:
+    | "none"
+    | "menu"
+    | "disc"
+    | "inventory"
+    | "operator"
+    | "save"
+    | "settings";
+  /** Where B/Close navigates back to. "none" closes entirely, "menu" goes back to menu. */
+  overlayReturnTo: "none" | "menu";
 }
 
 type Action =
@@ -49,7 +55,17 @@ type Action =
   | { type: "CHECK_SAVE" }
   | { type: "USE_TOOL"; tool: ToolInstance }
   | { type: "RUN" }
-  | { type: "BATTLE_END" };
+  | { type: "BATTLE_END" }
+  | { type: "OPEN_MENU" }
+  | { type: "OPEN_DISC" }
+  | {
+      type: "OPEN_OVERLAY";
+      target: "disc" | "inventory" | "operator" | "save" | "settings";
+    }
+  | { type: "CLOSE_OVERLAY" }
+  | { type: "EQUIP_TOOL"; toolId: string; slotIndex: number }
+  | { type: "SCRAP_TOOL"; toolId: string }
+  | { type: "MANUAL_SAVE" };
 
 function init(): GameState {
   return {
@@ -61,6 +77,8 @@ function init(): GameState {
     currentZone: "overworld",
     overworldPos: overworldMap.spawn,
     battle: null,
+    overlay: "none",
+    overlayReturnTo: "none",
   };
 }
 
@@ -106,6 +124,7 @@ function reducer(state: GameState, action: Action): GameState {
     }
 
     case "MOVE": {
+      if (state.overlay !== "none") return state;
       if (state.screen !== "overworld" && state.screen !== "building")
         return state;
       if (!currentMap) return state;
@@ -181,9 +200,7 @@ function reducer(state: GameState, action: Action): GameState {
         playerPos: newPos,
         facing: action.dir,
         save: updatedSave,
-        ...(state.currentZone === "overworld"
-          ? { overworldPos: newPos }
-          : {}),
+        ...(state.currentZone === "overworld" ? { overworldPos: newPos } : {}),
       };
 
       // Boss tile: start boss fight if level requirement met
@@ -209,7 +226,7 @@ function reducer(state: GameState, action: Action): GameState {
           return {
             ...baseUpdate,
             screen: "battle",
-            battle: createBattle(bossEnemy),
+            battle: createBattle(bossEnemy, true),
           };
         }
         // Under-leveled: don't start fight, stay on tile
@@ -227,7 +244,7 @@ function reducer(state: GameState, action: Action): GameState {
           return {
             ...baseUpdate,
             screen: "battle",
-            battle: createBattle(enemy),
+            battle: createBattle(enemy, false),
           };
         }
       }
@@ -297,7 +314,7 @@ function reducer(state: GameState, action: Action): GameState {
           p.xp -= p.xpToNext;
           p.level += 1;
           p.maxIntegrity += 10;
-          p.maxCompute += 5;
+          p.maxCompute += 8;
           p.bandwidth += 1;
           p.firewall += 1;
           p.xpToNext = Math.round(p.xpToNext * 1.5);
@@ -313,13 +330,18 @@ function reducer(state: GameState, action: Action): GameState {
 
         // Track boss defeats
         const bossId = state.battle.enemy.def.id;
-        if (
-          bosses[bossId] &&
-          !updatedSave.defeatedBosses.includes(bossId)
-        ) {
+        if (bosses[bossId] && !updatedSave.defeatedBosses.includes(bossId)) {
           updatedSave = {
             ...updatedSave,
             defeatedBosses: [...updatedSave.defeatedBosses, bossId],
+          };
+        }
+
+        // Add loot drop to inventory
+        if (state.battle.lootDrop) {
+          updatedSave = {
+            ...updatedSave,
+            inventory: [...updatedSave.inventory, state.battle.lootDrop],
           };
         }
       } else {
@@ -353,6 +375,94 @@ function reducer(state: GameState, action: Action): GameState {
       };
     }
 
+    case "OPEN_MENU": {
+      if (state.screen === "title") return state;
+      if (state.overlay === "menu")
+        return { ...state, overlay: "none", overlayReturnTo: "none" };
+      return { ...state, overlay: "menu", overlayReturnTo: "none" };
+    }
+
+    case "OPEN_DISC": {
+      // Direct access via SELECT -- B closes entirely
+      if (state.screen === "title") return state;
+      if (state.overlay === "disc")
+        return { ...state, overlay: "none", overlayReturnTo: "none" };
+      return { ...state, overlay: "disc", overlayReturnTo: "none" };
+    }
+
+    case "OPEN_OVERLAY": {
+      // Opened from menu -- B goes back to menu
+      if (state.screen === "title") return state;
+      return { ...state, overlay: action.target, overlayReturnTo: "menu" };
+    }
+
+    case "CLOSE_OVERLAY": {
+      return {
+        ...state,
+        overlay: state.overlayReturnTo,
+        overlayReturnTo: "none",
+      };
+    }
+
+    case "EQUIP_TOOL": {
+      if (!state.save) return state;
+      const tool = state.save.inventory.find((t) => t.id === action.toolId);
+      if (!tool) return state;
+      const idx = action.slotIndex;
+      if (idx < 0 || idx >= state.save.equippedTools.length) return state;
+
+      const oldTool = state.save.equippedTools[idx];
+      const newEquipped = [...state.save.equippedTools];
+      newEquipped[idx] = tool;
+
+      let newInventory = state.save.inventory.filter(
+        (t) => t.id !== action.toolId,
+      );
+      if (oldTool) {
+        newInventory = [...newInventory, oldTool];
+      }
+
+      return {
+        ...state,
+        save: {
+          ...state.save,
+          equippedTools: newEquipped,
+          inventory: newInventory,
+        },
+      };
+    }
+
+    case "SCRAP_TOOL": {
+      if (!state.save) return state;
+      const tool = state.save.inventory.find((t) => t.id === action.toolId);
+      if (!tool) return state;
+
+      const SCRAP_VALUES: Record<string, number> = {
+        common: 3,
+        uncommon: 8,
+        rare: 20,
+        epic: 50,
+        legendary: 120,
+      };
+      const bitsGained = SCRAP_VALUES[tool.rarity] ?? 3;
+
+      return {
+        ...state,
+        save: {
+          ...state.save,
+          inventory: state.save.inventory.filter((t) => t.id !== action.toolId),
+          bits: state.save.bits + bitsGained,
+        },
+      };
+    }
+
+    case "MANUAL_SAVE": {
+      if (state.save) {
+        writeSave(state.save);
+      }
+      return { ...state, overlay: "none" };
+    }
+
     default:
       return state;
   }
@@ -381,16 +491,11 @@ export function useGridRunner() {
     }
   }, [state.save, state.screen]);
 
-  // Keyboard controls -- active on overworld, building, and battle
+  // Keyboard controls -- always active except title screen
   useEffect(() => {
-    if (
-      state.screen !== "overworld" &&
-      state.screen !== "building" &&
-      state.screen !== "battle"
-    )
-      return;
+    if (state.screen === "title") return;
 
-    const keyMap: Record<string, Direction> = {
+    const moveKeys: Record<string, Direction> = {
       ArrowUp: "up",
       ArrowDown: "down",
       ArrowLeft: "left",
@@ -408,12 +513,76 @@ export function useGridRunner() {
     const held = new Set<string>();
 
     function onKeyDown(e: KeyboardEvent) {
+      // Escape: close overlay or toggle menu
+      if (e.key === "Escape") {
+        e.preventDefault();
+        if (state.overlay !== "none") {
+          dispatch({ type: "CLOSE_OVERLAY" });
+        } else {
+          dispatch({ type: "OPEN_MENU" });
+        }
+        return;
+      }
+
+      // B / Backspace: close overlay (B button)
+      if (e.key === "b" || e.key === "B" || e.key === "Backspace") {
+        // Only act as B button when overlay is open or in battle
+        // Don't capture 'b' during normal movement (WASD doesn't use B)
+        if (state.overlay !== "none") {
+          e.preventDefault();
+          dispatch({ type: "CLOSE_OVERLAY" });
+          return;
+        }
+      }
+
+      // Tab / I: open Disc (SELECT)
+      if (e.key === "Tab" || e.key === "i" || e.key === "I") {
+        e.preventDefault();
+        dispatch({ type: "OPEN_DISC" });
+        return;
+      }
+
+      // M: open menu (START)
+      if (e.key === "m" || e.key === "M") {
+        e.preventDefault();
+        dispatch({ type: "OPEN_MENU" });
+        return;
+      }
+
+      // Block all other keys when overlay is open
+      if (state.overlay !== "none") return;
+
+      // Battle hotkeys: 1-4 for tools, 5/R for run
+      if (
+        state.screen === "battle" &&
+        state.battle?.phase === "player_turn" &&
+        state.save
+      ) {
+        const toolSlot = Number(e.key);
+        if (toolSlot >= 1 && toolSlot <= 4) {
+          e.preventDefault();
+          const tool = state.save.equippedTools[toolSlot - 1];
+          if (tool && state.save.player.compute >= tool.energyCost) {
+            dispatch({ type: "USE_TOOL", tool });
+          }
+          return;
+        }
+        if (e.key === "5" || e.key === "r" || e.key === "R") {
+          e.preventDefault();
+          dispatch({ type: "RUN" });
+          return;
+        }
+      }
+
+      // Enter / Space: A button (interact / confirm)
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         dispatch({ type: "INTERACT" });
         return;
       }
-      const dir = keyMap[e.key];
+
+      // Movement (overworld/building only)
+      const dir = moveKeys[e.key];
       if (!dir) return;
       e.preventDefault();
       if (held.has(e.key)) return;
@@ -431,7 +600,7 @@ export function useGridRunner() {
       globalThis.removeEventListener("keydown", onKeyDown);
       globalThis.removeEventListener("keyup", onKeyUp);
     };
-  }, [state.screen]);
+  }, [state.screen, state.overlay, state.battle?.phase, state.save]);
 
   const startGame = useCallback((name: string) => {
     dispatch({ type: "NEW_GAME", name });
@@ -443,8 +612,7 @@ export function useGridRunner() {
 
   const handleDPadPress = useCallback(
     (dir: Direction) => {
-      if (state.screen !== "overworld" && state.screen !== "building")
-        return;
+      if (state.screen !== "overworld" && state.screen !== "building") return;
       dispatch({ type: "MOVE", dir });
       moveRepeatRef.current = setInterval(() => {
         dispatch({ type: "MOVE", dir });
@@ -476,6 +644,37 @@ export function useGridRunner() {
     dispatch({ type: "BATTLE_END" });
   }, []);
 
+  const handleOpenMenu = useCallback(() => {
+    dispatch({ type: "OPEN_MENU" });
+  }, []);
+
+  const handleOpenDisc = useCallback(() => {
+    dispatch({ type: "OPEN_DISC" });
+  }, []);
+
+  const handleCloseOverlay = useCallback(() => {
+    dispatch({ type: "CLOSE_OVERLAY" });
+  }, []);
+
+  const handleOpenOverlay = useCallback(
+    (target: "disc" | "inventory" | "operator" | "save" | "settings") => {
+      dispatch({ type: "OPEN_OVERLAY", target });
+    },
+    [],
+  );
+
+  const handleEquipTool = useCallback((toolId: string, slotIndex: number) => {
+    dispatch({ type: "EQUIP_TOOL", toolId, slotIndex });
+  }, []);
+
+  const handleScrapTool = useCallback((toolId: string) => {
+    dispatch({ type: "SCRAP_TOOL", toolId });
+  }, []);
+
+  const handleManualSave = useCallback(() => {
+    dispatch({ type: "MANUAL_SAVE" });
+  }, []);
+
   const currentMap = getMap(state.currentZone) ?? overworldMap;
   const currentTile = tileAt(currentMap, state.playerPos);
 
@@ -489,6 +688,7 @@ export function useGridRunner() {
     currentZone: state.currentZone,
     map: currentMap,
     battle: state.battle,
+    overlay: state.overlay,
     startGame,
     continueGame,
     handleDPadPress,
@@ -497,5 +697,12 @@ export function useGridRunner() {
     handleUseTool,
     handleRun,
     handleBattleEnd,
+    handleOpenMenu,
+    handleOpenDisc,
+    handleCloseOverlay,
+    handleOpenOverlay,
+    handleEquipTool,
+    handleScrapTool,
+    handleManualSave,
   };
 }
