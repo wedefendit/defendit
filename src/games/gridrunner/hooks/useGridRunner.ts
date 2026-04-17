@@ -125,6 +125,11 @@ type Action =
       type: "OPEN_OVERLAY";
       target: "disc" | "inventory" | "operator" | "save" | "settings";
     }
+  | {
+      type: "OPEN_DIRECT";
+      target: "disc" | "inventory" | "operator";
+    }
+  | { type: "CYCLE_OVERLAY" }
   | { type: "CLOSE_OVERLAY" }
   | { type: "EQUIP_TOOL"; toolId: string; slotIndex: number }
   | { type: "SCRAP_TOOL"; toolId: string }
@@ -628,6 +633,38 @@ function reducer(state: GameState, action: Action): GameState {
       return { ...state, overlay: action.target, overlayReturnTo: "menu" };
     }
 
+    case "OPEN_DIRECT": {
+      // Hotkey-sourced open. Toggles (press the same key to close) and
+      // does not stash a menu return-to like OPEN_OVERLAY does.
+      if (state.screen === "title" || state.screen === "boot") return state;
+      if (state.overlay === action.target)
+        return { ...state, overlay: "none", overlayReturnTo: "none" };
+      return {
+        ...state,
+        overlay: action.target,
+        overlayReturnTo: "none",
+      };
+    }
+
+    case "CYCLE_OVERLAY": {
+      // Tab cycles: none -> inventory -> disc -> operator -> none.
+      // Only active when no "sticky" overlay (menu/save/settings/shop/etc.)
+      // is open, so Tab doesn't hijack those contexts.
+      if (state.screen === "title" || state.screen === "boot") return state;
+      const next: GameState["overlay"] =
+        state.overlay === "none"
+          ? "inventory"
+          : state.overlay === "inventory"
+            ? "disc"
+            : state.overlay === "disc"
+              ? "operator"
+              : state.overlay === "operator"
+                ? "none"
+                : state.overlay; // leave non-cycle overlays alone
+      if (next === state.overlay) return state;
+      return { ...state, overlay: next, overlayReturnTo: "none" };
+    }
+
     case "CLOSE_OVERLAY": {
       return {
         ...state,
@@ -778,7 +815,7 @@ export function useGridRunner() {
     const held = new Set<string>();
 
     function onKeyDown(e: KeyboardEvent) {
-      // Escape: close overlay or toggle menu
+      // Escape: close overlay, else open menu
       if (e.key === "Escape") {
         e.preventDefault();
         if (state.overlay !== "none") {
@@ -789,25 +826,55 @@ export function useGridRunner() {
         return;
       }
 
-      // B / Backspace: close overlay (B button)
-      if (e.key === "b" || e.key === "B" || e.key === "Backspace") {
-        // Only act as B button when overlay is open or in battle
-        // Don't capture 'b' during normal movement (WASD doesn't use B)
-        if (state.overlay !== "none") {
+      // Backspace: B button -- close overlay when one is open.
+      // (Plain 'b'/'B' is not bound; avoid hijacking in future text input.)
+      if (e.key === "Backspace" && state.overlay !== "none") {
+        e.preventDefault();
+        dispatch({ type: "CLOSE_OVERLAY" });
+        return;
+      }
+
+      // Tab: cycle Inventory -> Disc -> Operator -> close.
+      if (e.key === "Tab") {
+        e.preventDefault();
+        dispatch({ type: "CYCLE_OVERLAY" });
+        return;
+      }
+
+      // I: toggle Inventory (overworld / building only).
+      if (e.key === "i" || e.key === "I") {
+        if (state.screen === "overworld" || state.screen === "building") {
           e.preventDefault();
-          dispatch({ type: "CLOSE_OVERLAY" });
+          dispatch({ type: "OPEN_DIRECT", target: "inventory" });
           return;
         }
       }
 
-      // Tab / I: open Disc (SELECT)
-      if (e.key === "Tab" || e.key === "i" || e.key === "I") {
-        e.preventDefault();
-        dispatch({ type: "OPEN_DISC" });
-        return;
+      // Shift+D: toggle Identity Disc (overworld / building / battle-player-turn).
+      // Plain 'D'/'d' stays bound to WASD movement.
+      if (e.shiftKey && (e.key === "D" || e.key === "d")) {
+        const canOpenInBattle =
+          state.screen === "battle" &&
+          state.battle?.phase === "player_turn";
+        const canOpenOnMap =
+          state.screen === "overworld" || state.screen === "building";
+        if (canOpenInBattle || canOpenOnMap) {
+          e.preventDefault();
+          dispatch({ type: "OPEN_DIRECT", target: "disc" });
+          return;
+        }
       }
 
-      // M: open menu (START)
+      // O: toggle Operator (overworld / building only).
+      if (e.key === "o" || e.key === "O") {
+        if (state.screen === "overworld" || state.screen === "building") {
+          e.preventDefault();
+          dispatch({ type: "OPEN_DIRECT", target: "operator" });
+          return;
+        }
+      }
+
+      // M: open menu (START).
       if (e.key === "m" || e.key === "M") {
         e.preventDefault();
         dispatch({ type: "OPEN_MENU" });

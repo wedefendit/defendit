@@ -880,16 +880,69 @@ test.describe("GRIDRUNNER keyboard controls", () => {
     await expect(page.getByTestId("gr-menu-overlay")).toHaveCount(0);
   });
 
-  test("Tab opens Disc directly", async ({ page }) => {
+  test("I opens inventory on overworld", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await startNewGame(page);
+
+    await page.keyboard.press("i");
+    await expect(page.getByTestId("gr-inventory-overlay")).toBeVisible();
+
+    await page.keyboard.press("Escape");
+    await expect(page.getByTestId("gr-inventory-overlay")).toHaveCount(0);
+  });
+
+  test("Shift+D opens disc on overworld", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await startNewGame(page);
+
+    await page.keyboard.press("Shift+D");
+    await expect(page.getByTestId("gr-disc-overlay")).toBeVisible();
+
+    await page.keyboard.press("Escape");
+    await expect(page.getByTestId("gr-disc-overlay")).toHaveCount(0);
+  });
+
+  test("O opens operator on overworld", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await startNewGame(page);
+
+    await page.keyboard.press("o");
+    await expect(page.getByTestId("gr-operator-overlay")).toBeVisible();
+
+    await page.keyboard.press("Escape");
+    await expect(page.getByTestId("gr-operator-overlay")).toHaveCount(0);
+  });
+
+  test("Tab cycles Inventory -> Disc -> Operator -> close", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await startNewGame(page);
 
     await page.keyboard.press("Tab");
+    await expect(page.getByTestId("gr-inventory-overlay")).toBeVisible();
+
+    await page.keyboard.press("Tab");
+    await expect(page.getByTestId("gr-inventory-overlay")).toHaveCount(0);
     await expect(page.getByTestId("gr-disc-overlay")).toBeVisible();
 
-    // Escape closes it
-    await page.keyboard.press("Escape");
+    await page.keyboard.press("Tab");
     await expect(page.getByTestId("gr-disc-overlay")).toHaveCount(0);
+    await expect(page.getByTestId("gr-operator-overlay")).toBeVisible();
+
+    await page.keyboard.press("Tab");
+    await expect(page.getByTestId("gr-operator-overlay")).toHaveCount(0);
+  });
+
+  test("Backspace closes an overlay", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await startNewGame(page);
+
+    await page.keyboard.press("i");
+    await expect(page.getByTestId("gr-inventory-overlay")).toBeVisible();
+
+    await page.keyboard.press("Backspace");
+    await expect(page.getByTestId("gr-inventory-overlay")).toHaveCount(0);
   });
 
   test("M opens menu", async ({ page }) => {
