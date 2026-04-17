@@ -7,6 +7,7 @@ import type {
   BattleState,
   GameScreen,
   GridRunnerSave,
+  PlayerState,
   Position,
   SaveSummary,
   ToolInstance,
@@ -39,6 +40,30 @@ import { SHOP_ITEMS } from "../engine/shop";
 import { SCRAP_VALUES } from "../ui/shared/theme";
 import { badgesForTransition } from "../engine/badges";
 import { addBadge } from "../../shared/storage";
+
+/* ------------------------------------------------------------------ */
+/*  Passive regen                                                     */
+/* ------------------------------------------------------------------ */
+
+const HP_REGEN_PER_TICK = 2;
+const EN_REGEN_PER_TICK = 1;
+const REGEN_TICK_MS = 1000;
+const REGEN_SETTLE_MS = 1500;
+
+/**
+ * Pure helper -- adds one regen tick worth of HP/EN to the player,
+ * clamped at their respective maxes. Exported for unit tests.
+ */
+export function applyRegen(player: PlayerState): PlayerState {
+  return {
+    ...player,
+    integrity: Math.min(
+      player.integrity + HP_REGEN_PER_TICK,
+      player.maxIntegrity,
+    ),
+    compute: Math.min(player.compute + EN_REGEN_PER_TICK, player.maxCompute),
+  };
+}
 
 /* ------------------------------------------------------------------ */
 /*  State                                                             */
@@ -93,6 +118,7 @@ type Action =
   | { type: "DISMISS_LEVELUP" }
   | { type: "DISMISS_INTEL" }
   | { type: "ADVANCE_TUTORIAL" }
+  | { type: "REGEN_TICK" }
   | { type: "OPEN_MENU" }
   | { type: "OPEN_DISC" }
   | {
@@ -347,6 +373,18 @@ function reducer(state: GameState, action: Action): GameState {
     }
 
     case "INTERACT": {
+      // Tutorial: A-press advances the dismissable steps (2 -> 3 -> done).
+      // Step 1 is advanced only by actually using NMAP, so A does nothing there.
+      if (state.tutorialStep === 2) {
+        return { ...state, tutorialStep: 3 };
+      }
+      if (state.tutorialStep === 3 && state.save) {
+        return {
+          ...state,
+          tutorialStep: 0,
+          save: { ...state.save, completedTutorial: true },
+        };
+      }
       if (!currentMap) return state;
       const tile = tileAt(currentMap, state.playerPos);
       if (!tile) return state;
@@ -543,6 +581,18 @@ function reducer(state: GameState, action: Action): GameState {
       };
     }
 
+    case "REGEN_TICK": {
+      if (!state.save) return state;
+      const next = applyRegen(state.save.player);
+      if (
+        next.integrity === state.save.player.integrity &&
+        next.compute === state.save.player.compute
+      ) {
+        return state;
+      }
+      return { ...state, save: { ...state.save, player: next } };
+    }
+
     case "ADVANCE_TUTORIAL": {
       if (state.tutorialStep === 2) {
         return { ...state, tutorialStep: 3 };
@@ -678,6 +728,33 @@ export function useGridRunner() {
       void addBadge(badge);
     }
   }, [state.save]);
+
+  // Passive regen: +2 HP/s, +1 EN/s while standing still on the map with
+  // no overlay and no active battle. Settles 1.5s after last move.
+  // Stops dispatching once both stats are full.
+  const lastMoveRef = useRef(Date.now());
+  useEffect(() => {
+    lastMoveRef.current = Date.now();
+  }, [state.playerPos]);
+
+  const needsRegen =
+    !!state.save &&
+    (state.save.player.integrity < state.save.player.maxIntegrity ||
+      state.save.player.compute < state.save.player.maxCompute);
+  const regenActive =
+    needsRegen &&
+    state.overlay === "none" &&
+    state.battle === null &&
+    (state.screen === "overworld" || state.screen === "building");
+
+  useEffect(() => {
+    if (!regenActive) return;
+    const id = setInterval(() => {
+      if (Date.now() - lastMoveRef.current < REGEN_SETTLE_MS) return;
+      dispatch({ type: "REGEN_TICK" });
+    }, REGEN_TICK_MS);
+    return () => clearInterval(id);
+  }, [regenActive]);
 
   // Keyboard controls -- always active except title/boot screen
   useEffect(() => {
