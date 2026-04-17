@@ -1069,6 +1069,41 @@ test.describe("GRIDRUNNER battle layout regression", () => {
 });
 
 /* ------------------------------------------------------------------ */
+/*  Save terminal interaction                                         */
+/* ------------------------------------------------------------------ */
+
+test.describe("GRIDRUNNER save terminal", () => {
+  test("pressing A on the arcade save tile opens the save dialog and SAVE dismisses it", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    // Park the player directly on the arcade SAVE tile (col 9, row 6).
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentZone = "arcade";
+      save.currentPosition = { x: 9, y: 6 };
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    // Enter is the A button -- triggers INTERACT on the current tile.
+    await page.keyboard.press("Enter");
+
+    const overlay = page.getByTestId("gr-save-overlay");
+    await expect(overlay).toBeVisible();
+
+    await page.getByTestId("gr-save-confirm").click();
+    await expect(overlay).toHaveCount(0);
+  });
+});
+
+/* ------------------------------------------------------------------ */
 /*  Level-up overlay                                                  */
 /* ------------------------------------------------------------------ */
 

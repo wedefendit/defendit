@@ -318,6 +318,9 @@ function reducer(state: GameState, action: Action): GameState {
       if (tile.kind === "building" && tile.buildingId === "shop") {
         return { ...state, overlay: "shop", overlayReturnTo: "none" };
       }
+      if (tile.kind === "building" && tile.buildingId === "save") {
+        return { ...state, overlay: "save", overlayReturnTo: "none" };
+      }
       return state;
     }
 
