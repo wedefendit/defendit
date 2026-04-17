@@ -105,6 +105,38 @@ export const enemies: Record<string, EnemyDef> = {
     xpReward: 25,
     bitsReward: 12,
   },
+  cryptominer: {
+    id: "cryptominer",
+    name: "Cryptominer",
+    baseHp: 45,
+    speed: 10,
+    defense: 2,
+    moves: [
+      {
+        name: "Mine Block",
+        power: 12,
+        accuracy: 90,
+        weight: 40,
+        description: "Diverts cycles to mine a block",
+      },
+      {
+        name: "Pool Connect",
+        power: 20,
+        accuracy: 85,
+        weight: 35,
+        description: "Joins a mining pool to amplify output",
+      },
+      {
+        name: "Overclock",
+        power: 0,
+        accuracy: 100,
+        weight: 25,
+        description: "Buffs own speed 20%",
+      },
+    ],
+    xpReward: 22,
+    bitsReward: 10,
+  },
 };
 
 /* ------------------------------------------------------------------ */
@@ -163,6 +195,10 @@ export const zones: Record<string, ZoneConfig> = {
   bank: {
     encounterRate: 0.12,
     enemies: ["script-kiddie", "hacktivist", "ransomware-bot"],
+  },
+  overworld: {
+    encounterRate: 0.15,
+    enemies: ["script-kiddie", "ransomware-bot", "cryptominer"],
   },
 };
 

@@ -401,12 +401,11 @@ function reducer(state: GameState, action: Action): GameState {
         };
       }
 
-      // Encounter check: only inside buildings, only on ground tiles
-      if (
-        state.screen === "building" &&
-        steppedTile?.kind === "ground" &&
-        shouldEncounter(state.currentZone)
-      ) {
+      // Encounter check: building ground tiles OR overworld sea tiles
+      const canEncounter =
+        (state.screen === "building" && steppedTile?.kind === "ground") ||
+        (state.screen === "overworld" && steppedTile?.kind === "sea");
+      if (canEncounter && shouldEncounter(state.currentZone)) {
         const enemyId = pickRandomEnemy(state.currentZone);
         if (enemyId && state.save) {
           const enemy = spawnEnemy(enemyId, state.save.player.level);

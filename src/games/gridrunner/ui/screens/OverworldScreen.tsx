@@ -31,12 +31,15 @@ const TILE_CLASSES: Record<TileKind | "void", string> = {
   locked: "bg-[#100d18] border-[#ff003c] shadow-[inset_0_0_6px_#ff003c22]",
   spawn: "bg-[#0a0e1a] border-[#1a3a4a]",
   boss: "bg-[#1a0a10] border-[#ff003c] shadow-[inset_0_0_10px_#ff003c44,0_0_8px_#ff003c33] animate-[boss-pulse_2s_ease-in-out_infinite]",
+  sea: "bg-[#0a2a3a] border-[#164a66] shadow-[inset_0_0_4px_#00d0ff22] animate-pulse",
+  gate: "bg-[#14060a] border-[#4a001a] shadow-[inset_0_0_6px_#ff003c33]",
   void: "bg-[#06080f] border-[#0c1018]",
 };
 
 const LABEL_COLORS: Record<string, string> = {
   entry: "text-[#00ff41]",
   locked: "text-[#ff003c]",
+  gate: "text-[#ff6680]",
 };
 
 const FACING_ARROW: Record<Direction, string> = {
@@ -109,12 +112,21 @@ function buildViewport(
 /*  Components                                                        */
 /* ------------------------------------------------------------------ */
 
+function gateLabel(kind: TileKind): string {
+  if (kind === "locked") return "LOCKED";
+  if (kind === "gate") return "SEALED";
+  return "ENTER";
+}
+
 function TileCell({ tile }: { tile: MapTile | null }) {
   const kind = tile?.kind ?? "void";
   const tileClasses =
     TILE_CLASSES[kind as keyof typeof TILE_CLASSES] ?? TILE_CLASSES.void;
   const showLabel =
-    tile?.label && (tile.kind === "entry" || tile.kind === "locked");
+    tile?.label &&
+    (tile.kind === "entry" ||
+      tile.kind === "locked" ||
+      tile.kind === "gate");
   const labelColor = tile ? (LABEL_COLORS[tile.kind] ?? "") : "";
 
   return (
@@ -125,7 +137,7 @@ function TileCell({ tile }: { tile: MapTile | null }) {
         <span
           className={`gr-font-mono text-center text-[clamp(8px,1.5vw,12px)] leading-none opacity-70 ${labelColor}`}
         >
-          {tile!.kind === "locked" ? "LOCKED" : "ENTER"}
+          {gateLabel(tile!.kind)}
         </span>
       )}
     </div>

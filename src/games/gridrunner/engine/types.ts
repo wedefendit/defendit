@@ -53,7 +53,9 @@ export type TileKind =
   | "entry"
   | "locked"
   | "spawn"
-  | "boss";
+  | "boss"
+  | "sea"
+  | "gate";
 
 export interface MapTile {
   kind: TileKind;

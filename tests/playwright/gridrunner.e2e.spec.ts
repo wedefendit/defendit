@@ -1458,8 +1458,8 @@ test.describe("GRIDRUNNER intel report", () => {
 /* ------------------------------------------------------------------ */
 
 /**
- * Arcade entry tile is at (3, 4) in the 16x12 overworld. Park the player at
- * (3, 5) so one ArrowUp walks onto the entry tile.
+ * Arcade entry tile is at (2, 2) in the Sector 01 overworld. Park the player
+ * at (2, 3) so one ArrowUp walks onto the entry tile.
  */
 async function placePlayerAtArcadeDoor(
   page: Page,
@@ -1470,7 +1470,7 @@ async function placePlayerAtArcadeDoor(
     if (!raw) return;
     const save = JSON.parse(raw);
     save.currentZone = "overworld";
-    save.currentPosition = { x: 3, y: 5 };
+    save.currentPosition = { x: 2, y: 3 };
     Object.assign(save, ov);
     localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
   }, overrides);
@@ -1733,5 +1733,109 @@ test.describe("GRIDRUNNER level-up overlay", () => {
     await page.getByTestId("gr-battle-continue").click();
 
     await expect(page.getByTestId("gr-levelup-overlay")).toHaveCount(0);
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/*  Sector 01 overworld layout + Digital Sea                          */
+/* ------------------------------------------------------------------ */
+
+test.describe("GRIDRUNNER Sector 01 overworld", () => {
+  test("renders THE GRID label and exactly 3 buildings (Arcade/Bank ENTER, Crypto Exchange LOCKED)", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    const overworld = page.getByTestId("gr-overworld");
+    await expect(overworld).toBeVisible();
+    await expect(overworld).toContainText(/THE GRID/i);
+
+    const enterLabels = overworld.getByText("ENTER", { exact: true });
+    const lockedLabels = overworld.getByText("LOCKED", { exact: true });
+    const sealedLabels = overworld.getByText("SEALED", { exact: true });
+
+    await expect(enterLabels).toHaveCount(2);
+    await expect(lockedLabels).toHaveCount(1);
+    await expect(sealedLabels).toHaveCount(1);
+  });
+
+  test("Digital Sea tiles render with distinct cyan color class", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    const seaTileCount = await page.evaluate(() => {
+      const map = document.querySelector(
+        '[data-testid="gr-map"]',
+      ) as HTMLElement | null;
+      if (!map) return 0;
+      return Array.from(map.querySelectorAll("div")).filter((el) =>
+        (el as HTMLElement).className.includes("bg-[#0a2a3a]"),
+      ).length;
+    });
+    expect(seaTileCount).toBeGreaterThan(20);
+  });
+
+  test("walking on a sea tile triggers an encounter when Math.random is forced low", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(() => {
+      Math.random = () => 0.01;
+    });
+    await startNewGame(page);
+
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentZone = "overworld";
+      save.currentPosition = { x: 3, y: 4 };
+      save.completedTutorial = true;
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    await page.keyboard.press("ArrowRight");
+
+    await expect(page.getByTestId("gr-battle")).toBeVisible({ timeout: 3000 });
+  });
+
+  test("walking on grid path does not trigger an encounter across 20 steps", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(() => {
+      Math.random = () => 0.01;
+    });
+    await startNewGame(page);
+
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentZone = "overworld";
+      save.currentPosition = { x: 1, y: 10 };
+      save.completedTutorial = true;
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    for (let i = 0; i < 10; i++) {
+      await page.keyboard.press("ArrowRight");
+      await page.waitForTimeout(30);
+    }
+    for (let i = 0; i < 10; i++) {
+      await page.keyboard.press("ArrowLeft");
+      await page.waitForTimeout(30);
+    }
+
+    await expect(page.getByTestId("gr-battle")).toHaveCount(0);
   });
 });
