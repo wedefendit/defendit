@@ -22,15 +22,7 @@ import { OperatorScreen } from "./ui/screens/OperatorScreen";
 import { SaveScreen } from "./ui/screens/SaveScreen";
 import { SettingsScreen } from "./ui/screens/SettingsScreen";
 import { ShopScreen } from "./ui/screens/ShopScreen";
-
-const ZONE_NAMES: Record<string, string> = {
-  overworld: "CYBERSPACE -- SECTOR 01",
-  arcade: "ARCADE",
-  bank: "BANK -- FINANCIAL SECTOR",
-  hospital: "HOSPITAL -- HEALTHCARE",
-  powerplant: "POWER PLANT -- CRITICAL INFRA",
-  government: "GOV BUILDING -- ESPIONAGE",
-};
+import { ZONE_NAMES } from "./data/zones";
 
 const TOOL_SFX: Record<
   ToolType,
@@ -44,7 +36,7 @@ const TOOL_SFX: Record<
 
 /**
  * Top-level GRIDRUNNER component. Manages the screen state machine:
- *   boot -> title -> overworld -> building -> battle -> intel
+ *   boot -> title -> overworld -> building -> battle
  * Overlays (menu, disc, inventory, operator, save, settings) render on top.
  */
 export function GridRunner() {

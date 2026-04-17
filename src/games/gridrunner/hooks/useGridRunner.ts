@@ -31,6 +31,7 @@ import {
 import { attemptRun, createBattle, resolvePlayerTurn } from "../engine/battle";
 import { createCommonTool } from "../engine/loot";
 import { SHOP_ITEMS } from "../engine/shop";
+import { SCRAP_VALUES } from "../ui/shared/theme";
 
 /* ------------------------------------------------------------------ */
 /*  State                                                             */
@@ -505,13 +506,6 @@ function reducer(state: GameState, action: Action): GameState {
       const tool = state.save.inventory.find((t) => t.id === action.toolId);
       if (!tool) return state;
 
-      const SCRAP_VALUES: Record<string, number> = {
-        common: 3,
-        uncommon: 8,
-        rare: 20,
-        epic: 50,
-        legendary: 120,
-      };
       const bitsGained = SCRAP_VALUES[tool.rarity] ?? 3;
 
       return {

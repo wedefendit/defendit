@@ -3,6 +3,7 @@ Copyright © 2026 Defend I.T. Solutions LLC. All Rights Reserved.
 */
 
 import type { PlayerState } from "../../engine/types";
+import { BADGES, BOSSES } from "../../data/bosses";
 import { OverlayShell } from "../shared/OverlayShell";
 
 type OperatorScreenProps = Readonly<{
@@ -13,15 +14,6 @@ type OperatorScreenProps = Readonly<{
   defeatedBosses: string[];
   playTime: number;
 }>;
-
-const BOSS_NAMES: Record<string, string> = { lazarus: "Lazarus Group" };
-
-const BADGES: Readonly<{ id: string; label: string; condition: string }>[] = [
-  { id: "grid-runner", label: "Grid Runner", condition: "Complete the tutorial" },
-  { id: "bank-buster", label: "Bank Buster", condition: "Defeat Lazarus Group" },
-  { id: "loot-hoarder", label: "Loot Hoarder", condition: "Collect 50 tools" },
-  { id: "epic-collector", label: "Epic Collector", condition: "Find an Epic tool" },
-];
 
 function StatRow({ label, value }: Readonly<{ label: string; value: string | number }>) {
   return (
@@ -63,7 +55,7 @@ export function OperatorScreen({
           <div className="flex flex-col gap-1">
             {defeatedBosses.map((id) => (
               <div key={id} className="rounded-sm border border-[#00ff41]/30 bg-[#0f1b2d] px-2.5 py-1.5 text-xs text-[#00ff41]">
-                {BOSS_NAMES[id] ?? id}
+                {BOSSES[id]?.name ?? id}
               </div>
             ))}
           </div>

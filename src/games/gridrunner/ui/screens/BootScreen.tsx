@@ -6,6 +6,7 @@ Copyright © 2026 Defend I.T. Solutions LLC. All Rights Reserved.
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { SaveSummary } from "../../engine/types";
+import { ZONE_LABELS } from "../../data/zones";
 import DefendItShieldLogo from "../../../../components/Icons/Logo/defendit-shield-logo";
 
 /* ------------------------------------------------------------------ */
@@ -20,19 +21,6 @@ type BootScreenProps = Readonly<{
   onDeleteSave: () => void;
   onPlayChime: () => void;
 }>;
-
-/* ------------------------------------------------------------------ */
-/*  Zone label map                                                    */
-/* ------------------------------------------------------------------ */
-
-const ZONE_LABELS: Record<string, string> = {
-  overworld: "OVERWORLD",
-  arcade: "ARCADE",
-  bank: "BANK",
-  hospital: "HOSPITAL",
-  powerplant: "POWER PLANT",
-  government: "GOV BUILDING",
-};
 
 /* ------------------------------------------------------------------ */
 /*  Keyframes (referenced via Tailwind arbitrary animate-[...])       */

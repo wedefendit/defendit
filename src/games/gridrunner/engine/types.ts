@@ -112,8 +112,7 @@ export type GameScreen =
   | "title"
   | "overworld"
   | "building"
-  | "battle"
-  | "intel";
+  | "battle";
 
 /* ------------------------------------------------------------------ */
 /*  Enemy & Battle                                                    */

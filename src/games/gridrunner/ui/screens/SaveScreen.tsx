@@ -2,6 +2,7 @@
 Copyright © 2026 Defend I.T. Solutions LLC. All Rights Reserved.
 */
 
+import { Button } from "../shared/Button";
 import { OverlayShell } from "../shared/OverlayShell";
 
 type SaveScreenProps = Readonly<{
@@ -11,25 +12,32 @@ type SaveScreenProps = Readonly<{
 
 export function SaveScreen({ onClose, onSave }: SaveScreenProps) {
   return (
-    <OverlayShell testId="gr-save-overlay" title="SAVE GAME" onClose={onClose} variant="dialog">
+    <OverlayShell
+      testId="gr-save-overlay"
+      title="SAVE GAME"
+      onClose={onClose}
+      variant="dialog"
+    >
       <p className="gr-font-mono text-center text-xs text-[#aabbcc]">
         Progress saves automatically. Use this to force a manual save.
       </p>
       <div className="flex gap-2">
-        <button
-          type="button"
+        <Button
+          variant="primary"
           onClick={onSave}
-          className="gr-font-mono flex-1 rounded-sm border-2 border-[#00ff41] bg-[#0f1b2d] px-3 py-2.5 text-sm font-bold tracking-widest text-[#00ff41] active:brightness-150"
+          testId="gr-save-confirm"
+          className="flex-1 border-2 border-[#00ff41] text-[#00ff41] text-sm py-2.5"
         >
           SAVE
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          variant="neutral"
           onClick={onClose}
-          className="gr-font-mono flex-1 rounded-sm border border-[#1a3a4a] bg-[#0f1b2d] px-3 py-2.5 text-sm font-bold tracking-widest text-[#aabbcc] active:brightness-150"
+          testId="gr-save-cancel"
+          className="flex-1 text-sm py-2.5"
         >
           CANCEL
-        </button>
+        </Button>
       </div>
     </OverlayShell>
   );

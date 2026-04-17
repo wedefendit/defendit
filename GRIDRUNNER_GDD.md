@@ -1,8 +1,8 @@
 # GRIDRUNNER — Game Design Document
 
 **Document owner:** Anthony Tropeano / Defend I.T. Solutions LLC
-**Version:** 2.0 — Expanded World Spec
-**Last updated:** 2026-04-15
+**Version:** 2.1 — Boot Screen + Audio + Code Standards
+**Last updated:** 2026-04-16
 **Status:** Pre-production — prototype in development
 
 ---
@@ -787,34 +787,53 @@ Inspired by Tron: Legacy's identity disc -- the disc that stores everything abou
 
 ```
 src/games/gridrunner/
-├── GridRunner.tsx              # Top-level component, screen state machine
-├── GridRunnerShell.tsx         # Frame container, controls, font-face declarations
-├── index.ts                    # Barrel export
+├── GridRunner.tsx              # 'use client', top-level, screen state machine
+├── GridRunnerError.tsx         # 'use client', error boundary (class component)
+├── GridRunnerShell.tsx         # STATIC, frame + controls + font-face
+├── index.ts                    # Barrel: GridRunner + GridRunnerError
 ├── engine/                     # Pure game logic — ZERO rendering imports
+│   ├── audio.ts                # Web Audio API engine, SFX + music manifests
+│   ├── audio.spec.ts           # Audio engine unit tests
 │   ├── battle.ts               # Turn resolution, damage calc
-│   ├── enemies.ts              # Enemy definitions, AI, zone configs
+│   ├── battle.spec.ts          # Battle engine unit tests
+│   ├── enemies.ts              # Enemy defs, zone configs, AI
+│   ├── loot.ts                 # Tool generation, rarity rolls, base tool defs
 │   ├── movement.ts             # Movement, collision
-│   ├── save.ts                 # localStorage CRUD
+│   ├── save.ts                 # localStorage CRUD + save summary
+│   ├── save.spec.ts            # Save engine unit tests
+│   ├── shop.ts                 # Shop items, pricing
 │   └── types.ts                # All types
 ├── data/maps/
 │   ├── index.ts                # Map registry
 │   ├── overworld.ts            # 16x12 overworld
 │   ├── arcade.ts               # 12x10 arcade interior
-│   └── bank.ts                 # Bank interior (next)
+│   └── bank.ts                 # Bank interior
 ├── hooks/
 │   ├── useForceDarkMode.ts     # Forces dark class on <html>
+│   ├── useAudio.ts             # 'use client', audio hook with isReady state
 │   └── useGridRunner.ts        # Main game reducer + hook
 └── ui/
-    ├── screens/
-    │   ├── TitleScreen.tsx      # Name input, new/continue
-    │   ├── OverworldScreen.tsx  # Fixed 16x12 viewport renderer
-    │   ├── BattleScreen.tsx     # Side-view battle UI
-    │   ├── DiscScreen.tsx       # Identity Disc encyclopedia (future)
-    │   └── IntelScreen.tsx      # Post-boss intel (future)
-    └── hud/
-        ├── DPad.tsx             # D-pad
-        ├── ActionButtons.tsx    # A/B buttons
-        └── GameControls.tsx     # Controls footer bar (all screens)
+    ├── shared/
+    │   ├── theme.ts            # Color tokens, rarity maps, type colors
+    │   ├── HpBar.tsx           # Shared meter (cyan/magenta/red/orange)
+    │   └── OverlayShell.tsx    # Shared overlay wrapper (fullscreen + dialog)
+    ├── hud/
+    │   ├── DPad.tsx            # STATIC, responsive
+    │   ├── ActionButtons.tsx   # STATIC, responsive
+    │   ├── GameControls.tsx    # STATIC, grid layout
+    │   └── PlayerHUD.tsx       # STATIC, uses shared HpBar
+    └── screens/
+        ├── BootScreen.tsx      # 'use client', DMG boot sequence
+        ├── TitleScreen.tsx     # 'use client', name input, new/continue, mute toggle
+        ├── OverworldScreen.tsx  # 'use client', tile renderer + fitGrid
+        ├── BattleScreen.tsx    # 'use client', Option A layout
+        ├── DiscScreen.tsx      # 'use client', tabbed encyclopedia
+        ├── InventoryScreen.tsx # uses OverlayShell
+        ├── OperatorScreen.tsx  # uses OverlayShell
+        ├── SaveScreen.tsx      # uses OverlayShell dialog
+        ├── SettingsScreen.tsx  # 'use client', audio sliders + mute
+        ├── ShopScreen.tsx      # 'use client', uses OverlayShell
+        └── MenuOverlay.tsx     # Menu items, dialog style
 ```
 
 ### 12.2 Key Technical Decisions
@@ -825,8 +844,10 @@ src/games/gridrunner/
 - **Forced dark mode** via `useForceDarkMode` hook
 - **Self-hosted fonts** (Orbitron, Share Tech Mono) in `public/fonts/`, no CSP changes
 - **Fixed 16x12 viewport** with `fitGrid()` via ResizeObserver for square tiles
+- **Frame max-width: 640px.** The Game Boy frame must never exceed `max-w-[640px]`. Narrower than a web app, wide enough for 44px touch targets and the 2x2 tool grid.
 - **Auto-enter/exit** buildings on step (Pokemon-style)
 - **Save to `dis-gridrunner-save`**, badges to shared `dis-games-state`
+- **Audio autoplay on mount.** AudioContext created on component mount, `isReady` set immediately. First user gesture calls `resumeAudio()` to unlock if browser suspended. Music starts on title screen mount -- boot screen passes `"title"` as the screen param to the audio hook so music begins during boot, not after.
 
 ### 12.3 Rendering Strategy
 
@@ -838,6 +859,46 @@ React DOM + CSS Grid. No canvas. The `fitGrid()` function measures the container
 - **Desktop:** Keyboard (WASD/arrows, Enter/Space) as primary input. Controls clickable as secondary.
 - **Mobile:** Controls are primary input. Touch targets 44px minimum.
 - **Safe area:** Shell respects `env(safe-area-inset-*)`.
+
+### 12.5 Code Standards
+
+These are non-negotiable. Every file, every commit, every delivery.
+
+**TypeScript:**
+
+- Use `type` not `interface` for all type definitions
+- Props must be `Readonly<{}>` -- no mutable prop types
+- No unused variables or imports -- `tsc --noUnusedLocals --noUnusedParameters` must pass
+- No dead code -- if it is not called, it does not exist in the file
+- `'use client'` directive on all files that use hooks. Static components stay server-compatible.
+
+**React & Styling:**
+
+- No inline styles -- use Tailwind classes with arbitrary values for custom colors (e.g., `text-[#00f0ff]`, `bg-[#0a0e1a]`). Exceptions: `perspective`, `grid-area`, `mask-image`, `WebkitMaskImage` where Tailwind cannot express the value.
+- Use lucide-react for icons. No hand-rolled SVG markup in components.
+- Semantic HTML (`figure`, `nav`, `section`, `main`, `footer`) -- not div soup.
+- No emojis or em dashes in UI copy.
+- Copyright year is 2026.
+
+**JavaScript:**
+
+- Use `globalThis` not `window`
+- Use `localStorage` not `window.localStorage`
+- No bash brace expansion in shell commands (e.g., `{a,b,c}`) -- it does not expand in all environments and creates literal ghost files.
+
+**Testing:**
+
+- TDD is mandatory. Tests first, code to pass.
+- Vitest for engine logic (pure functions, no DOM).
+- Playwright for UI layout, interaction, and regression tests.
+- Run Playwright before delivering any layout changes.
+
+**Delivery:**
+
+- Individual files, not zips, unless explicitly requested.
+- Verify all relative imports resolve before delivering.
+- Fix only what was asked. Touch nothing else.
+- When something breaks after a delivery: diff what changed, trace the impact, fix it. Do not theorize. Do not explain why it should work. Do not cite documentation. The working code is the source of truth.
 
 ---
 
@@ -851,7 +912,7 @@ React DOM + CSS Grid. No canvas. The `fitGrid()` function measures the container
 
 ## 14. Audio
 
-Not in V1 prototype. Ships in V4/V5. Full design spec here so it doesn't get lost.
+Shipped in V1. Web Audio API engine with prerendered MP3/WAV assets in `public/audio/`.
 
 ### 14.1 Aesthetic
 
@@ -899,11 +960,15 @@ Daft Punk / Tron: Legacy soundtrack inspired. Dark synthwave, arpeggiated sequen
 
 ### 14.4 Implementation
 
-- **Library:** Tone.js for synthesized sounds (no audio file downloads, small bundle, no CDN). Alternatively, prerender tracks as small mp3/ogg in `public/audio/`.
-- **User mute toggle:** Persistent in save state. Defaults to ON with volume at 50%.
-- **Browser autoplay policy:** Audio context created on first user interaction (tap/click/keypress). No autoplay on load.
-- **Accessibility:** All audio is supplementary. No gameplay information is audio-only. Muting the game must not disadvantage the player.
-- **Performance:** Lazy-load audio assets. Don't block game rendering on audio.
+- **Engine:** `engine/audio.ts` -- Web Audio API with gain bus architecture (master → music/sfx). No Tone.js.
+- **Assets:** Prerendered MP3/WAV files in `public/audio/sfx/` (52 files, 14 categories) and `public/audio/music/` (25 tracks, 7 slots).
+- **Music source:** Karl Casey @ White Bat Audio. License: free for games, credit required (shown in Settings screen).
+- **Volume curve:** Exponential `(value/100) ** 2` for perceptual loudness matching. Linear sliders, exponential gain.
+- **Defaults:** Master 75, Music 45, SFX 45. Persisted to `dis-gridrunner-audio` in localStorage.
+- **Autoplay:** AudioContext created on component mount. `isReady` set true immediately. Music effects fire on mount. First user gesture calls `resumeAudio()` to unlock if browser suspended the context. Boot screen passes `"title"` as screen param to audio hook so title music begins during boot.
+- **Browser autoplay policy:** Handled gracefully. If browser allows autoplay (SPA navigation, prior engagement), music plays immediately. If blocked (fresh page load), music queues and starts on first click/key/tap.
+- **Accessibility:** All audio is supplementary. No gameplay information is audio-only. Muting the game does not disadvantage the player.
+- **Performance:** Audio buffers loaded lazily via `loadBuffer()`. Buffer cache prevents re-fetching. Does not block game rendering.
 
 ---
 
@@ -911,30 +976,42 @@ Daft Punk / Tron: Legacy soundtrack inspired. Dark synthwave, arpeggiated sequen
 
 ### Ships
 
-- Title screen with name input, new game / continue
+- Title screen with name input, new game / continue, mute toggle
+- DMG-style boot screen with DIS logo, copyright, save slot display, skippable
 - Overworld with 14 buildings visible (2 accessible, 12 locked)
-- Arcade interior: tutorial encounter, shop, save terminal
+- Arcade interior: shop, save terminal
 - Bank interior: encounters + Lazarus Group boss
 - 2 random encounter enemy types (Script Kiddie, Ransomware Bot)
 - 1 boss (Lazarus Group)
 - 12 base tool types with rarity/stat roll system
 - Turn-based battle with type effectiveness
 - XP / leveling (cap at 20 for prototype)
-- Bits economy + shop
-- 4 prototype badges
+- Bits economy + shop (8 tools with level gates)
+- Identity Disc (Tool Manual + Type Chart tabs)
+- Inventory with equip/scrap
+- Operator screen with stats and badges
+- Settings screen with master/music/sfx sliders + mute
+- Error boundary with retry + clear save
+- Audio engine: 52 SFX files, 25 music tracks, crossfade, gain buses
 - Auto-save to localStorage
 - Mobile responsive with D-pad + A/B buttons
 - Fixed 16x12 viewport with square tiles
+- Frame max-width 640px
 - Self-hosted fonts (Orbitron, Share Tech Mono)
 - Forced dark mode
+- 222 Playwright layout regression tests
 
 ### Doesn't Ship Yet
 
 - Buildings 2-13 interiors
 - Bosses 2-13
-- Loot drops, prefixes, suffixes
+- Level-up feedback overlay
+- Tutorial encounter (scripted Script Kiddie)
+- Save terminal (A button on save tile)
+- Badges to dis-games-state
+- Post-battle intel report
+- Loot drops with prefixes/suffixes
 - Credits (premium currency)
-- Audio
 - Visual art pass (building art, sprites, effects)
 - CRT/glitch transitions
 
@@ -971,7 +1048,6 @@ Daft Punk / Tron: Legacy soundtrack inspired. Dark synthwave, arpeggiated sequen
 
 - Visual art pass (building art, player sprite, enemy sprites)
 - CRT/glitch transition effects
-- Audio (synthwave BGM, SFX)
 - Leaderboards, badge sharing
 - Server-side saves for paying users
 
@@ -998,6 +1074,12 @@ Daft Punk / Tron: Legacy soundtrack inspired. Dark synthwave, arpeggiated sequen
 - **Controls visible everywhere:** D-pad + A/B buttons render on ALL screen sizes, not just mobile. The Game Boy frame aesthetic requires the controls to be part of the visual identity. On desktop they're clickable as secondary input alongside keyboard. On mobile they're primary input. Only hidden on the title screen.
 - **Combat system:** Pokemon-style turn-based. Fundamental. Does not change.
 - **Progression system:** FFX Sphere Grid model for skill/technique acquisition (see section 5.5). Mapped to MITRE ATT&CK and the Cyber Kill Chain. Combat stays Pokemon. The grid adds strategic depth to how capabilities are built and chained.
+- **Frame max-width:** 640px. Narrower than a web app, wide enough for 44px touch targets. The Game Boy illusion breaks at wider sizes. All Playwright layout tests calibrated to this width.
+- **Boot screen:** DMG-style boot sequence. DIS logo drop, copyright fade-in, auto-advance to title after 4.3 seconds. Skippable on click/key after initial 500ms black phase. Save slot display in boot footer with inline delete. No chime (browser autoplay blocks it before user gesture). Boot screen passes `"title"` as screen param to audio hook so title music starts during boot.
+- **Audio on mount:** AudioContext created on mount, `isReady` true immediately, music effects fire right away. First user gesture calls `resumeAudio()` to unlock if browser suspended the context. SPA navigation preserves user activation, so autoplay works when entering from within the site. Direct page load/refresh may require first click to unlock.
+- **Volume curve:** Exponential `(value/100) ** 2`. Linear sliders map to perceptual loudness. Human hearing is logarithmic; linear gain sounds wrong.
+- **Mute toggle location:** Title screen, bottom-right. Uses lucide-react Volume2/VolumeX. 44px touch target. Not on boot screen (no user gesture yet, audio may be suspended).
+- **Controls hidden on boot and title screens.** D-pad, A/B, SELECT, START hidden during boot and title. Visible on all other screens.
 
 ## 18. Open Questions
 
