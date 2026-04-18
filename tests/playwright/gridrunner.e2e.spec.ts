@@ -1,8 +1,16 @@
 // @ts-expect-error node works
 import fs from "node:fs";
 import { expect, test, type Page, type TestInfo } from "@playwright/test";
+import { overworldMap } from "../../src/games/gridrunner/data/maps/overworld";
 
 const ROUTE = "/awareness/gridrunner";
+
+/**
+ * Fixed viewport tile counts -- constants used by the overworld canvas.
+ * Canvas renders into a VP_W x VP_H tile grid regardless of screen size.
+ */
+const VP_W = 16;
+const VP_H = 12;
 
 /* ------------------------------------------------------------------ */
 /*  Viewport matrix — same real-device spread as Digital House tests  */
@@ -423,7 +431,7 @@ test.describe("GRIDRUNNER frame fills available space", () => {
 });
 
 /* ------------------------------------------------------------------ */
-/*  Tests: Map tiles are square (not stretched)                       */
+/*  Tests: Canvas tile proportions (post-M1 canvas migration)         */
 /* ------------------------------------------------------------------ */
 
 test.describe("GRIDRUNNER tile proportions", () => {
@@ -443,75 +451,71 @@ test.describe("GRIDRUNNER tile proportions", () => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await startNewGame(page);
 
-      const tileSize = await page.evaluate(() => {
-        const map = document.querySelector('[data-testid="gr-map"]');
-        if (!map) return null;
-        // Measure first non-zero grid cell
-        const cells = Array.from(map.children) as HTMLElement[];
-        for (const cell of cells) {
-          const r = cell.getBoundingClientRect();
-          if (r.width > 1 && r.height > 1) {
-            return { w: r.width, h: r.height };
-          }
-        }
-        return null;
+      const canvas = page.locator('[data-testid="gr-overworld"] canvas');
+      await expect(canvas).toBeVisible();
+
+      // Tile squareness is a canvas aspect-ratio contract: the canvas client
+      // box must match VP_W x VP_H so each painted tile is a square.
+      const dims = await canvas.evaluate((el) => {
+        const c = el as HTMLCanvasElement;
+        return {
+          clientW: c.clientWidth,
+          clientH: c.clientHeight,
+          bufferW: c.width,
+          bufferH: c.height,
+        };
       });
 
-      expect(tileSize, "Should find a measurable tile").not.toBeNull();
-      if (!tileSize) return;
+      expect(dims.clientW).toBeGreaterThan(0);
+      expect(dims.clientH).toBeGreaterThan(0);
 
-      const ratio = tileSize.w / tileSize.h;
+      const clientRatio = dims.clientW / dims.clientH;
+      const expectedRatio = VP_W / VP_H;
       expect(
-        ratio,
-        `Tile ratio ${ratio.toFixed(2)} (${tileSize.w.toFixed(1)}x${tileSize.h.toFixed(1)}) -- tiles should be square`,
-      ).toBeGreaterThan(0.8);
-      expect(ratio).toBeLessThan(1.2);
+        Math.abs(clientRatio - expectedRatio),
+        `Canvas client ratio ${clientRatio.toFixed(3)} (${dims.clientW}x${dims.clientH}) should match VP_W/VP_H = ${expectedRatio.toFixed(3)}`,
+      ).toBeLessThan(0.05);
+
+      // Backing buffer should preserve the same aspect ratio (devicePixelRatio scaling stays proportional).
+      const bufferRatio = dims.bufferW / dims.bufferH;
+      expect(Math.abs(bufferRatio - expectedRatio)).toBeLessThan(0.05);
 
       await attachScreenshot(page, testInfo, `tiles-${vp.width}x${vp.height}`);
     });
   }
 
-  test("grid always renders 16x12 cells (fixed viewport)", async ({
+  test("overworld viewport is always 16x12 tiles (canvas backing buffer divides evenly)", async ({
     page,
   }, testInfo) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await startNewGame(page);
 
-    // The overworld is 16x12 and the arcade is 12x10, but both must
-    // render into the same 16x12 viewport grid (192 cells total).
-    // This guarantees tile sizes are identical across all maps.
-    const gridInfo = await page.evaluate(() => {
-      const map = document.querySelector(
-        '[data-testid="gr-map"]',
-      ) as HTMLElement;
-      if (!map) return null;
-      const cls = map.className;
+    // Post-canvas: no DOM grid, no tile divs. The contract becomes the canvas
+    // element and its 16x12 tile buffer.
+    const canvas = page.locator('[data-testid="gr-overworld"] canvas');
+    await expect(canvas).toBeVisible();
+
+    const info = await canvas.evaluate((el) => {
+      const c = el as HTMLCanvasElement;
       return {
-        cellCount: map.children.length,
-        hasColClass: cls.includes("grid-cols-[repeat(16"),
-        hasRowClass: cls.includes("grid-rows-[repeat(12"),
-        width: map.getBoundingClientRect().width,
-        height: map.getBoundingClientRect().height,
+        width: c.width,
+        height: c.height,
+        clientW: c.clientWidth,
+        clientH: c.clientHeight,
       };
     });
 
-    expect(gridInfo, "Grid should exist").not.toBeNull();
-    if (!gridInfo) return;
+    // VP_W * tileSize = buffer width; the buffer is a whole-tile multiple.
+    expect(info.width % VP_W).toBe(0);
+    expect(info.height % VP_H).toBe(0);
 
-    // Must always be 16*12 = 192 cells
-    expect(
-      gridInfo.cellCount,
-      `Grid has ${gridInfo.cellCount} cells, expected 192 (16x12)`,
-    ).toBe(192);
+    const bufferTileW = info.width / VP_W;
+    const bufferTileH = info.height / VP_H;
+    // Tile buffer cells must be square (one integer pixel size).
+    expect(bufferTileW).toBe(bufferTileH);
 
-    // Grid template must use fixed viewport dimensions
-    expect(
-      gridInfo.hasColClass,
-      "Grid should have 16-column Tailwind class",
-    ).toBe(true);
-    expect(gridInfo.hasRowClass, "Grid should have 12-row Tailwind class").toBe(
-      true,
-    );
+    // The retired DOM grid must no longer exist in the tree.
+    await expect(page.locator('[data-testid="gr-map"]')).toHaveCount(0);
 
     await attachScreenshot(page, testInfo, "fixed-viewport-grid");
   });
@@ -1750,57 +1754,64 @@ test.describe("GRIDRUNNER level-up overlay", () => {
 /* ------------------------------------------------------------------ */
 
 test.describe("GRIDRUNNER Sector 01 overworld", () => {
-  test("renders THE GRID label and exactly 3 buildings (Arcade/Bank ENTER, Crypto Exchange LOCKED)", async ({
+  test("renders THE GRID zone header and the Sector 01 map declares 2 ENTER + 1 LOCKED door tile", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await startNewGame(page);
 
+    // The zone-name header is still DOM, so text assertion stays.
     const overworld = page.getByTestId("gr-overworld");
     await expect(overworld).toBeVisible();
     await expect(overworld).toContainText(/THE GRID/i);
 
-    const enterLabels = overworld.getByText("ENTER", { exact: true });
-    const lockedLabels = overworld.getByText("LOCKED", { exact: true });
-
-    await expect(enterLabels).toHaveCount(2);
-    await expect(lockedLabels).toHaveCount(1);
+    // Post-canvas, ENTER/LOCKED labels become painted pixels, not DOM text.
+    // The contract (exactly 2 entry tiles + exactly 1 locked tile) is now
+    // verified against the static map data imported from overworld.ts.
+    const entryCount = overworldMap.tiles
+      .flat()
+      .filter((t) => t.kind === "entry").length;
+    const lockedCount = overworldMap.tiles
+      .flat()
+      .filter((t) => t.kind === "locked").length;
+    expect(entryCount).toBe(2);
+    expect(lockedCount).toBe(1);
   });
 
-  test("Digital Sea tiles render with distinct cyan color class", async ({
+  test("Sector 01 map declares a Digital Sea footprint (> 20 sea tiles)", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await startNewGame(page);
 
-    const seaTileCount = await page.evaluate(() => {
-      const map = document.querySelector(
-        '[data-testid="gr-map"]',
-      ) as HTMLElement | null;
-      if (!map) return 0;
-      return Array.from(map.querySelectorAll("div")).filter((el) =>
-        (el as HTMLElement).className.includes("bg-[#0a2a3a]"),
-      ).length;
-    });
-    expect(seaTileCount).toBeGreaterThan(20);
+    // The canvas is visible -- proves the overworld is rendering.
+    await expect(
+      page.locator('[data-testid="gr-overworld"] canvas'),
+    ).toBeVisible();
+
+    // Sea presence is a map-data contract, not a rendering contract.
+    const seaCount = overworldMap.tiles
+      .flat()
+      .filter((t) => t.kind === "sea").length;
+    expect(seaCount).toBeGreaterThan(20);
   });
 
-  test("overworld renders multi-tile building footprints (not single tiles)", async ({
+  test("Sector 01 map declares multi-tile building footprints (>= 18 building body tiles)", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await startNewGame(page);
 
-    const buildingTileCount = await page.evaluate(() => {
-      const map = document.querySelector(
-        '[data-testid="gr-map"]',
-      ) as HTMLElement | null;
-      if (!map) return 0;
-      return Array.from(map.querySelectorAll("div")).filter((el) =>
-        (el as HTMLElement).className.includes("bg-[#111d30]"),
-      ).length;
-    });
-    expect(buildingTileCount).toBeGreaterThanOrEqual(18);
+    await expect(
+      page.locator('[data-testid="gr-overworld"] canvas'),
+    ).toBeVisible();
+
+    // Building footprint is a map-data contract. Multi-tile means the
+    // Arcade/Bank/Exchange bodies aren't single 1x1 placeholders.
+    const buildingCount = overworldMap.tiles
+      .flat()
+      .filter((t) => t.kind === "building").length;
+    expect(buildingCount).toBeGreaterThanOrEqual(18);
   });
 
   test("walking on a sea tile triggers an encounter when Math.random is forced low", async ({
@@ -1854,9 +1865,13 @@ test.describe("GRIDRUNNER Sector 01 overworld", () => {
 
     await page.keyboard.press("ArrowRight");
 
-    const transition = page.getByTestId("gr-battle-transition");
-    await expect(transition).toBeAttached({ timeout: 1000 });
-    await expect(transition).toHaveAttribute("data-phase", "entering");
+    // Transition element is brief on webkit; combined attribute selector
+    // avoids the two-poll race (same pattern as the exit transition test).
+    await expect(
+      page.locator(
+        '[data-testid="gr-battle-transition"][data-phase="entering"]',
+      ),
+    ).toBeAttached({ timeout: 3000 });
     await expect(page.getByTestId("gr-battle")).toBeVisible({ timeout: 3000 });
   });
 
@@ -2078,4 +2093,52 @@ test.describe("GRIDRUNNER building entry contract", () => {
       "Player should still be on overworld (door is LOCKED)",
     ).toBe("overworld");
   });
+});
+
+/* ------------------------------------------------------------------ */
+/*  Canvas renderer contract (M1)                                     */
+/*  Overworld tile grid is painted to a <canvas> inside gr-overworld. */
+/* ------------------------------------------------------------------ */
+
+test.describe("GRIDRUNNER canvas renderer", () => {
+  test("overworld renders a <canvas> element inside gr-overworld", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    const canvas = page.locator('[data-testid="gr-overworld"] canvas');
+    await expect(canvas).toBeVisible();
+
+    const tag = await canvas.evaluate((el) => el.tagName.toLowerCase());
+    expect(tag).toBe("canvas");
+  });
+
+  test("canvas client dimensions maintain 16:12 aspect ratio on phone", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    const canvas = page.locator('[data-testid="gr-overworld"] canvas');
+    const dims = await canvas.evaluate((el) => {
+      const c = el as HTMLCanvasElement;
+      return { w: c.clientWidth, h: c.clientHeight };
+    });
+
+    expect(dims.w).toBeGreaterThan(0);
+    expect(dims.h).toBeGreaterThan(0);
+
+    const ratio = dims.w / dims.h;
+    const expected = VP_W / VP_H;
+    expect(Math.abs(ratio - expected)).toBeLessThan(0.05);
+  });
+
+  // Camera-pan contract cannot be exercised on the current 16x12 map (camera
+  // clamps to 0,0 because map equals viewport). M2 ships the 60x40 Sector 01
+  // map that actually scrolls; this test body activates then.
+  test.fixme(
+    "camera offset changes when player moves beyond viewport center (ships with M2 60x40 map)",
+    async () => {},
+  );
 });
