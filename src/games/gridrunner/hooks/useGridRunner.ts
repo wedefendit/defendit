@@ -36,7 +36,7 @@ import {
   processLevelUp,
   resolvePlayerTurn,
 } from "../engine/battle";
-import { createCommonTool } from "../engine/loot";
+import { createCommonTool, rollLootDrop } from "../engine/loot";
 import { SHOP_ITEMS } from "../engine/shop";
 import { SCRAP_VALUES } from "../ui/shared/theme";
 import { badgesForTransition } from "../engine/badges";
@@ -117,6 +117,10 @@ interface GameState {
   /** BattleState stashed during the "entering" transition; promoted to
    *  the active battle when BATTLE_TRANSITION_END fires. */
   pendingBattle: BattleState | null;
+  /** Loot tile coords consumed this session -- keyed "zone:x,y". Cleared
+   *  on every zone transition so re-entering a building makes loot tiles
+   *  available again. NOT persisted to save. */
+  lootConsumed: Record<string, true>;
 }
 
 type Action =
@@ -174,6 +178,7 @@ function init(): GameState {
     pendingShopOpen: false,
     battleTransition: null,
     pendingBattle: null,
+    lootConsumed: {},
   };
 }
 
@@ -278,6 +283,9 @@ function reducer(state: GameState, action: Action): GameState {
               overworldPos: { x: targetX, y: targetY },
               facing: action.dir,
               save: updatedSave,
+              // Zone transition clears per-session loot consumption so
+              // loot tiles are fresh on (re-)entry.
+              lootConsumed: {},
             };
           }
         }
@@ -326,6 +334,7 @@ function reducer(state: GameState, action: Action): GameState {
               battleTransition: "entering",
               pendingBattle: createBattle(enemy, false),
               tutorialStep: 1,
+              lootConsumed: {},
             };
           }
 
@@ -337,6 +346,7 @@ function reducer(state: GameState, action: Action): GameState {
             overworldPos: state.playerPos,
             facing: "up",
             save: updatedSave,
+            lootConsumed: {},
           };
         }
       }
@@ -361,6 +371,7 @@ function reducer(state: GameState, action: Action): GameState {
           playerPos: state.overworldPos,
           facing: "down",
           save: updatedSave,
+          lootConsumed: {},
         };
       }
 
@@ -397,18 +408,44 @@ function reducer(state: GameState, action: Action): GameState {
         }
       }
 
+      // Loot tile: first step this session grants a boss-tier drop. The
+      // consumed set is session-only -- cleared on any zone transition so
+      // re-entering a building makes the tile available again. Nothing
+      // persists to the save beyond the inventory addition itself.
+      let postLootSave = updatedSave;
+      let postLootConsumed = state.lootConsumed;
+      if (
+        state.screen === "building" &&
+        steppedTile?.loot === true &&
+        updatedSave
+      ) {
+        const key = `${state.currentZone}:${newPos.x},${newPos.y}`;
+        if (!state.lootConsumed[key]) {
+          const drop = rollLootDrop(updatedSave.player.level, true);
+          if (drop) {
+            postLootSave = {
+              ...updatedSave,
+              inventory: [...updatedSave.inventory, drop],
+            };
+          }
+          postLootConsumed = { ...state.lootConsumed, [key]: true };
+        }
+      }
+
       const baseUpdate = {
         ...state,
         playerPos: newPos,
         facing: action.dir,
-        save: updatedSave,
+        save: postLootSave,
         onboardingQueue,
+        lootConsumed: postLootConsumed,
         ...(state.currentZone === "overworld" ? { overworldPos: newPos } : {}),
       };
 
       // Boss tile: start boss fight if level requirement met
       const BOSS_MIN_LEVEL: Record<string, number> = {
         lazarus: 5,
+        "trader-traitor": 7,
       };
 
       if (
@@ -474,8 +511,17 @@ function reducer(state: GameState, action: Action): GameState {
         // Overworld: sea tiles ONLY. Everything else is zero.
         canEncounterHere = steppedTile?.kind === "sea";
       } else if (state.screen === "building") {
-        // Building interior: ground tiles are encounter floor tiles.
-        canEncounterHere = steppedTile?.kind === "ground";
+        // Building interior: explicit `encounter` flag wins (Crypto Exchange
+        // uses it to designate hostile vs safe floor tiles). When the flag
+        // is not set, fall back to legacy ground-as-encounter behavior used
+        // by Arcade and Bank.
+        if (steppedTile?.encounter === true) {
+          canEncounterHere = true;
+        } else if (steppedTile?.encounter === false) {
+          canEncounterHere = false;
+        } else {
+          canEncounterHere = steppedTile?.kind === "ground";
+        }
       }
 
       if (!canEncounterHere) {

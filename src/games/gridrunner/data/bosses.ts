@@ -37,6 +37,18 @@ export const BOSSES: Record<string, BossEntry> = {
       "The 2016 Bangladesh Bank heist drained $81 million via fraudulent SWIFT transfers. The 2017 WannaCry ransomware worm crippled hospitals and businesses worldwide. Billions stolen from cryptocurrency platforms since.",
     badgeId: "bank-buster",
   },
+  "trader-traitor": {
+    id: "trader-traitor",
+    name: "TraderTraitor",
+    nation: "North Korea",
+    sector: "Financial / Cryptocurrency",
+    weakness: "recon",
+    background:
+      "A Lazarus Group sub-cluster identified by US CISA, FBI, and Treasury as TraderTraitor -- focused on cryptocurrency theft and laundering. The DPRK treats stolen crypto as sovereign revenue and uses the proceeds to sustain activities under international sanction.",
+    operations:
+      "Executed the Ronin Bridge ($620M) and Harmony Horizon ($100M) heists in 2022. Laundered proceeds through mixers like Tornado Cash (OFAC-sanctioned August 2022) and cross-chain bridges. UN Panel of Experts reports these operations fund DPRK WMD and ballistic missile programs. The Exchange fight is mechanically harder than the Bank -- Lazarus's laundering arm is hardened, compartmentalized, and doesn't hold still long enough for brute force. You have to trace them.",
+    badgeId: "exchange-raider",
+  },
 };
 
 export const BADGES: readonly BadgeDef[] = [
@@ -51,6 +63,12 @@ export const BADGES: readonly BadgeDef[] = [
     label: "Bank Buster",
     condition: "Defeat Lazarus Group",
     tier: "bronze",
+  },
+  {
+    id: "exchange-raider",
+    label: "Exchange Raider",
+    condition: "Defeat TraderTraitor at the Crypto Exchange",
+    tier: "silver",
   },
   {
     id: "loot-hoarder",

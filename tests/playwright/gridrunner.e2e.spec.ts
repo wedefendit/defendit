@@ -2352,13 +2352,151 @@ test.describe("GRIDRUNNER Sector 01 gameplay (M2)", () => {
     expect(state?.currentZone).toBe("overworld");
   });
 
-  // The reducer has the unlock path wired in (peeks at the locked Crypto
-  // door, auto-enters when Lazarus is defeated), but the exchange interior
-  // map ships in M3 (data/maps/crypto-exchange.ts). Without a destination
-  // map, getMap("exchange") returns undefined and the unlock branch no-ops.
-  // This test activates as a real test when M3 lands.
-  test.fixme(
-    "Crypto Exchange door auto-enters after Lazarus is defeated (ships with M3 exchange interior map)",
-    async () => {},
-  );
+  test("Crypto Exchange door auto-enters after Lazarus is defeated", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    // Sector 01 (60x40): Crypto Exchange locked door is at (46, 30),
+    // approach from west at (45, 30). With Lazarus in defeatedBosses, the
+    // reducer's unlock branch auto-enters the exchange zone.
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentZone = "overworld";
+      save.currentPosition = { x: 45, y: 30 };
+      save.completedTutorial = true;
+      save.defeatedBosses = ["lazarus"];
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    await page.keyboard.press("ArrowRight");
+    await page.waitForTimeout(400);
+
+    const zone = await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      return raw ? JSON.parse(raw).currentZone : null;
+    });
+    expect(
+      zone,
+      "Player should auto-enter the exchange zone after Lazarus is defeated",
+    ).toBe("exchange");
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/*  TraderTraitor mini-boss (M3)                                       */
+/*  Exchange interior + boss behavior.                                 */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Seed the player adjacent to the Crypto Exchange boss tile with an
+ * instakill loadout so a single NMAP/Metasploit click ends the fight.
+ * Follows the pattern of placePlayerAtLazarusDoor.
+ */
+async function placePlayerAtTraderTraitorDoor(
+  page: Page,
+  overrides: Record<string, unknown> = {},
+) {
+  await page.evaluate((ov) => {
+    const raw = localStorage.getItem("dis-gridrunner-save");
+    if (!raw) return;
+    const save = JSON.parse(raw);
+    save.currentZone = "exchange";
+    // Crypto Exchange interior: boss tile lives in the top-right room per
+    // the M3 map layout. Boss is at (11, 1); park one tile south at (11, 2).
+    save.currentPosition = { x: 11, y: 2 };
+    save.completedTutorial = true;
+    save.defeatedBosses = ["lazarus"];
+    save.player.level = 7;
+    save.player.xp = 0;
+    save.player.xpToNext = 999999;
+    save.player.maxIntegrity = 9999;
+    save.player.integrity = 9999;
+    save.player.maxCompute = 9999;
+    save.player.compute = 9999;
+    save.player.firewall = 9999;
+    save.equippedTools = [
+      {
+        id: "trader-onehit",
+        baseToolId: "nmap",
+        rarity: "legendary",
+        power: 9999,
+        accuracy: 100,
+        energyCost: 1,
+        prefix: null,
+        suffix: null,
+        type: "recon",
+      },
+      null,
+      null,
+      null,
+    ];
+    Object.assign(save, ov);
+    localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+  }, overrides);
+  await page.reload({ waitUntil: "networkidle" });
+  await page.getByTestId("gr-continue").click();
+  await page.waitForTimeout(300);
+}
+
+test.describe("GRIDRUNNER TraderTraitor mini-boss (M3)", () => {
+  test("first TraderTraitor defeat shows the intel overlay with correct content", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+    await placePlayerAtTraderTraitorDoor(page);
+
+    await page.keyboard.press("ArrowUp");
+    await expect(page.getByTestId("gr-battle")).toBeVisible({ timeout: 3000 });
+    await page.getByTestId("gr-battle-tool-0").click();
+
+    const cont = page.getByTestId("gr-battle-continue");
+    await expect(cont).toBeVisible({ timeout: 5000 });
+    await cont.click();
+
+    const intel = page.getByTestId("gr-intel-overlay");
+    await expect(intel).toBeVisible();
+    await expect(intel).toContainText(/TraderTraitor/i);
+    await expect(intel).toContainText(/North Korea/i);
+    await expect(intel).toContainText(/Ronin/i);
+    await expect(intel).toContainText(/Tornado Cash/i);
+
+    await page.getByTestId("gr-intel-continue").click();
+    await expect(intel).toHaveCount(0);
+  });
+
+  test("TraderTraitor defeat adds trader-traitor to defeatedBosses", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+    await placePlayerAtTraderTraitorDoor(page);
+
+    await page.keyboard.press("ArrowUp");
+    await expect(page.getByTestId("gr-battle")).toBeVisible({ timeout: 3000 });
+    await page.getByTestId("gr-battle-tool-0").click();
+    await page.getByTestId("gr-battle-continue").click();
+
+    // Wait unconditionally for intel-continue to be visible, then click it.
+    // This syncs with the post-battle render cycle so the save-persist
+    // effect has already flushed to localStorage by the next line.
+    const intelContinue = page.getByTestId("gr-intel-continue");
+    await expect(intelContinue).toBeVisible({ timeout: 5000 });
+    await intelContinue.click();
+
+    const defeated = await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      return raw ? JSON.parse(raw).defeatedBosses : null;
+    });
+    expect(defeated).toContain("trader-traitor");
+    // Lazarus precondition preserved.
+    expect(defeated).toContain("lazarus");
+  });
 });

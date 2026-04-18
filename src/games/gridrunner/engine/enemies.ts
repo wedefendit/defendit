@@ -137,6 +137,102 @@ export const enemies: Record<string, EnemyDef> = {
     xpReward: 22,
     bitsReward: 10,
   },
+  "mixer-bot": {
+    id: "mixer-bot",
+    name: "Mixer Bot",
+    baseHp: 60,
+    speed: 8,
+    defense: 3,
+    moves: [
+      {
+        name: "Obfuscate",
+        power: 20,
+        accuracy: 85,
+        weight: 35,
+        description: "Scrambles transaction trail; player accuracy -20% 2 turns",
+      },
+      {
+        name: "Tumble",
+        power: 15,
+        accuracy: 90,
+        weight: 35,
+        description: "Hits twice through tumbler layers",
+      },
+      {
+        name: "Exit Liquidity",
+        power: 25,
+        accuracy: 80,
+        weight: 30,
+        description: "Drains stolen bits on the way out (loses 10 bits)",
+      },
+    ],
+    xpReward: 30,
+    bitsReward: 14,
+  },
+  "rug-puller": {
+    id: "rug-puller",
+    name: "Rug Puller",
+    baseHp: 55,
+    speed: 9,
+    defense: 3,
+    moves: [
+      {
+        name: "Hype Pump",
+        power: 0,
+        accuracy: 100,
+        weight: 25,
+        description: "Buffs own power 30% for 2 turns",
+      },
+      {
+        name: "Pull Liquidity",
+        power: 30,
+        accuracy: 85,
+        weight: 40,
+        description: "Drains the pool (50% chance to flee with stolen bits)",
+      },
+      {
+        name: "Fake Audit",
+        power: 15,
+        accuracy: 90,
+        weight: 35,
+        description: "Plants false confidence; player accuracy -15%",
+      },
+    ],
+    xpReward: 32,
+    bitsReward: 16,
+  },
+  "wallet-drainer": {
+    id: "wallet-drainer",
+    name: "Wallet Drainer",
+    baseHp: 70,
+    speed: 7,
+    defense: 4,
+    moves: [
+      {
+        name: "Malicious Approve",
+        power: 25,
+        accuracy: 85,
+        weight: 35,
+        description: "Tricks wallet approval; energy drain 10/turn 2 turns",
+      },
+      {
+        name: "Signature Request",
+        power: 20,
+        accuracy: 90,
+        weight: 35,
+        description: "Phished EIP-712 signature; persist 5/turn 3 turns",
+      },
+      {
+        name: "Address Poisoning",
+        power: 15,
+        accuracy: 95,
+        weight: 30,
+        description: "Look-alike address; locks player's next tool 1 turn",
+      },
+    ],
+    xpReward: 35,
+    bitsReward: 18,
+  },
 };
 
 /* ------------------------------------------------------------------ */
@@ -184,6 +280,47 @@ export const bosses: Record<string, EnemyDef> = {
     xpReward: 300,
     bitsReward: 100,
   },
+  "trader-traitor": {
+    id: "trader-traitor",
+    name: "TraderTraitor",
+    baseHp: 280,
+    speed: 11,
+    defense: 6,
+    // Recon wins: tracing money flows is reconnaissance work (GDD §7.2).
+    weakness: "recon",
+    moves: [
+      {
+        name: "Chain Hop",
+        power: 30,
+        accuracy: 85,
+        weight: 30,
+        description: "Bounces funds across chains; heals self 10",
+      },
+      {
+        name: "Mixer Deploy",
+        power: 20,
+        accuracy: 90,
+        weight: 25,
+        description: "Tornado Cash style; player accuracy -25% for 2 turns",
+      },
+      {
+        name: "Bridge Exploit",
+        power: 40,
+        accuracy: 80,
+        weight: 25,
+        description: "Cross-chain bridge takeover (charges 1 turn)",
+      },
+      {
+        name: "Cold Wallet Stash",
+        power: 0,
+        accuracy: 100,
+        weight: 20,
+        description: "Moves funds offline; immune to next attack",
+      },
+    ],
+    xpReward: 500,
+    bitsReward: 160,
+  },
 };
 
 /* ------------------------------------------------------------------ */
@@ -206,6 +343,11 @@ export const zones: Record<string, ZoneConfig> = {
   overworld: {
     encounterRate: 0.3,
     enemies: ["script-kiddie", "ransomware-bot", "cryptominer"],
+  },
+  exchange: {
+    // Crypto Exchange mini-boss zone. Pool per GDD §7.1.
+    encounterRate: 0.3,
+    enemies: ["cryptominer", "mixer-bot", "rug-puller", "wallet-drainer"],
   },
 };
 

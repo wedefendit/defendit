@@ -72,6 +72,21 @@ export interface MapTile {
   /** Display label for building entrances */
   label?: string;
   walkable: boolean;
+  /**
+   * Explicit encounter override for building interiors.
+   *   - `true`  -> always roll encounter on step (Crypto hostile floor)
+   *   - `false` -> never roll encounter on step (Crypto safe floor)
+   *   - undefined -> legacy behavior (`kind === "ground"` triggers inside
+   *     buildings). Arcade and Bank rely on this default.
+   */
+  encounter?: boolean;
+  /**
+   * Free loot drop tile. When the player steps on a `loot: true` tile for
+   * the first time this session, the reducer rolls a boss-tier drop and
+   * adds it to the inventory. Tracked in session state (cleared on zone
+   * transition), not persisted to the save.
+   */
+  loot?: boolean;
 }
 
 export interface GameMap {
