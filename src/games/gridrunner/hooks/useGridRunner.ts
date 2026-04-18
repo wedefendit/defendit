@@ -242,6 +242,47 @@ function reducer(state: GameState, action: Action): GameState {
         return state;
       if (!currentMap) return state;
 
+      // Crypto Exchange unlock: when the player tries to step onto the locked
+      // exchange door AND Lazarus is defeated, treat the step as an entry.
+      // The static map tile is walkable:false so normal `move()` blocks; this
+      // peek honors the locked-contracts invariant (door becomes ENTER after
+      // Lazarus defeated) without baking save state into the map data.
+      if (state.screen === "overworld" && state.save) {
+        const dxLookup: Record<Direction, { dx: number; dy: number }> = {
+          up: { dx: 0, dy: -1 },
+          down: { dx: 0, dy: 1 },
+          left: { dx: -1, dy: 0 },
+          right: { dx: 1, dy: 0 },
+        };
+        const d = dxLookup[action.dir];
+        const targetX = state.playerPos.x + d.dx;
+        const targetY = state.playerPos.y + d.dy;
+        const peek = tileAt(currentMap, { x: targetX, y: targetY });
+        if (
+          peek?.kind === "locked" &&
+          peek.buildingId === "exchange" &&
+          state.save.defeatedBosses.includes("lazarus")
+        ) {
+          const buildingMap = getMap("exchange");
+          if (buildingMap) {
+            const updatedSave = {
+              ...state.save,
+              currentZone: "exchange",
+              currentPosition: buildingMap.spawn,
+            };
+            return {
+              ...state,
+              screen: "building",
+              currentZone: "exchange",
+              playerPos: buildingMap.spawn,
+              overworldPos: { x: targetX, y: targetY },
+              facing: action.dir,
+              save: updatedSave,
+            };
+          }
+        }
+      }
+
       const newPos = move(state.playerPos, action.dir, currentMap);
       const moved =
         newPos.x !== state.playerPos.x || newPos.y !== state.playerPos.y;
@@ -413,11 +454,36 @@ function reducer(state: GameState, action: Action): GameState {
         };
       }
 
-      // Encounter check: building ground tiles OR overworld sea tiles
-      const canEncounter =
-        (state.screen === "building" && steppedTile?.kind === "ground") ||
-        (state.screen === "overworld" && steppedTile?.kind === "sea");
-      if (canEncounter && shouldEncounter(state.currentZone)) {
+      // ================================================================
+      // LOCKED CONTRACT (docs/gridrunner/guardrails/locked-contracts.md)
+      //
+      //   "Grid path tiles NEVER trigger encounters. Zero percent. Not even
+      //    with forced low Math.random()."
+      //   "Digital Sea tiles trigger encounters at 25-35% per step."
+      //   "Encounter tiles inside buildings trigger encounters at 25-35%."
+      //   "The overworld has encounters ONLY on Digital Sea tiles. Grid
+      //    paths, building body tiles, door tiles, gate tiles -- no
+      //    encounters."
+      //
+      // Encounters are gated by the stepped tile's `kind`. The zone encounter
+      // rate is a multiplier INSIDE that gate, never a substitute for it.
+      // Do NOT remove this guard or rely on rate being low.
+      // ================================================================
+      let canEncounterHere = false;
+      if (state.screen === "overworld") {
+        // Overworld: sea tiles ONLY. Everything else is zero.
+        canEncounterHere = steppedTile?.kind === "sea";
+      } else if (state.screen === "building") {
+        // Building interior: ground tiles are encounter floor tiles.
+        canEncounterHere = steppedTile?.kind === "ground";
+      }
+
+      if (!canEncounterHere) {
+        // Explicit early-out: no encounter roll on any other tile kind.
+        return baseUpdate;
+      }
+
+      if (shouldEncounter(state.currentZone)) {
         const enemyId = pickRandomEnemy(state.currentZone);
         if (enemyId && state.save) {
           const enemy = spawnEnemy(enemyId, state.save.player.level);
@@ -537,9 +603,15 @@ function reducer(state: GameState, action: Action): GameState {
 
       const escaped = attemptRun(state.save.player, state.battle.enemy);
       if (escaped) {
+        // Return to the zone the player was in before the battle. Sea
+        // encounters on the overworld must come back as `screen: overworld`,
+        // not `building` -- otherwise the MOVE encounter guard misclassifies
+        // overworld grid paths as building encounter floor tiles.
+        const returnScreen: GameState["screen"] =
+          state.currentZone === "overworld" ? "overworld" : "building";
         return {
           ...state,
-          screen: "building",
+          screen: returnScreen,
           battle: null,
         };
       }
@@ -647,11 +719,21 @@ function reducer(state: GameState, action: Action): GameState {
           ? [...state.onboardingQueue, ...onboardingAdditions]
           : state.onboardingQueue;
 
+      // Derive the correct return screen from the zone. A sea encounter on
+      // the overworld must return to `screen: "overworld"` -- NOT "building".
+      // Leaving the screen stuck at "building" after an overworld battle
+      // causes the encounter guard in MOVE to treat overworld grid paths
+      // (kind: "ground") as encounter floor tiles, triggering battles on
+      // every step across traces. This is the "encounters on path after
+      // sea battle" bug the LOCKED CONTRACT forbids.
+      const returnScreen: GameState["screen"] =
+        state.currentZone === "overworld" ? "overworld" : "building";
+
       if (state.battle.phase !== "won") {
-        // Lost: respawn at building entrance, lose 10% bits
+        // Lost: respawn at zone spawn, lose 10% bits.
         const lostBits = Math.floor(updatedSave.bits * 0.1);
-        const buildingMap = getMap(state.currentZone);
-        const respawnPos = buildingMap?.spawn ?? state.playerPos;
+        const zoneMap = getMap(state.currentZone);
+        const respawnPos = zoneMap?.spawn ?? state.playerPos;
         const p = { ...updatedSave.player };
         p.integrity = p.maxIntegrity;
         p.compute = p.maxCompute;
@@ -663,7 +745,7 @@ function reducer(state: GameState, action: Action): GameState {
         };
         return {
           ...state,
-          screen: "building",
+          screen: returnScreen,
           battle: null,
           save: updatedSave,
           playerPos: respawnPos,
@@ -679,7 +761,7 @@ function reducer(state: GameState, action: Action): GameState {
 
       return {
         ...state,
-        screen: "building",
+        screen: returnScreen,
         battle: null,
         save: updatedSave,
         overlay: nextOverlay,

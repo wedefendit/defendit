@@ -191,13 +191,20 @@ export const bosses: Record<string, EnemyDef> = {
 /* ------------------------------------------------------------------ */
 
 export const zones: Record<string, ZoneConfig> = {
-  arcade: { encounterRate: 0.1, enemies: ["script-kiddie"] },
+  // GDD §4.2: Digital Sea tiles trigger encounters at 25-35% per step. The
+  // `shouldEncounter` roll runs only after the tile-kind guard in the MOVE
+  // handler confirms the stepped tile is actually a sea/encounter tile, so
+  // this rate applies exclusively to those tiles.
+  arcade: {
+    encounterRate: 0.3,
+    enemies: ["script-kiddie"],
+  },
   bank: {
-    encounterRate: 0.12,
+    encounterRate: 0.3,
     enemies: ["script-kiddie", "hacktivist", "ransomware-bot"],
   },
   overworld: {
-    encounterRate: 0.15,
+    encounterRate: 0.3,
     enemies: ["script-kiddie", "ransomware-bot", "cryptominer"],
   },
 };

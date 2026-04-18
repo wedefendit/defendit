@@ -1483,7 +1483,10 @@ async function placePlayerAtArcadeDoor(
     if (!raw) return;
     const save = JSON.parse(raw);
     save.currentZone = "overworld";
-    save.currentPosition = { x: 1, y: 4 };
+    // Sector 01 (60x40) v3: Arcade door is at (8, 6), directly adjacent to
+    // building body `A` at (7, 6). Approach from south at (8, 7) where the
+    // trace tile is `g` (walkable).
+    save.currentPosition = { x: 8, y: 7 };
     Object.assign(save, ov);
     localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
   }, overrides);
@@ -1828,7 +1831,10 @@ test.describe("GRIDRUNNER Sector 01 overworld", () => {
       if (!raw) return;
       const save = JSON.parse(raw);
       save.currentZone = "overworld";
-      save.currentPosition = { x: 4, y: 4 };
+      // Sector 01 (60x40): row 1 cols 1-5 are Digital Sea. Standing at (1, 1)
+      // with ArrowRight steps onto (2, 1) which is also sea, triggering an
+      // encounter roll on the sea tile.
+      save.currentPosition = { x: 1, y: 1 };
       save.completedTutorial = true;
       localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
     });
@@ -1855,7 +1861,10 @@ test.describe("GRIDRUNNER Sector 01 overworld", () => {
       if (!raw) return;
       const save = JSON.parse(raw);
       save.currentZone = "overworld";
-      save.currentPosition = { x: 4, y: 4 };
+      // Sector 01 (60x40): row 1 cols 1-5 are Digital Sea. Standing at (1, 1)
+      // with ArrowRight steps onto (2, 1) which is also sea, triggering an
+      // encounter roll on the sea tile.
+      save.currentPosition = { x: 1, y: 1 };
       save.completedTutorial = true;
       localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
     });
@@ -1915,7 +1924,10 @@ test.describe("GRIDRUNNER Sector 01 overworld", () => {
       if (!raw) return;
       const save = JSON.parse(raw);
       save.currentZone = "overworld";
-      save.currentPosition = { x: 1, y: 10 };
+      // Sector 01 (60x40): row 8 is the main `g` backbone (cols 10-51). Seed
+      // at (15, 8) so 10 east steps + 10 west steps stay on the trace network
+      // (pure grid path, zero sea tiles) and can't roll encounters.
+      save.currentPosition = { x: 15, y: 8 };
       save.completedTutorial = true;
       localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
     });
@@ -1929,6 +1941,110 @@ test.describe("GRIDRUNNER Sector 01 overworld", () => {
     }
     for (let i = 0; i < 10; i++) {
       await page.keyboard.press("ArrowLeft");
+      await page.waitForTimeout(30);
+    }
+
+    await expect(page.getByTestId("gr-battle")).toHaveCount(0);
+  });
+
+  test("P0: after winning a sea encounter, walking on grid path does NOT roll encounters", async ({
+    page,
+  }) => {
+    // Regression for the "encounters fire on grid paths after a sea battle"
+    // bug: when the reducer returned from a won overworld battle, it was
+    // setting screen=building, which made the encounter guard treat grid
+    // paths (kind: ground) as building encounter floor tiles. This test
+    // forces an overworld sea encounter, wins it with a one-shot tool, then
+    // verifies screen returns to overworld AND subsequent grid-path steps
+    // with Math.random=0.01 (forces encounter rolls) produce zero battles.
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(() => {
+      Math.random = () => 0.01;
+    });
+    await startNewGame(page);
+
+    // Seed: overworld, standing on a sea tile near spawn with a one-shot
+    // legendary so we win instantly and don't hit level-up/intel overlays.
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentZone = "overworld";
+      // (10, 9) is one of the new near-spawn sea patches.
+      save.currentPosition = { x: 10, y: 9 };
+      save.completedTutorial = true;
+      save.player.xp = 0;
+      save.player.xpToNext = 999999;
+      save.player.maxIntegrity = 9999;
+      save.player.integrity = 9999;
+      save.player.maxCompute = 9999;
+      save.player.compute = 9999;
+      save.player.firewall = 9999;
+      save.equippedTools = [
+        {
+          id: "onehit",
+          baseToolId: "metasploit",
+          rarity: "legendary",
+          power: 9999,
+          accuracy: 100,
+          energyCost: 1,
+          prefix: null,
+          suffix: null,
+          type: "exploit",
+        },
+        null,
+        null,
+        null,
+      ];
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    // Step right onto (11, 9) = sea. With Math.random=0.01, encounter fires.
+    await page.keyboard.press("ArrowRight");
+    await expect(page.getByTestId("gr-battle")).toBeVisible({ timeout: 3000 });
+
+    // Win the fight with the one-shot tool and continue back to the map.
+    await page.getByTestId("gr-battle-tool-0").click();
+    await page.getByTestId("gr-battle-continue").click();
+
+    // Wait for the exit transition to unmount and return to overworld.
+    await page.waitForTimeout(600);
+
+    // currentZone must still be "overworld" (not any building), proving the
+    // reducer returned the correct screen.
+    const zone = await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      return raw ? JSON.parse(raw).currentZone : null;
+    });
+    expect(zone).toBe("overworld");
+
+    // Walk off the sea patch onto the trace network. (11, 9) sea ->
+    // ArrowDown to (11, 10). Row 11 col 11 is `g` (grid path). Step further
+    // along the g-trunk and verify NO battle triggers, even with the
+    // Math.random forced low.
+    await page.keyboard.press("ArrowDown"); // (11, 10) - may be sea or ground
+    await page.waitForTimeout(100);
+    // Force-step east across the row-8 backbone via a seeded jump so we
+    // don't accidentally hit other sea patches.
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentPosition = { x: 20, y: 8 };
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    // 15 east steps on the row-8 `g` trunk. If the post-battle screen bug
+    // resurfaces, encounter guard treats g as ground-encounter-tile and
+    // fires a battle. Locked contract: ZERO encounters on grid path.
+    for (let i = 0; i < 15; i++) {
+      await page.keyboard.press("ArrowRight");
       await page.waitForTimeout(30);
     }
 
@@ -2034,14 +2150,14 @@ test.describe("GRIDRUNNER building entry contract", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await startNewGame(page);
 
-    // Park player on the ground tile south of the Bank entry door (12, 3).
-    // Approach (12, 4) is verified walkable ground in data/maps/overworld.ts.
+    // Sector 01 (60x40): Bank entry door is at (42, 6), approach from south at
+    // (42, 7). Both verified against the ASCII map.
     await page.evaluate(() => {
       const raw = localStorage.getItem("dis-gridrunner-save");
       if (!raw) return;
       const save = JSON.parse(raw);
       save.currentZone = "overworld";
-      save.currentPosition = { x: 12, y: 4 };
+      save.currentPosition = { x: 42, y: 7 };
       save.completedTutorial = true;
       localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
     });
@@ -2065,14 +2181,14 @@ test.describe("GRIDRUNNER building entry contract", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await startNewGame(page);
 
-    // Park player on the ground tile west of the Crypto Exchange locked door
-    // (12, 10). Approach (11, 10) is verified walkable ground.
+    // Sector 01 (60x40): Crypto Exchange locked door is at (46, 30), approach
+    // from west at (45, 30). Both verified against the ASCII map.
     await page.evaluate(() => {
       const raw = localStorage.getItem("dis-gridrunner-save");
       if (!raw) return;
       const save = JSON.parse(raw);
       save.currentZone = "overworld";
-      save.currentPosition = { x: 11, y: 10 };
+      save.currentPosition = { x: 45, y: 30 };
       save.completedTutorial = true;
       save.defeatedBosses = [];
       localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
@@ -2134,11 +2250,115 @@ test.describe("GRIDRUNNER canvas renderer", () => {
     expect(Math.abs(ratio - expected)).toBeLessThan(0.05);
   });
 
-  // Camera-pan contract cannot be exercised on the current 16x12 map (camera
-  // clamps to 0,0 because map equals viewport). M2 ships the 60x40 Sector 01
-  // map that actually scrolls; this test body activates then.
+  // Camera pan is exercised for the first time in M2. The 60x40 Sector 01 map
+  // exceeds the 16x12 viewport, so walking east away from spawn moves the
+  // camera target past 0. OverworldScreen exposes the live camera position on
+  // the canvas element via data-cx/data-cy so tests can observe it.
+  test("camera offset changes when player walks across the Sector 01 map", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    // Disable encounters so east-bound steps aren't interrupted by a battle.
+    await page.addInitScript(() => {
+      Math.random = () => 0.99;
+    });
+    await startNewGame(page);
+
+    // Seed the player on the row-8 `g` backbone (cols 10-51 are continuous
+    // grid path). Spawn (14, 10) has void immediately east/west, so the
+    // camera-pan test cannot drive the camera from spawn -- it needs a
+    // walkable east-bound trace to actually move.
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentZone = "overworld";
+      save.currentPosition = { x: 15, y: 8 };
+      save.completedTutorial = true;
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    const canvas = page.locator('[data-testid="gr-overworld"] canvas');
+    await expect(canvas).toBeVisible();
+    // Allow the first RAF tick to write the dataset.
+    await page.waitForTimeout(200);
+
+    const camAt = () =>
+      canvas.evaluate((el) => {
+        const c = el as HTMLCanvasElement;
+        return {
+          x: Number(c.dataset.cx ?? "NaN"),
+          y: Number(c.dataset.cy ?? "NaN"),
+        };
+      });
+
+    const before = await camAt();
+    expect(Number.isFinite(before.x)).toBe(true);
+    expect(Number.isFinite(before.y)).toBe(true);
+
+    // Walk east 12 tiles along row 8 (all `g`). Camera target = player - vp/2,
+    // so after 12 east steps the camera advances meaningfully.
+    for (let i = 0; i < 12; i++) {
+      await page.keyboard.press("ArrowRight");
+      await page.waitForTimeout(60);
+    }
+    await page.waitForTimeout(300); // let the exponential lerp settle
+
+    const after = await camAt();
+    expect(
+      after.x,
+      `Camera x should advance after walking east (before=${before.x}, after=${after.x})`,
+    ).toBeGreaterThan(before.x);
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/*  Sector 01 gameplay contracts (M2)                                 */
+/* ------------------------------------------------------------------ */
+
+test.describe("GRIDRUNNER Sector 01 gameplay (M2)", () => {
+  test("Sector 02 gate blocks movement before TraderTraitor is defeated", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    // Grid path tile one west of the gate. Gate itself is at (58, 34).
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentZone = "overworld";
+      save.currentPosition = { x: 57, y: 34 };
+      save.completedTutorial = true;
+      save.defeatedBosses = [];
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    await page.keyboard.press("ArrowRight");
+    await page.waitForTimeout(250);
+
+    const state = await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      return raw ? JSON.parse(raw) : null;
+    });
+    expect(state?.currentPosition).toEqual({ x: 57, y: 34 });
+    expect(state?.currentZone).toBe("overworld");
+  });
+
+  // The reducer has the unlock path wired in (peeks at the locked Crypto
+  // door, auto-enters when Lazarus is defeated), but the exchange interior
+  // map ships in M3 (data/maps/crypto-exchange.ts). Without a destination
+  // map, getMap("exchange") returns undefined and the unlock branch no-ops.
+  // This test activates as a real test when M3 lands.
   test.fixme(
-    "camera offset changes when player moves beyond viewport center (ships with M2 60x40 map)",
+    "Crypto Exchange door auto-enters after Lazarus is defeated (ships with M3 exchange interior map)",
     async () => {},
   );
 });

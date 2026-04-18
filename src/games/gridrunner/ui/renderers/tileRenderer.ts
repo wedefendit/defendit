@@ -34,18 +34,26 @@ type TilePaint = {
 };
 
 export const TILE_COLORS: Record<TileKind, TilePaint> = {
-  ground: { fill: "#0a1628", stroke: "#1a4a5a" },
-  wall: { fill: "#0d1520", stroke: "#1a2a38" },
+  // Grid paths are the luminous motherboard traces -- noticeably lighter than
+  // the void so the network reads at a glance.
+  ground: { fill: "#112240", stroke: "#1a3a5a" },
+  // Walls and void both paint as the deepest background. Void (`.` tiles
+  // between traces) uses this same palette so traces glow against it.
+  wall: { fill: "#0a0e1a", stroke: "#1a2a38" },
   building: { fill: "#111d30", stroke: "#00f0ff", glow: "#00f0ff66" },
   entry: { fill: "#0a1e14", stroke: "#00ff41", glow: "#00ff4155" },
   locked: { fill: "#1a0a12", stroke: "#ff003c", glow: "#ff003c66" },
-  spawn: { fill: "#0a1628", stroke: "#1a4a5a" },
+  spawn: { fill: "#112240", stroke: "#1a3a5a" },
   boss: { fill: "#1a0a10", stroke: "#ff003c", glow: "#ff003c99", pulse: "boss" },
   sea: { fill: "#0a2a3a", stroke: "#2a6a8a", glow: "#00d0ff55", pulse: "sea" },
   gate: { fill: "#14060a", stroke: "#6a0020", glow: "#ff003c55" },
+  // Decorative door -- reads as "a door" visually but blocks movement.
+  // Dimmer than the bright `entry` palette so the player learns by sight
+  // that these aren't enterable. No glow pulse.
+  facade: { fill: "#0f1a28", stroke: "#2a4a5a" },
 };
 
-const VOID_PAINT: TilePaint = { fill: "#06080f", stroke: "#0c1018" };
+const VOID_PAINT: TilePaint = { fill: "#0a0e1a", stroke: "#1a2a38" };
 
 const PLAYER_FILL = "#00f0ff";
 const PLAYER_GLOW = "#00f0ffcc";
@@ -131,29 +139,38 @@ export function paintTiles(
   timeMs: number,
 ): void {
   const smallMap = map.width <= vpW && map.height <= vpH;
-  const offsetX = smallMap ? Math.floor((vpW - map.width) / 2) : 0;
-  const offsetY = smallMap ? Math.floor((vpH - map.height) / 2) : 0;
 
-  const startX = smallMap ? 0 : Math.floor(camera.x);
-  const startY = smallMap ? 0 : Math.floor(camera.y);
+  if (smallMap) {
+    const offsetX = Math.floor((vpW - map.width) / 2);
+    const offsetY = Math.floor((vpH - map.height) / 2);
+    for (let vy = 0; vy < vpH; vy++) {
+      for (let vx = 0; vx < vpW; vx++) {
+        const mx = vx - offsetX;
+        const my = vy - offsetY;
+        const tile =
+          mx >= 0 && mx < map.width && my >= 0 && my < map.height
+            ? map.tiles[my][mx]
+            : null;
+        paintTile(ctx, tile, vx * tileSize, vy * tileSize, tileSize, timeMs);
+      }
+    }
+    return;
+  }
 
-  for (let vy = 0; vy < vpH; vy++) {
-    for (let vx = 0; vx < vpW; vx++) {
-      const mx = smallMap ? vx - offsetX : startX + vx;
-      const my = smallMap ? vy - offsetY : startY + vy;
+  // Large-map branch: paint a 2-tile buffer beyond the viewport so camera
+  // lerp never reveals an un-painted seam at the edge. Extras get clipped by
+  // the canvas bounds.
+  const BUFFER = 2;
+  const startX = Math.max(0, Math.floor(camera.x) - BUFFER);
+  const startY = Math.max(0, Math.floor(camera.y) - BUFFER);
+  const endX = Math.min(map.width, Math.ceil(camera.x + vpW) + BUFFER);
+  const endY = Math.min(map.height, Math.ceil(camera.y + vpH) + BUFFER);
 
-      const tile =
-        mx >= 0 && mx < map.width && my >= 0 && my < map.height
-          ? map.tiles[my][mx]
-          : null;
-
-      const px = smallMap
-        ? vx * tileSize
-        : Math.round((mx - camera.x) * tileSize);
-      const py = smallMap
-        ? vy * tileSize
-        : Math.round((my - camera.y) * tileSize);
-
+  for (let my = startY; my < endY; my++) {
+    for (let mx = startX; mx < endX; mx++) {
+      const tile = map.tiles[my][mx];
+      const px = Math.round((mx - camera.x) * tileSize);
+      const py = Math.round((my - camera.y) * tileSize);
       paintTile(ctx, tile, px, py, tileSize, timeMs);
     }
   }

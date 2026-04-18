@@ -55,7 +55,13 @@ export type TileKind =
   | "spawn"
   | "boss"
   | "sea"
-  | "gate";
+  | "gate"
+  /**
+   * Decorative building door -- looks like a door, but is not enterable.
+   * Blocks movement like a wall. Visual only. Used on decor-* buildings
+   * that have a door position in the Sector 01 map spec.
+   */
+  | "facade";
 
 export interface MapTile {
   kind: TileKind;

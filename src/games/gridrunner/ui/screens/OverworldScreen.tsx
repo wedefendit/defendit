@@ -161,6 +161,12 @@ export function OverworldScreen({
 
       cameraRef.current = tickCamera(cameraRef.current, dt);
 
+      // Expose live camera position for tests (camera-pan contract). Two
+      // string assignments per frame -- negligible overhead, zero effect on
+      // gameplay, reads nicely via canvas.dataset.cx / dataset.cy.
+      canvas.dataset.cx = cameraRef.current.x.toFixed(3);
+      canvas.dataset.cy = cameraRef.current.y.toFixed(3);
+
       const tileSize = tileSizePxRef.current;
       if (tileSize > 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
