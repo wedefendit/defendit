@@ -2,6 +2,8 @@
 Copyright © 2026 Defend I.T. Solutions LLC. All Rights Reserved.
 */
 
+// @vitest-environment happy-dom
+
 import { describe, it, expect, beforeEach } from "vitest";
 import { loadSaveSummary } from "./save";
 

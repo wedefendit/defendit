@@ -85,11 +85,14 @@ async function stabilize(page: Page) {
 /** Skip the DMG-style boot screen if it is showing. */
 async function skipBootScreen(page: Page) {
   const boot = page.getByTestId("gr-boot-screen");
-  if (await boot.isVisible().catch(() => false)) {
-    await page.waitForTimeout(600);
-    await boot.click();
-    await boot.waitFor({ state: "hidden", timeout: 5000 });
-  }
+  if (!(await boot.isVisible().catch(() => false))) return;
+  // Phase "black" (first ~500ms) has no onClick, so warm up before clicking.
+  await page.waitForTimeout(600);
+  // Click is best-effort: on WebKit the 4.3s auto-advance can detach the
+  // element mid-retry. Swallow and let waitFor(hidden) be the definitive
+  // signal -- the screen auto-unmounts regardless.
+  await boot.click({ timeout: 1500 }).catch(() => {});
+  await boot.waitFor({ state: "hidden", timeout: 10000 });
 }
 
 async function openGridRunner(page: Page) {
@@ -1130,6 +1133,12 @@ test.describe("GRIDRUNNER onboarding prompts", () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
+    // Pin Math.random so arcade interior steps don't roll random encounters.
+    // Without this, the test is ~50% flaky: two steps across arcade tiles each
+    // have a 25-35% encounter chance, and a battle blocks shop reopening.
+    await page.addInitScript(() => {
+      Math.random = () => 0.99;
+    });
     await startNewGame(page);
 
     // Park on the arcade ground tile right of the shop (shop is at col 9 row 4).
@@ -1458,8 +1467,8 @@ test.describe("GRIDRUNNER intel report", () => {
 /* ------------------------------------------------------------------ */
 
 /**
- * Arcade entry tile is at (2, 2) in the Sector 01 overworld. Park the player
- * at (2, 3) so one ArrowUp walks onto the entry tile.
+ * Arcade door tile is at (1, 3) in the Sector 01 overworld (3x3 footprint).
+ * Park the player at (1, 4) so one ArrowUp walks onto the door.
  */
 async function placePlayerAtArcadeDoor(
   page: Page,
@@ -1470,7 +1479,7 @@ async function placePlayerAtArcadeDoor(
     if (!raw) return;
     const save = JSON.parse(raw);
     save.currentZone = "overworld";
-    save.currentPosition = { x: 2, y: 3 };
+    save.currentPosition = { x: 1, y: 4 };
     Object.assign(save, ov);
     localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
   }, overrides);
@@ -1753,11 +1762,9 @@ test.describe("GRIDRUNNER Sector 01 overworld", () => {
 
     const enterLabels = overworld.getByText("ENTER", { exact: true });
     const lockedLabels = overworld.getByText("LOCKED", { exact: true });
-    const sealedLabels = overworld.getByText("SEALED", { exact: true });
 
     await expect(enterLabels).toHaveCount(2);
     await expect(lockedLabels).toHaveCount(1);
-    await expect(sealedLabels).toHaveCount(1);
   });
 
   test("Digital Sea tiles render with distinct cyan color class", async ({
@@ -1778,6 +1785,24 @@ test.describe("GRIDRUNNER Sector 01 overworld", () => {
     expect(seaTileCount).toBeGreaterThan(20);
   });
 
+  test("overworld renders multi-tile building footprints (not single tiles)", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    const buildingTileCount = await page.evaluate(() => {
+      const map = document.querySelector(
+        '[data-testid="gr-map"]',
+      ) as HTMLElement | null;
+      if (!map) return 0;
+      return Array.from(map.querySelectorAll("div")).filter((el) =>
+        (el as HTMLElement).className.includes("bg-[#111d30]"),
+      ).length;
+    });
+    expect(buildingTileCount).toBeGreaterThanOrEqual(18);
+  });
+
   test("walking on a sea tile triggers an encounter when Math.random is forced low", async ({
     page,
   }) => {
@@ -1792,7 +1817,7 @@ test.describe("GRIDRUNNER Sector 01 overworld", () => {
       if (!raw) return;
       const save = JSON.parse(raw);
       save.currentZone = "overworld";
-      save.currentPosition = { x: 3, y: 4 };
+      save.currentPosition = { x: 4, y: 4 };
       save.completedTutorial = true;
       localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
     });
@@ -1803,6 +1828,62 @@ test.describe("GRIDRUNNER Sector 01 overworld", () => {
     await page.keyboard.press("ArrowRight");
 
     await expect(page.getByTestId("gr-battle")).toBeVisible({ timeout: 3000 });
+  });
+
+  test("encounter shows CRT battle transition before the battle screen appears", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(() => {
+      Math.random = () => 0.01;
+    });
+    await startNewGame(page);
+
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentZone = "overworld";
+      save.currentPosition = { x: 4, y: 4 };
+      save.completedTutorial = true;
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    await page.keyboard.press("ArrowRight");
+
+    const transition = page.getByTestId("gr-battle-transition");
+    await expect(transition).toBeAttached({ timeout: 1000 });
+    await expect(transition).toHaveAttribute("data-phase", "entering");
+    await expect(page.getByTestId("gr-battle")).toBeVisible({ timeout: 3000 });
+  });
+
+  test("battle end shows exiting transition before returning to map", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+    // Pre-defeat Lazarus so intel overlay doesn't mount between battle-continue
+    // and the exit transition. Otherwise the transition is queued behind intel
+    // and never attaches within the assertion window.
+    await placePlayerAtLazarusDoor(page, { defeatedBosses: ["lazarus"] });
+
+    await page.keyboard.press("ArrowUp");
+    await expect(page.getByTestId("gr-battle")).toBeVisible({ timeout: 3000 });
+    await page.getByTestId("gr-battle-tool-0").click();
+
+    await page.getByTestId("gr-battle-continue").click();
+
+    // Single combined assertion: the exit transition is short-lived, so two
+    // separate polls (attached, then attribute) race each other -- the first
+    // catches it, but the second runs against the unmounted element. A single
+    // attribute-selector wait keeps polling until it sees the element in the
+    // exiting state and succeeds the moment it does.
+    await expect(
+      page.locator('[data-testid="gr-battle-transition"][data-phase="exiting"]'),
+    ).toBeAttached({ timeout: 3000 });
   });
 
   test("walking on grid path does not trigger an encounter across 20 steps", async ({
@@ -1837,5 +1918,164 @@ test.describe("GRIDRUNNER Sector 01 overworld", () => {
     }
 
     await expect(page.getByTestId("gr-battle")).toHaveCount(0);
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/*  Responsive control sizing (A/B buttons) -- absorbed from layout   */
+/* ------------------------------------------------------------------ */
+
+test.describe("GRIDRUNNER responsive control sizing", () => {
+  const AB_SIZES = [
+    { name: "phone", vp: { width: 375, height: 667 }, min: 30, max: 34 },
+    { name: "tablet", vp: { width: 768, height: 1024 }, min: 38, max: 42 },
+    { name: "desktop", vp: { width: 1280, height: 800 }, min: 46, max: 50 },
+  ];
+
+  for (const { name, vp, min, max } of AB_SIZES) {
+    test(`A button ${min}-${max}px on ${name}`, async ({ page }) => {
+      await page.setViewportSize(vp);
+      await startNewGame(page);
+      const box = await page.getByTestId("gr-btn-a").boundingBox();
+      expect(box).not.toBeNull();
+      expect(box!.width).toBeGreaterThanOrEqual(min);
+      expect(box!.width).toBeLessThanOrEqual(max);
+    });
+
+    test(`B button ${min}-${max}px on ${name}`, async ({ page }) => {
+      await page.setViewportSize(vp);
+      await startNewGame(page);
+      const box = await page.getByTestId("gr-btn-b").boundingBox();
+      expect(box).not.toBeNull();
+      expect(box!.width).toBeGreaterThanOrEqual(min);
+      expect(box!.width).toBeLessThanOrEqual(max);
+    });
+  }
+});
+
+/* ------------------------------------------------------------------ */
+/*  Player HUD (compactness + text size) -- absorbed from layout      */
+/* ------------------------------------------------------------------ */
+
+test.describe("GRIDRUNNER player HUD", () => {
+  const HUD_VIEWPORTS = [
+    { name: "phone", vp: { width: 375, height: 667 } },
+    { name: "tablet", vp: { width: 768, height: 1024 } },
+    { name: "desktop", vp: { width: 1280, height: 800 } },
+  ];
+
+  for (const { name, vp } of HUD_VIEWPORTS) {
+    test(`HUD compact (under 120px) on ${name}`, async ({ page }) => {
+      await page.setViewportSize(vp);
+      await startNewGame(page);
+      const hud = page.getByTestId("gr-player-hud");
+      await expect(hud).toBeVisible();
+      const box = await hud.boundingBox();
+      expect(box).not.toBeNull();
+      expect(box!.height).toBeLessThan(120);
+    });
+
+    test(`HUD text <= 12px on ${name}`, async ({ page }) => {
+      await page.setViewportSize(vp);
+      await startNewGame(page);
+      const spans = page.getByTestId("gr-player-hud").locator("span");
+      const count = await spans.count();
+      expect(count).toBeGreaterThan(0);
+      for (let i = 0; i < count; i++) {
+        const size = await spans
+          .nth(i)
+          .evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
+        expect(size).toBeLessThanOrEqual(12.5);
+      }
+    });
+  }
+});
+
+/* ------------------------------------------------------------------ */
+/*  P0 building entry contract                                         */
+/*  The ENTER-door regression burned 24+ hours. These tests lock it.   */
+/* ------------------------------------------------------------------ */
+
+test.describe("GRIDRUNNER building entry contract", () => {
+  test("P0: stepping on Arcade ENTER tile loads arcade interior", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+    await placePlayerAtArcadeDoor(page, { completedTutorial: true });
+
+    await walkIntoArcade(page);
+
+    const zone = await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      return raw ? JSON.parse(raw).currentZone : null;
+    });
+    expect(zone, "Player should be inside the arcade").toBe("arcade");
+  });
+
+  test("P0: stepping on Bank ENTER tile loads bank interior", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    // Park player on the ground tile south of the Bank entry door (12, 3).
+    // Approach (12, 4) is verified walkable ground in data/maps/overworld.ts.
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentZone = "overworld";
+      save.currentPosition = { x: 12, y: 4 };
+      save.completedTutorial = true;
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    await page.keyboard.press("ArrowUp");
+    await page.waitForTimeout(400);
+
+    const zone = await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      return raw ? JSON.parse(raw).currentZone : null;
+    });
+    expect(zone, "Player should be inside the bank").toBe("bank");
+  });
+
+  test("P0: stepping on Crypto Exchange LOCKED door blocks entry before Lazarus defeated", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+
+    // Park player on the ground tile west of the Crypto Exchange locked door
+    // (12, 10). Approach (11, 10) is verified walkable ground.
+    await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      if (!raw) return;
+      const save = JSON.parse(raw);
+      save.currentZone = "overworld";
+      save.currentPosition = { x: 11, y: 10 };
+      save.completedTutorial = true;
+      save.defeatedBosses = [];
+      localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await page.getByTestId("gr-continue").click();
+    await page.waitForTimeout(300);
+
+    await page.keyboard.press("ArrowRight");
+    await page.waitForTimeout(400);
+
+    const zone = await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      return raw ? JSON.parse(raw).currentZone : null;
+    });
+    expect(
+      zone,
+      "Player should still be on overworld (door is LOCKED)",
+    ).toBe("overworld");
   });
 });

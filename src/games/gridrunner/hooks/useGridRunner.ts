@@ -110,6 +110,13 @@ interface GameState {
   /** Deferred shop open: when shop onboarding is queued from a move onto
    *  the shop tile, this holds "shop" so DISMISS_ONBOARDING can open it. */
   pendingShopOpen: boolean;
+  /** CRT glitch transition phase. "entering" plays on encounter trigger
+   *  before the battle screen mounts. "exiting" plays on BATTLE_END before
+   *  the battle screen unmounts and post-battle overlays fire. */
+  battleTransition: "entering" | "exiting" | null;
+  /** BattleState stashed during the "entering" transition; promoted to
+   *  the active battle when BATTLE_TRANSITION_END fires. */
+  pendingBattle: BattleState | null;
 }
 
 type Action =
@@ -121,6 +128,7 @@ type Action =
   | { type: "USE_TOOL"; tool: ToolInstance }
   | { type: "RUN" }
   | { type: "BATTLE_END" }
+  | { type: "BATTLE_TRANSITION_END" }
   | { type: "DISMISS_LEVELUP" }
   | { type: "DISMISS_INTEL" }
   | { type: "ADVANCE_TUTORIAL" }
@@ -164,6 +172,8 @@ function init(): GameState {
     pendingIntelBossId: null,
     onboardingQueue: [],
     pendingShopOpen: false,
+    battleTransition: null,
+    pendingBattle: null,
   };
 }
 
@@ -227,6 +237,7 @@ function reducer(state: GameState, action: Action): GameState {
 
     case "MOVE": {
       if (state.overlay !== "none") return state;
+      if (state.battleTransition !== null) return state;
       if (state.screen !== "overworld" && state.screen !== "building")
         return state;
       if (!currentMap) return state;
@@ -265,13 +276,14 @@ function reducer(state: GameState, action: Action): GameState {
             const enemy = spawnEnemy("script-kiddie", updatedSave.player.level);
             return {
               ...state,
-              screen: "battle",
+              screen: "building",
               currentZone: "arcade",
               playerPos: buildingMap.spawn,
               overworldPos: state.playerPos,
               facing: "up",
               save: updatedSave,
-              battle: createBattle(enemy, false),
+              battleTransition: "entering",
+              pendingBattle: createBattle(enemy, false),
               tutorialStep: 1,
             };
           }
@@ -375,8 +387,8 @@ function reducer(state: GameState, action: Action): GameState {
           };
           return {
             ...baseUpdate,
-            screen: "battle",
-            battle: createBattle(bossEnemy, true),
+            battleTransition: "entering",
+            pendingBattle: createBattle(bossEnemy, true),
           };
         }
         // Under-leveled: don't start fight, stay on tile
@@ -411,8 +423,8 @@ function reducer(state: GameState, action: Action): GameState {
           const enemy = spawnEnemy(enemyId, state.save.player.level);
           return {
             ...baseUpdate,
-            screen: "battle",
-            battle: createBattle(enemy, false),
+            battleTransition: "entering",
+            pendingBattle: createBattle(enemy, false),
           };
         }
       }
@@ -542,6 +554,24 @@ function reducer(state: GameState, action: Action): GameState {
 
     case "BATTLE_END": {
       if (!state.battle || !state.save) return state;
+      if (state.battleTransition !== null) return state;
+      return { ...state, battleTransition: "exiting" };
+    }
+
+    case "BATTLE_TRANSITION_END": {
+      if (state.battleTransition === "entering" && state.pendingBattle) {
+        return {
+          ...state,
+          screen: "battle",
+          battle: state.pendingBattle,
+          pendingBattle: null,
+          battleTransition: null,
+        };
+      }
+      if (state.battleTransition !== "exiting") return state;
+      if (!state.battle || !state.save) {
+        return { ...state, battleTransition: null };
+      }
 
       let updatedSave = { ...state.save };
       let levelUpSummary: LevelUpSummary | null = null;
@@ -637,6 +667,7 @@ function reducer(state: GameState, action: Action): GameState {
           battle: null,
           save: updatedSave,
           playerPos: respawnPos,
+          battleTransition: null,
         };
       }
 
@@ -655,6 +686,7 @@ function reducer(state: GameState, action: Action): GameState {
         levelUpSummary,
         pendingIntelBossId,
         onboardingQueue: newOnboardingQueue,
+        battleTransition: null,
       };
     }
 
@@ -1091,6 +1123,10 @@ export function useGridRunner() {
     dispatch({ type: "BATTLE_END" });
   }, []);
 
+  const handleBattleTransitionEnd = useCallback(() => {
+    dispatch({ type: "BATTLE_TRANSITION_END" });
+  }, []);
+
   const handleOpenMenu = useCallback(() => {
     dispatch({ type: "OPEN_MENU" });
   }, []);
@@ -1172,6 +1208,7 @@ export function useGridRunner() {
     levelUpSummary: state.levelUpSummary,
     tutorialStep: state.tutorialStep,
     pendingIntelBossId: state.pendingIntelBossId,
+    battleTransition: state.battleTransition,
     activeOnboarding: state.onboardingQueue[0] ?? null,
     startGame,
     continueGame,
@@ -1181,6 +1218,7 @@ export function useGridRunner() {
     handleUseTool,
     handleRun,
     handleBattleEnd,
+    handleBattleTransitionEnd,
     handleOpenMenu,
     handleOpenDisc,
     handleCloseOverlay,

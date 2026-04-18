@@ -25,6 +25,7 @@ import { ShopScreen } from "./ui/screens/ShopScreen";
 import { LevelUpOverlay } from "./ui/screens/LevelUpOverlay";
 import { IntelReportScreen } from "./ui/screens/IntelReportScreen";
 import { TutorialPrompt } from "./ui/screens/TutorialPrompt";
+import { BattleTransition } from "./ui/shared/BattleTransition";
 
 const ONBOARDING_COPY: Record<string, string> = {
   loot: "You found a new tool! Open your Inventory (press I) to equip it. Better tools mean more damage.",
@@ -272,6 +273,12 @@ export function GridRunner() {
         <IntelReportScreen
           bossId={game.pendingIntelBossId}
           onClose={game.handleDismissIntel}
+        />
+      )}
+      {game.battleTransition && (
+        <BattleTransition
+          phase={game.battleTransition}
+          onEnd={game.handleBattleTransitionEnd}
         />
       )}
       {game.activeOnboarding &&

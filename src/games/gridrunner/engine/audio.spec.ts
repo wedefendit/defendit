@@ -86,7 +86,8 @@ describe("computeEffectiveGain", () => {
   });
 
   it("scales correctly at 50% master 50% channel", () => {
-    expect(computeEffectiveGain(50, 50, false)).toBeCloseTo(0.25);
+    // toGain squares the normalized value: (0.5)^2 * (0.5)^2 = 0.0625
+    expect(computeEffectiveGain(50, 50, false)).toBeCloseTo(0.0625);
   });
 
   it("clamps values above 100", () => {
@@ -200,8 +201,8 @@ describe("MUSIC_MANIFEST", () => {
 describe("DEFAULT_AUDIO_SETTINGS", () => {
   it("has expected defaults", () => {
     expect(DEFAULT_AUDIO_SETTINGS.masterVolume).toBe(75);
-    expect(DEFAULT_AUDIO_SETTINGS.musicVolume).toBe(45);
-    expect(DEFAULT_AUDIO_SETTINGS.sfxVolume).toBe(55);
+    expect(DEFAULT_AUDIO_SETTINGS.musicVolume).toBe(55);
+    expect(DEFAULT_AUDIO_SETTINGS.sfxVolume).toBe(60);
     expect(DEFAULT_AUDIO_SETTINGS.muted).toBe(false);
   });
 });

@@ -41,8 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 .audit*
-AGENTS.md
-CLAUDE.md
 docs/
 .codex
 playwright-report/

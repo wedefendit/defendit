@@ -2,7 +2,7 @@
 Copyright © 2026 Defend I.T. Solutions LLC. All Rights Reserved.
 */
 
-import { describe, it, expect } from "vitest";
+import { describe, it, test, expect } from "vitest";
 import { enemies, zones } from "./enemies";
 
 describe("cryptominer enemy (GDD §7.1)", () => {
@@ -36,3 +36,7 @@ describe("overworld zone config (Digital Sea)", () => {
     );
   });
 });
+
+test.todo(
+  "overworld zone config includes mixer-bot, rug-puller, wallet-drainer (ships in M3)",
+);
