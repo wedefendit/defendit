@@ -8,6 +8,7 @@ type GameCard = Readonly<{
   meta: string;
   thumbnail: React.ReactNode;
   comingSoon?: boolean;
+  demo?: boolean;
 }>;
 
 function HouseThumbnail() {
@@ -243,14 +244,14 @@ const GAMES: GameCard[] = [
     thumbnail: <HouseThumbnail />,
   },
   {
-    href: "/awareness",
+    href: "/awareness/gridrunner",
     title: "GRIDRUNNER",
     description:
       "Navigate cyberspace as a cyber operator. Battle real-world threat actors and collect security tools.",
-    badge: "Coming Soon",
-    meta: "RPG · 15 min",
+    badge: "Demo",
+    meta: "RPG · 20-25 min",
     thumbnail: <GridRunnerThumbnail />,
-    comingSoon: true,
+    demo: true,
   },
   {
     href: "/awareness",
@@ -271,10 +272,17 @@ const cardActive =
 const cardDisabled =
   "border-slate-200/40 bg-white/40 shadow-none ring-1 ring-white/30 dark:border-slate-700/40 dark:bg-slate-950/40 dark:ring-white/5";
 
-function TrainingCard({ card }: { card: GameCard }) {
+function TrainingCard({ card }: Readonly<{ card: GameCard }>) {
   const inner = (
     <>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.07),transparent_60%)] dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_60%)]" />
+      {card.demo && (
+        <div className="pointer-events-none absolute right-3 top-3 z-10 rotate-6 select-none">
+          <span className="inline-block rounded-sm border-[2.5px] border-red-600/85 px-2.5 py-0.5 text-xs font-black uppercase tracking-[0.2em] text-red-600/85 dark:border-red-400/90 dark:text-red-400/90">
+            Demo
+          </span>
+        </div>
+      )}
       <div className={`relative ${card.comingSoon ? "opacity-50" : ""}`}>
         <div className="mb-4 flex items-end justify-center rounded-xl border border-slate-200/60 bg-slate-100/60 p-4 dark:border-sky-900/40 dark:bg-slate-900/50">
           {card.thumbnail}

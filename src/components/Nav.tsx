@@ -40,6 +40,7 @@ const navItems: ReadonlyArray<NavItem> = [
     children: [
       { name: "Overview", href: "/awareness" },
       { name: "The Digital House", href: "/awareness/digital-house" },
+      { name: "GRIDRUNNER", href: "/awareness/gridrunner" },
     ],
   },
   { name: "Contact", href: "/contact" },
