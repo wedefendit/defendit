@@ -24,6 +24,7 @@ import { SettingsScreen } from "./ui/screens/SettingsScreen";
 import { ShopScreen } from "./ui/screens/ShopScreen";
 import { LevelUpOverlay } from "./ui/screens/LevelUpOverlay";
 import { IntelReportScreen } from "./ui/screens/IntelReportScreen";
+import { SectorUnlockOverlay } from "./ui/screens/SectorUnlockOverlay";
 import { TutorialPrompt } from "./ui/screens/TutorialPrompt";
 import { BattleTransition } from "./ui/shared/BattleTransition";
 
@@ -188,6 +189,9 @@ export function GridRunner() {
             playerPos={game.playerPos}
             facing={game.facing}
             zoneName={zoneName}
+            gateUnlocked={
+              game.save?.defeatedBosses.includes("trader-traitor") ?? false
+            }
           />
         </>
       )}
@@ -274,6 +278,9 @@ export function GridRunner() {
           bossId={game.pendingIntelBossId}
           onClose={game.handleDismissIntel}
         />
+      )}
+      {game.overlay === "sector-unlock" && (
+        <SectorUnlockOverlay onClose={game.handleDismissSectorUnlock} />
       )}
       {game.battleTransition && (
         <BattleTransition

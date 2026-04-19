@@ -55,6 +55,16 @@ export const TILE_COLORS: Record<TileKind, TilePaint> = {
 
 const VOID_PAINT: TilePaint = { fill: "#0a0e1a", stroke: "#1a2a38" };
 
+/** Gate paint after the sector boss is defeated. Same geometry as the sealed
+ *  gate but with a cyan inner glow and slow sea-style breathing pulse so the
+ *  "something changed here" hint reads at a glance. */
+const GATE_UNLOCKED_PAINT: TilePaint = {
+  fill: "#14060a",
+  stroke: "#c9e2ff",
+  glow: "#00f0ff55",
+  pulse: "sea",
+};
+
 const PLAYER_FILL = "#00f0ff";
 const PLAYER_GLOW = "#00f0ffcc";
 const PLAYER_ARROW = "#0a0e1a";
@@ -81,8 +91,13 @@ function paintTile(
   py: number,
   size: number,
   timeMs: number,
+  gateUnlocked = false,
 ): void {
-  const paint = tile ? (TILE_COLORS[tile.kind] ?? VOID_PAINT) : VOID_PAINT;
+  const paint = tile
+    ? tile.kind === "gate" && gateUnlocked
+      ? GATE_UNLOCKED_PAINT
+      : (TILE_COLORS[tile.kind] ?? VOID_PAINT)
+    : VOID_PAINT;
 
   // Base fill.
   ctx.fillStyle = paint.fill;
@@ -129,6 +144,12 @@ function paintTile(
  * viewport (camera stays at origin), filling surrounding space with void.
  * This matches the pre-canvas `buildViewport` small-map centering branch.
  */
+export type PaintFrameState = Readonly<{
+  timeMs: number;
+  /** When true, any `gate` tile paints with the unlocked (cyan-glow) variant. */
+  gateUnlocked?: boolean;
+}>;
+
 export function paintTiles(
   ctx: CanvasRenderingContext2D,
   map: GameMap,
@@ -136,8 +157,9 @@ export function paintTiles(
   tileSize: number,
   vpW: number,
   vpH: number,
-  timeMs: number,
+  frame: PaintFrameState,
 ): void {
+  const { timeMs, gateUnlocked = false } = frame;
   const smallMap = map.width <= vpW && map.height <= vpH;
 
   if (smallMap) {
@@ -151,7 +173,15 @@ export function paintTiles(
           mx >= 0 && mx < map.width && my >= 0 && my < map.height
             ? map.tiles[my][mx]
             : null;
-        paintTile(ctx, tile, vx * tileSize, vy * tileSize, tileSize, timeMs);
+        paintTile(
+          ctx,
+          tile,
+          vx * tileSize,
+          vy * tileSize,
+          tileSize,
+          timeMs,
+          gateUnlocked,
+        );
       }
     }
     return;
@@ -171,7 +201,7 @@ export function paintTiles(
       const tile = map.tiles[my][mx];
       const px = Math.round((mx - camera.x) * tileSize);
       const py = Math.round((my - camera.y) * tileSize);
-      paintTile(ctx, tile, px, py, tileSize, timeMs);
+      paintTile(ctx, tile, px, py, tileSize, timeMs, gateUnlocked);
     }
   }
 }

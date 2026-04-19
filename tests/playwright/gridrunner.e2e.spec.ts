@@ -2503,3 +2503,107 @@ test.describe("GRIDRUNNER TraderTraitor mini-boss (M3)", () => {
     expect(defeated).toContain("lazarus");
   });
 });
+
+/* ------------------------------------------------------------------ */
+/*  M4 -- Sector 02 gate unlock                                        */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Seed a save where the player is one tile west of the Sector 02 gate
+ * (57, 34) with arbitrary boss-defeat state. The gate itself is at (58, 34).
+ */
+async function seedAtGate(
+  page: Page,
+  defeatedBosses: string[],
+): Promise<void> {
+  await page.evaluate((bosses) => {
+    const raw = localStorage.getItem("dis-gridrunner-save");
+    if (!raw) return;
+    const save = JSON.parse(raw);
+    save.currentZone = "sector-01";
+    save.currentPosition = { x: 57, y: 34 };
+    save.completedTutorial = true;
+    save.defeatedBosses = bosses;
+    localStorage.setItem("dis-gridrunner-save", JSON.stringify(save));
+  }, defeatedBosses);
+  await page.reload({ waitUntil: "networkidle" });
+  await page.getByTestId("gr-continue").click();
+  await page.waitForTimeout(300);
+}
+
+test.describe("GRIDRUNNER Sector 02 gate unlock (M4)", () => {
+  test("gate stays sealed when Lazarus alone is defeated (TraderTraitor still alive)", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+    await seedAtGate(page, ["lazarus"]);
+
+    await page.keyboard.press("ArrowRight");
+    await page.waitForTimeout(250);
+
+    const state = await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      return raw ? JSON.parse(raw) : null;
+    });
+    expect(state?.currentPosition).toEqual({ x: 57, y: 34 });
+    await expect(
+      page.getByTestId("gr-sector-unlock-overlay"),
+    ).toHaveCount(0);
+  });
+
+  test("gate unlocks after TraderTraitor is defeated and the player steps onto it", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+    await seedAtGate(page, ["lazarus", "trader-traitor"]);
+
+    await page.keyboard.press("ArrowRight");
+    await page.waitForTimeout(250);
+
+    const pos = await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      return raw ? JSON.parse(raw).currentPosition : null;
+    });
+    expect(pos).toEqual({ x: 58, y: 34 });
+  });
+
+  test("stepping onto the unlocked gate opens the Sector 02 placeholder overlay", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+    await seedAtGate(page, ["lazarus", "trader-traitor"]);
+
+    await page.keyboard.press("ArrowRight");
+
+    const overlay = page.getByTestId("gr-sector-unlock-overlay");
+    await expect(overlay).toBeVisible({ timeout: 3000 });
+    // Placeholder copy hints at Sector 02 without promising specific content.
+    await expect(overlay).toContainText(/Sector 02/i);
+  });
+
+  test("dismissing the placeholder overlay closes it and backs the player one tile west off the gate", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await startNewGame(page);
+    await seedAtGate(page, ["lazarus", "trader-traitor"]);
+
+    await page.keyboard.press("ArrowRight");
+    const overlay = page.getByTestId("gr-sector-unlock-overlay");
+    await expect(overlay).toBeVisible({ timeout: 3000 });
+
+    await page.getByTestId("gr-sector-unlock-continue").click();
+    await expect(overlay).toHaveCount(0);
+
+    const pos = await page.evaluate(() => {
+      const raw = localStorage.getItem("dis-gridrunner-save");
+      return raw ? JSON.parse(raw).currentPosition : null;
+    });
+    // Walk-back: reducer puts the player one tile west of the gate so the
+    // next directional press doesn't immediately re-trigger the overlay.
+    expect(pos).toEqual({ x: 57, y: 34 });
+  });
+});

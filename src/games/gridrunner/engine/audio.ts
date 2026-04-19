@@ -48,12 +48,11 @@ const AUDIO_SETTINGS_KEY = "dis-gridrunner-audio";
 const CROSSFADE_MS = 1500;
 
 export const DEFAULT_AUDIO_SETTINGS: AudioSettings = {
-  masterVolume: 75,
-  musicVolume: 55,
-  sfxVolume: 60,
+  masterVolume: 78,
+  musicVolume: 45,
+  sfxVolume: 42,
   muted: false,
 };
-
 /* ------------------------------------------------------------------ */
 /*  SFX Manifest                                                      */
 /* ------------------------------------------------------------------ */

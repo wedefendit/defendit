@@ -25,6 +25,10 @@ type OverworldScreenProps = Readonly<{
   playerPos: Position;
   facing: Direction;
   zoneName?: string;
+  /** When true, any `gate` tile paints with the cyan-glow "unlocked" variant.
+   *  Derived upstream from `defeatedBosses` so the flag propagates every frame
+   *  without a forced re-render. */
+  gateUnlocked?: boolean;
 }>;
 
 export function OverworldScreen({
@@ -32,6 +36,7 @@ export function OverworldScreen({
   playerPos,
   facing,
   zoneName,
+  gateUnlocked = false,
 }: OverworldScreenProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -48,6 +53,7 @@ export function OverworldScreen({
   const mapRef = useRef<GameMap>(map);
   const playerPosRef = useRef<Position>(playerPos);
   const facingRef = useRef<Direction>(facing);
+  const gateUnlockedRef = useRef<boolean>(gateUnlocked);
 
   // Tile pixel size after device-pixel-ratio scaling. 0 until first resize.
   const tileSizePxRef = useRef<number>(0);
@@ -64,6 +70,9 @@ export function OverworldScreen({
   useEffect(() => {
     facingRef.current = facing;
   }, [facing]);
+  useEffect(() => {
+    gateUnlockedRef.current = gateUnlocked;
+  }, [gateUnlocked]);
 
   /* ---------------- Camera target / zone snap ---------------- */
 
@@ -177,7 +186,7 @@ export function OverworldScreen({
           tileSize,
           VP_W,
           VP_H,
-          timestamp,
+          { timeMs: timestamp, gateUnlocked: gateUnlockedRef.current },
         );
         paintPlayer(
           ctx,

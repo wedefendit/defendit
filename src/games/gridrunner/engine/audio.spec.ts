@@ -125,6 +125,7 @@ describe("getMusicSlot", () => {
   });
 
   it("returns null for intel screen", () => {
+    //@ts-expect-error intel is not supported
     expect(getMusicSlot("intel", "bank", false)).toBeNull();
   });
 });
@@ -200,9 +201,9 @@ describe("MUSIC_MANIFEST", () => {
 
 describe("DEFAULT_AUDIO_SETTINGS", () => {
   it("has expected defaults", () => {
-    expect(DEFAULT_AUDIO_SETTINGS.masterVolume).toBe(75);
-    expect(DEFAULT_AUDIO_SETTINGS.musicVolume).toBe(55);
-    expect(DEFAULT_AUDIO_SETTINGS.sfxVolume).toBe(60);
+    expect(DEFAULT_AUDIO_SETTINGS.masterVolume).toBe(78);
+    expect(DEFAULT_AUDIO_SETTINGS.musicVolume).toBe(45);
+    expect(DEFAULT_AUDIO_SETTINGS.sfxVolume).toBe(42);
     expect(DEFAULT_AUDIO_SETTINGS.muted).toBe(false);
   });
 });

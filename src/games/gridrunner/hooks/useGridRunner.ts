@@ -102,7 +102,8 @@ interface GameState {
     | "settings"
     | "shop"
     | "level-up"
-    | "intel";
+    | "intel"
+    | "sector-unlock";
   /** Where B/Close navigates back to. "none" closes entirely, "menu" goes back to menu. */
   overlayReturnTo: "none" | "menu";
   levelUpSummary: LevelUpSummary | null;
@@ -141,6 +142,7 @@ type Action =
   | { type: "BATTLE_TRANSITION_END" }
   | { type: "DISMISS_LEVELUP" }
   | { type: "DISMISS_INTEL" }
+  | { type: "DISMISS_SECTOR_UNLOCK" }
   | { type: "ADVANCE_TUTORIAL" }
   | { type: "DISMISS_ONBOARDING"; key: OnboardingKey }
   | { type: "REGEN_TICK" }
@@ -294,6 +296,26 @@ function reducer(state: GameState, action: Action): GameState {
               lootConsumed: {},
             };
           }
+        }
+
+        // Sector 02 gate unlock (M4): TraderTraitor defeated opens the
+        // gate at (58, 34). Walking onto it pops the placeholder overlay.
+        // Before defeat, the gate stays walkable:false and normal move()
+        // blocks -- no gameplay change.
+        if (
+          peek?.kind === "gate" &&
+          state.save.defeatedBosses.includes("trader-traitor")
+        ) {
+          const target = { x: targetX, y: targetY };
+          return {
+            ...state,
+            playerPos: target,
+            overworldPos: target,
+            facing: action.dir,
+            save: { ...state.save, currentPosition: target },
+            overlay: "sector-unlock",
+            overlayReturnTo: "none",
+          };
         }
       }
 
@@ -839,6 +861,22 @@ function reducer(state: GameState, action: Action): GameState {
       };
     }
 
+    case "DISMISS_SECTOR_UNLOCK": {
+      // Step the player one tile west off the gate so the next directional
+      // press doesn't immediately re-trigger the overlay. Gate is at
+      // (58, 34); backing to (57, 34) lands on a grid-path tile.
+      if (state.overlay !== "sector-unlock" || !state.save) return state;
+      const backoff = { x: state.playerPos.x - 1, y: state.playerPos.y };
+      return {
+        ...state,
+        overlay: "none",
+        playerPos: backoff,
+        overworldPos: backoff,
+        facing: "left",
+        save: { ...state.save, currentPosition: backoff },
+      };
+    }
+
     case "DISMISS_INTEL": {
       return {
         ...state,
@@ -1320,6 +1358,10 @@ export function useGridRunner() {
     dispatch({ type: "DISMISS_INTEL" });
   }, []);
 
+  const handleDismissSectorUnlock = useCallback(() => {
+    dispatch({ type: "DISMISS_SECTOR_UNLOCK" });
+  }, []);
+
   const handleDismissOnboarding = useCallback((key: OnboardingKey) => {
     dispatch({ type: "DISMISS_ONBOARDING", key });
   }, []);
@@ -1367,6 +1409,7 @@ export function useGridRunner() {
     handleDismissLevelUp,
     handleAdvanceTutorial,
     handleDismissIntel,
+    handleDismissSectorUnlock,
     handleDismissOnboarding,
   };
 }
